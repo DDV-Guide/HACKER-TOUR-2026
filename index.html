@@ -105,6 +105,23 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 .prize .pp{font-size:12px;color:var(--muted)} .prize .pv{font-family:'Sora';font-size:22px;font-weight:800;color:var(--gold2);margin-top:6px} .prize .pc{font-size:12px;color:var(--dim);margin-top:4px}
 .scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .backdrop{display:none}
+
+.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.photo{height:130px;border-radius:14px;display:flex;align-items:flex-end;padding:12px;border:1px solid var(--line);position:relative;overflow:hidden;transition:.16s}
+.photo:hover{transform:translateY(-3px);border-color:rgba(233,185,73,.5)}
+.photo span{font-size:13px;font-weight:700;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.6);position:relative;z-index:1}
+.photo.ph1{background:linear-gradient(135deg,#2b6a4a,#18222f)}
+.photo.ph2{background:linear-gradient(135deg,#2a6d86,#18222f)}
+.photo.ph3{background:linear-gradient(135deg,#8a5a2b,#18222f)}
+.photo.ph4{background:linear-gradient(135deg,#5a4a86,#18222f)}
+
+.course-title{font-family:'Sora';font-weight:800;font-size:22px;letter-spacing:-.3px;margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;line-height:1.15}
+.course-title .pin{font-size:20px}
+.course-title .txt{background:linear-gradient(180deg,#fff,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+@media(max-width:900px){.photo-grid{grid-template-columns:1fr 1fr}}
+
 @media(max-width:900px){
  .burger{display:block}
  .sidebar{position:fixed;left:0;top:0;z-index:50;height:100vh;width:82%;max-width:320px;transform:translateX(-105%);transition:transform .28s ease;box-shadow:0 0 60px rgba(0,0,0,.6)}
@@ -117,6 +134,37 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
  .timeline{flex-direction:column;gap:0} .timeline:before{top:4%;bottom:4%;left:15px;right:auto;width:2px;height:auto;background:linear-gradient(180deg,var(--accent),var(--gold))}
  .tl-item{display:flex;align-items:flex-start;gap:14px;text-align:left;padding:10px 0} .tl-dot{margin:0}
 }
+
+.ghost-btn{background:transparent!important;color:var(--txt)!important;border:1px solid var(--line)}
+.ghost-btn:hover{border-color:rgba(233,185,73,.5)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:var(--card2);border:1px solid var(--line);color:var(--dim);padding:10px 16px;border-radius:30px;font-family:'Inter';font-weight:600;font-size:14px;cursor:pointer;transition:.15s}
+.chip:hover{color:var(--txt);border-color:rgba(233,185,73,.4)}
+.chip.active{background:linear-gradient(90deg,var(--gold),var(--gold2));color:#20180a;border-color:var(--gold)}
+.detail-title{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.detail-title h2{font-family:'Sora';font-weight:800;font-size:26px}
+.pill-hcp{background:rgba(233,185,73,.14);border:1px solid rgba(233,185,73,.35);color:var(--gold2);padding:5px 14px;border-radius:20px;font-weight:700;font-size:13px}
+.stat-n{color:var(--muted);font-size:10px}
+.rc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.rc-head h3{margin:0}
+.rc-badge{font-size:12.5px;font-weight:700;color:var(--gold2);background:rgba(233,185,73,.1);border:1px solid rgba(233,185,73,.3);padding:5px 12px;border-radius:20px}
+.sc-table{width:100%;border-collapse:collapse;font-size:13px;text-align:center;table-layout:fixed}
+.sc-table th{padding:8px 4px;color:var(--muted);font-size:11px;border-bottom:1px solid var(--line);text-transform:none;letter-spacing:0}
+.sc-table td{padding:9px 4px;border-bottom:1px solid rgba(34,48,63,.5)}
+.sc-table .rowlbl{text-align:left;color:var(--dim);font-weight:600;width:56px;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.sc-table .parrow{color:var(--muted)}
+.sc-table .sumh{background:rgba(255,255,255,.03);font-weight:800;color:var(--gold2)}
+.sc-cell{font-weight:700;color:var(--txt);border-radius:6px}
+.sc-cell.eagle{background:rgba(233,185,73,.35);color:#fff}
+.sc-cell.birdie{background:rgba(229,72,77,.28);color:#fff}
+.sc-cell.parc{color:var(--txt)}
+.sc-cell.bogey{background:rgba(62,166,255,.16)}
+.sc-cell.dbogey{background:rgba(62,166,255,.30)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin:4px 0 18px;font-size:12px;color:var(--dim)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend .lg{width:14px;height:14px;border-radius:4px;display:inline-block}
+.legend .lg.eagle{background:rgba(233,185,73,.7)} .legend .lg.birdie{background:rgba(229,72,77,.7)}
+.legend .lg.parc{background:var(--card2);border:1px solid var(--line)} .legend .lg.bogey{background:rgba(62,166,255,.4)} .legend .lg.dbogey{background:rgba(62,166,255,.7)}
 </style></head>
 <body>
 <div class="shell">
@@ -126,15 +174,16 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
     <div class="navlabel">Übersicht</div>
     <button class="navbtn" data-view="welcome">🏠 Start</button>
     <button class="navbtn active" data-view="dashboard">📊 Live Standings</button>
-    <button class="navbtn" data-view="players">👥 Spieler</button>
     <button class="navbtn" data-view="hotel">🏨 Hotel (Solheim Cup)</button>
+    <button class="navbtn" data-view="airbnb">🏡 Airbnb (Base Camp)</button>
     <div class="navlabel">Spieltage</div>
     <button class="navbtn" data-view="day1">⛳ Spieltag 1 · Sa 12.09.</button>
 <button class="navbtn" data-view="day2a">⛳ Spieltag 2a · So 13.09. (Vorm.)</button>
 <button class="navbtn" data-view="day2b">⛳ Spieltag 2b · So 13.09. (Nachm.)</button>
 <button class="navbtn" data-view="day3">⛳ Spieltag 3 · Mo 14.09.</button>
-    <div class="navlabel">Info</div>
+    <div class="navlabel">Auswertung</div>
     <button class="navbtn" data-view="info">ℹ️ Modus & Preisgeld</button>
+    <button class="navbtn" data-view="scores">📊 Scores &amp; Spieler</button>
     <div class="foot">🏠 Airbnb-Basis: <a href="https://www.airbnb.de/rooms/1426839466246647636?unique_share_id=21bdc3e1-f3a4-40e7-a7ee-119300e14b18&viralityEntryPoint=1&s=76&source_impression_id=p3_1788769133_P3UyKfyFZXwmecL-" target="_blank" style="color:var(--accent)">Overloon, NL ↗</a><br>Der Kampf um den goldenen Zapfhahn</div>
   </aside>
   <div class="main">
@@ -150,7 +199,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
           <h1>HACKER<br>TOUR 2026</h1>
           <div class="tagline">Der Kampf um den goldenen Zapfhahn 🍺</div>
           <div class="dates">11. – 15. September 2026 · Noord-Brabant, Niederlande</div>
-          <div class="hero-cta"><button class="cta primary" data-view="dashboard">📊 Live Standings ansehen</button><button class="cta ghost" data-view="day1">⛳ Spieltage entdecken</button></div>
+          <div class="hero-cta"><button class="cta primary" data-view="dashboard">📊 Live Standings ansehen</button><button class="cta ghost" data-view="day1">⛳ Spieltage entdecken</button><button class="cta ghost" data-view="scores">👥 Scores &amp; Spieler</button></div>
           <div class="hero-stats"><div class="hs"><div class="n">7</div><div class="l">Spieler</div></div><div class="hs"><div class="n">4</div><div class="l">Spieltage</div></div><div class="hs"><div class="n">4</div><div class="l">Plätze</div></div><div class="hs"><div class="n">280 €</div><div class="l">Preisgeld</div></div></div>
           <div class="timeline-wrap"><h2>🗓️ Unser Trip auf einen Blick</h2><div class="tl-hint">Von der Solheim-Cup-Tribüne bis zum goldenen Zapfhahn</div>
             <div class="timeline">
@@ -166,7 +215,8 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
       <section class="view" id="dashboard">
         <div class="live-hero"><div class="lh-in"><span class="live-tag"><span class="live-dot"></span>LIVE STANDINGS</span><h1>Leaderboard</h1><div class="lh-sub">🍺 Wer greift nach dem goldenen Zapfhahn? · Wird jeden Abend nach den Spieltagen aktualisiert</div></div></div>
         <div class="stat-row"><div class="stat"><div class="k">Spieler</div><div class="v g">7</div></div><div class="stat"><div class="k">Spieltage</div><div class="v">4</div></div><div class="stat"><div class="k">Plätze</div><div class="v">4</div></div><div class="stat"><div class="k">Preisgeld gesamt</div><div class="v g">280 €</div></div></div>
-        <div class="card"><h3>🏆 Leaderboard — Netto</h3><div class="scroll-x"><table><thead><tr><th>#</th><th>Player</th><th>Hcp</th><th>R1</th><th>R2</th><th>Team</th><th>R3</th><th>Net Total</th><th>+/- Par</th></tr></thead><tbody><tr><td class="pos">🥇</td><td class="pname">F. Bandt</td><td>8,0</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">🥈</td><td class="pname">L. Breuer</td><td>8,2</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">🥉</td><td class="pname">D. Busch</td><td>10,2</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">4</td><td class="pname">J. Haberstock</td><td>3,0</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">5</td><td class="pname">J. Glatter</td><td>9,6</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">6</td><td class="pname">M. Glatter</td><td>5,4</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">7</td><td class="pname">M. Preis</td><td>3,0</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr></tbody></table></div></div>
+        <div class="card"><h3>🏆 Leaderboard — Netto</h3><div class="scroll-x"><table><thead><tr><th>#</th><th>Player</th><th>Hcp</th><th>R1</th><th>R2</th><th>Team</th><th>R3</th><th>Net Total</th><th>+/- Par</th></tr></thead><tbody><tr><td class="pos">🥇</td><td class="pname">F. Bandt</td><td>5,6</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">🥈</td><td class="pname">L. Breuer</td><td>8,8</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">🥉</td><td class="pname">D. Busch</td><td>10,2</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">4</td><td class="pname">J. Haberstock</td><td>3,8</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">5</td><td class="pname">J. Glatter</td><td>9,6</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">6</td><td class="pname">M. Glatter</td><td>5,7</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">7</td><td class="pname">M. Preis</td><td>3,3</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr></tbody></table></div>
+          <p style="margin-top:14px;font-size:13px;color:var(--muted)">💡 Für die Runden-Details je Spieler → <a data-view="scores" style="color:var(--gold2);cursor:pointer;font-weight:600">Scores &amp; Spieler</a></p></div>
         <div class="card" style="margin-top:20px"><h3>⛳ Spieltage</h3><div class="md-grid">
       <button class="md-card" data-view="day1"><div class="md-chip">SA</div>
         <div class="md-body"><div class="md-name">Spieltag 1 · Sa 12.09.</div><div class="md-sub">Golfbaan Landgoed Bleijenbeek</div>
@@ -188,47 +238,131 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 
       <section class="view" id="players">
         <div class="page-head"><div><div class="eyebrow">Teilnehmerfeld</div><h1>Spieler</h1></div></div>
-        <div class="card" style="max-width:520px"><div class="scroll-x"><table><thead><tr><th>#</th><th>Player</th><th>Hcp</th></tr></thead><tbody><tr><td class="pos">1</td><td class="pname">F. Bandt</td><td>8,0</td></tr><tr><td class="pos">2</td><td class="pname">L. Breuer</td><td>8,2</td></tr><tr><td class="pos">3</td><td class="pname">D. Busch</td><td>10,2</td></tr><tr><td class="pos">4</td><td class="pname">J. Haberstock</td><td>3,0</td></tr><tr><td class="pos">5</td><td class="pname">J. Glatter</td><td>9,6</td></tr><tr><td class="pos">6</td><td class="pname">M. Glatter</td><td>5,4</td></tr><tr><td class="pos">7</td><td class="pname">M. Preis</td><td>3,0</td></tr></tbody></table></div></div>
+        <div class="card" style="max-width:520px"><div class="scroll-x"><table><thead><tr><th>#</th><th>Player</th><th>Hcp</th></tr></thead><tbody><tr><td class="pos">1</td><td class="pname">F. Bandt</td><td>5,6</td></tr><tr><td class="pos">2</td><td class="pname">L. Breuer</td><td>8,8</td></tr><tr><td class="pos">3</td><td class="pname">D. Busch</td><td>10,2</td></tr><tr><td class="pos">4</td><td class="pname">J. Haberstock</td><td>3,8</td></tr><tr><td class="pos">5</td><td class="pname">J. Glatter</td><td>9,6</td></tr><tr><td class="pos">6</td><td class="pname">M. Glatter</td><td>5,7</td></tr><tr><td class="pos">7</td><td class="pname">M. Preis</td><td>3,3</td></tr></tbody></table></div></div>
       </section>
 
       
     <section class="view" id="day1">
       <div class="page-head"><div><div class="eyebrow">Samstag · 12.09.2026</div><h1>Spieltag 1 — Einzel / Cut Major</h1></div><span class="fee-badge">Greenfee 100,00 €</span></div>
       <div class="grid2">
-        <div class="card map-card"><h3>📍 Golfbaan Landgoed Bleijenbeek</h3><p class="notes" style="margin-bottom:14px"><strong>Achtung – Ausnahme:</strong> An diesem Tag starten wir <strong>nicht vom Airbnb</strong>, sondern vom Solheim-Cup-Hotel <strong>Landgoed De Ruwenberg</strong> (siehe Tab „🏨 Hotel").</p><iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=6.055%2C51.4922%2C6.115%2C51.5522&layer=mapnik&marker=51.5222%2C6.085"></iframe>
-          <div class="map-actions"><a class="btn" target="_blank" href="https://www.google.com/maps/dir/Landgoed+De+Ruwenberg,+Sint-Michielsgestel/51.5222,6.085">🚗 Route in Google Maps</a><span class="drive-pill">⏱ ca. 48 Min ab Hotel De Ruwenberg</span></div></div>
+        <div class="card map-card"><div class="course-title"><span class="pin">📍</span><span class="txt">Golfbaan Landgoed Bleijenbeek</span></div><p class="notes" style="margin-bottom:14px"><strong>Achtung – Ausnahme:</strong> An diesem Tag starten wir <strong>nicht vom Airbnb</strong>, sondern vom Solheim-Cup-Hotel <strong>Landgoed De Ruwenberg</strong> (siehe Tab „🏨 Hotel").</p><iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=6.055%2C51.4922%2C6.115%2C51.5522&layer=mapnik&marker=51.5222%2C6.085"></iframe>
+          <div class="map-actions"><a class="btn" target="_blank" href="https://www.google.com/maps/dir/Landgoed+De+Ruwenberg,+Sint-Michielsgestel/51.5222,6.085">🚗 Route in Google Maps</a>
+            <a class="btn ghost-btn" target="_blank" href="https://www.bleijenbeek.nl/">🌐 Homepage Golfbaan Landgoed Bleijenbeek</a>
+            <span class="drive-pill">⏱ ca. 48 Min ab Hotel De Ruwenberg</span></div></div>
         <div class="stack"><div class="card"><h3>⛳ Tee Times</h3><div class="tees"><div class="tee"><span class="teef">Flight 1</span><span class="teet">12:06</span></div><div class="tee"><span class="teef">Flight 2</span><span class="teet">12:15</span></div></div></div>
           <div class="card"><h3>🎮 Spielmodus · Einzel / Cut Major (Single)</h3><p>Jeder Spieler spielt seinen Ball. Das Zwischenergebnis nach jeweils 3 Löchern entscheidet, wer ausscheidet (bei Gleichstand entscheidet das nächste Loch).</p><ul class="pl" style="margin-top:12px"><li>Der Score wird nach jedem Ausscheiden (Loch 3, 6, 9, 12 und 15) wieder auf Null gesetzt.</li><li>Das Finale wird über 3 Löcher (16–18) zwischen den letzten beiden Spielern entschieden.</li></ul><p class="notes"><strong>Hinweis:</strong> Gestartet wird nach Handicap – im vorweg spielenden Dreierflight starten die 3 Spieler mit den höchsten Handicaps.</p></div></div>
       </div><div class="grid2"><div class="card"><h3>🏆 Platzierungen & Konsequenzen</h3><ul class="pl"><li><strong>1. Platz:</strong> Ein (1) Mulligan am Folgetag</li><li><strong>2. Platz:</strong> Erhält vom Letzten einen nagelneuen (wenn möglich individualisierten) Ball</li><li><strong>4./5. Platz:</strong> Abends spülen / Tisch abräumen</li><li><strong>6./7. Platz:</strong> Frühstück am nächsten Tag</li></ul></div><div class="card side"><h3>🎯 Sidegame · Snake (3-Putt-Marker)</h3><p>Zusätzlich zum Cut Major. Es gibt einen "3-Putt-Marker" (Besitz: Cello). Wer einen 3-Putt macht, bekommt den Marker; er wird beim nächsten 3-Putt weitergegeben. Wer den Marker am Ende der Runde hält, zahlt die erste Runde Bier. — 1. Platz: lecker Bierchen nach der Runde für den eigenen Flight blechen.</p></div></div>
+    
+      <div class="card" style="margin-top:20px"><h3>🗺️ Platz-Informationen · Golfbaan Landgoed Bleijenbeek</h3><div class="stat-row" style="margin-bottom:16px"><div class="stat"><div class="k">Par gesamt</div><div class="v g">73</div></div><div class="stat"><div class="k">Länge (Meter)</div><div class="v">6284</div></div><div class="stat"><div class="k">Par 3 / 4 / 5</div><div class="v">4 / 9 / 5</div></div><div class="stat"><div class="k">Info</div><div class="v" style="font-size:13px;color:var(--dim)">Par 72 · Referenz-Tee</div></div></div><div class="scroll-x"><table class="sc-table"><thead><tr><th class="rowlbl">Loch</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th class="sumh">OUT</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">4</td><td class="parrow">5</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">3</td><td class="sumh">35</td></tr><tr><td class="rowlbl">Meter</td><td class="">366</td><td class="">475</td><td class="">392</td><td class="">175</td><td class="">358</td><td class="">332</td><td class="">191</td><td class="">380</td><td class="">375</td><td class="sumh">3044</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">3</td><td class="dim">15</td><td class="dim">9</td><td class="dim">17</td><td class="dim">1</td><td class="dim">7</td><td class="dim">13</td><td class="dim">5</td><td class="dim">11</td><td class="sumh">81</td></tr></tbody></table><table class="sc-table" style="margin-top:10px"><thead><tr><th class="rowlbl">Loch</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th class="sumh">IN</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">5</td><td class="parrow">4</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">5</td><td class="parrow">4</td><td class="sumh">38</td></tr><tr><td class="rowlbl">Meter</td><td class="">507</td><td class="">310</td><td class="">297</td><td class="">155</td><td class="">461</td><td class="">371</td><td class="">178</td><td class="">490</td><td class="">471</td><td class="sumh">3240</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">2</td><td class="dim">16</td><td class="dim">10</td><td class="dim">14</td><td class="dim">12</td><td class="dim">6</td><td class="dim">18</td><td class="dim">4</td><td class="dim">8</td><td class="sumh">90</td></tr></tbody></table></div></div>
     </section>
     <section class="view" id="day2a">
       <div class="page-head"><div><div class="eyebrow">Sonntag · 13.09.2026 · Vormittag</div><h1>Spieltag 2a — Scramble (Vormittag)</h1></div><span class="fee-badge">Greenfee 55,00 €</span></div>
       <div class="grid2">
-        <div class="card map-card"><h3>📍 Golfvereniging Golfhorst</h3><iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=6.044%2C51.4%2C6.104%2C51.46&layer=mapnik&marker=51.43%2C6.074"></iframe>
-          <div class="map-actions"><a class="btn" target="_blank" href="https://www.google.com/maps/dir/Overloon,+Netherlands/51.43,6.074">🚗 Route in Google Maps</a><span class="drive-pill">⏱ ca. 24 Min ab Airbnb</span></div></div>
+        <div class="card map-card"><div class="course-title"><span class="pin">📍</span><span class="txt">Golfvereniging Golfhorst</span></div><iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=6.044%2C51.4%2C6.104%2C51.46&layer=mapnik&marker=51.43%2C6.074"></iframe>
+          <div class="map-actions"><a class="btn" target="_blank" href="https://www.google.com/maps/dir/Overloon,+Netherlands/51.43,6.074">🚗 Route in Google Maps</a>
+            <a class="btn ghost-btn" target="_blank" href="https://www.golfbaandegolfhorst.nl/">🌐 Homepage Golfvereniging Golfhorst</a>
+            <span class="drive-pill">⏱ ca. 24 Min ab Airbnb</span></div></div>
         <div class="stack"><div class="card"><h3>⛳ Tee Times</h3><div class="tees"><div class="tee"><span class="teef">Flight 1</span><span class="teet">08:50</span></div><div class="tee"><span class="teef">Flight 2</span><span class="teet">09:00</span></div></div></div>
           <div class="card"><h3>🎮 Spielmodus · Scramble — Teams: 3 vs. 4</h3><p>Beim Scramble tritt ein 3er-Team gegen ein 4er-Team an. Um den Vorteil des 4er-Teams (ein Spieler mehr) auszugleichen gelten folgende Regeln:</p><ul class="pl" style="margin-top:12px"><li><strong>3er-Team:</strong> Von jedem Spieler müssen mindestens 5 Abschläge verwendet werden.</li><li><strong>4er-Team:</strong> Von jedem Spieler müssen mindestens 4 Abschläge und mindestens 2 zweite Schläge (ohne Par 3) verwendet werden.</li></ul><p class="notes"><strong>Hinweis:</strong> Teams werden zusammengestellt anhand der Handicaps, um ein Match ohne Vorgaben zu generieren.</p></div></div>
       </div><div class="grid2"><div class="card"><h3>🏆 Platzierungen & Konsequenzen</h3><ul class="pl"><li><strong>Gewinnerteam:</strong> Ein (1) Nettoschlag Abzug bei der Einzelrunde am Nachmittag</li><li><strong>Verliererteam:</strong> Bierchen an Tee 1 vernichten</li></ul></div></div>
+    
+      <div class="card" style="margin-top:20px"><h3>🗺️ Platz-Informationen · Golfbaan de Golfhorst</h3><div class="stat-row" style="margin-bottom:16px"><div class="stat"><div class="k">Par gesamt</div><div class="v g">70</div></div><div class="stat"><div class="k">Länge (Meter)</div><div class="v">4370</div></div><div class="stat"><div class="k">Par 3 / 4 / 5</div><div class="v">7 / 6 / 5</div></div><div class="stat"><div class="k">Info</div><div class="v" style="font-size:13px;color:var(--dim)">Raamweg 8, 5966 RM America · Par 70</div></div></div><div class="scroll-x"><table class="sc-table"><thead><tr><th class="rowlbl">Loch</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th class="sumh">OUT</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">5</td><td class="parrow">5</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">3</td><td class="parrow">4</td><td class="sumh">36</td></tr><tr><td class="rowlbl">Meter</td><td class="">368</td><td class="">367</td><td class="">398</td><td class="">94</td><td class="">303</td><td class="">271</td><td class="">105</td><td class="">143</td><td class="">281</td><td class="sumh">2330</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">7</td><td class="dim">5</td><td class="dim">3</td><td class="dim">17</td><td class="dim">1</td><td class="dim">11</td><td class="dim">15</td><td class="dim">13</td><td class="dim">9</td><td class="sumh">81</td></tr></tbody></table><table class="sc-table" style="margin-top:10px"><thead><tr><th class="rowlbl">Loch</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th class="sumh">IN</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">3</td><td class="parrow">5</td><td class="parrow">4</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">3</td><td class="sumh">34</td></tr><tr><td class="rowlbl">Meter</td><td class="">134</td><td class="">400</td><td class="">306</td><td class="">382</td><td class="">103</td><td class="">197</td><td class="">127</td><td class="">271</td><td class="">120</td><td class="sumh">2040</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">14</td><td class="dim">4</td><td class="dim">2</td><td class="dim">6</td><td class="dim">12</td><td class="dim">18</td><td class="dim">10</td><td class="dim">8</td><td class="dim">16</td><td class="sumh">90</td></tr></tbody></table></div></div>
     </section>
     <section class="view" id="day2b">
       <div class="page-head"><div><div class="eyebrow">Sonntag · 13.09.2026 · Nachmittag</div><h1>Spieltag 2b — Single (Nachmittag)</h1></div><span class="fee-badge">Greenfee 60,00 €</span></div>
       <div class="grid2">
-        <div class="card map-card"><h3>📍 Golf- en Countryclub "Geijsteren"</h3><iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=6.037999999999999%2C51.51%2C6.098%2C51.57&layer=mapnik&marker=51.54%2C6.068"></iframe>
-          <div class="map-actions"><a class="btn" target="_blank" href="https://www.google.com/maps/dir/Overloon,+Netherlands/51.54,6.068">🚗 Route in Google Maps</a><span class="drive-pill">⏱ ca. 12 Min ab Airbnb</span></div></div>
+        <div class="card map-card"><div class="course-title"><span class="pin">📍</span><span class="txt">Golf- en Countryclub "Geijsteren"</span></div><iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=6.037999999999999%2C51.51%2C6.098%2C51.57&layer=mapnik&marker=51.54%2C6.068"></iframe>
+          <div class="map-actions"><a class="btn" target="_blank" href="https://www.google.com/maps/dir/Overloon,+Netherlands/51.54,6.068">🚗 Route in Google Maps</a>
+            <a class="btn ghost-btn" target="_blank" href="https://www.golfclubgeijsteren.nl/">🌐 Homepage Golf- en Countryclub "Geijsteren"</a>
+            <span class="drive-pill">⏱ ca. 12 Min ab Airbnb</span></div></div>
         <div class="stack"><div class="card"><h3>⛳ Tee Times</h3><div class="tees"><div class="tee"><span class="teef">Flight 1</span><span class="teet">15:00</span></div><div class="tee"><span class="teef">Flight 2</span><span class="teet">15:08</span></div></div></div>
           <div class="card"><h3>🎮 Spielmodus · Single</h3><p>Voller Fokus auf das eigene Spiel. Der Gewinner des Cut Majors kann seinen Mulligan einsetzen. Der Mulligan muss vor dem Schlag angekündigt werden – der Spieler darf sich dann zwischen seinen beiden Schlägen entscheiden.</p><p class="notes"><strong>Hinweis:</strong> Flights nach Abstimmung, wer noch nicht mit wem zusammen gespielt hat.</p></div></div>
       </div><div class="grid2"><div class="card"><h3>🏆 Platzierungen & Konsequenzen</h3><ul class="pl"><li><strong>1. Platz:</strong> Ein (1) Mulligan am Finaltag</li><li><strong>2. Platz:</strong> Erhält vom Letzten einen nagelneuen (wenn möglich individualisierten) Ball</li><li><strong>4./5. Platz:</strong> Abends spülen / Tisch abräumen</li><li><strong>6./7. Platz:</strong> Frühstück am Morgen</li></ul></div></div>
+    
+      <div class="card" style="margin-top:20px"><h3>🗺️ Platz-Informationen · Golf- & Countryclub "Geijsteren"</h3><div class="stat-row" style="margin-bottom:16px"><div class="stat"><div class="k">Par gesamt</div><div class="v g">72</div></div><div class="stat"><div class="k">Länge (Meter)</div><div class="v">5893</div></div><div class="stat"><div class="k">Par 3 / 4 / 5</div><div class="v">4 / 10 / 4</div></div><div class="stat"><div class="k">Info</div><div class="v" style="font-size:13px;color:var(--dim)">Par 72 · Geel-Tee</div></div></div><div class="scroll-x"><table class="sc-table"><thead><tr><th class="rowlbl">Loch</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th class="sumh">OUT</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">5</td><td class="parrow">3</td><td class="sumh">35</td></tr><tr><td class="rowlbl">Meter</td><td class="">344</td><td class="">285</td><td class="">379</td><td class="">320</td><td class="">336</td><td class="">335</td><td class="">164</td><td class="">464</td><td class="">163</td><td class="sumh">2790</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">6</td><td class="dim">16</td><td class="dim">2</td><td class="dim">8</td><td class="dim">14</td><td class="dim">4</td><td class="dim">12</td><td class="dim">10</td><td class="dim">18</td><td class="sumh">90</td></tr></tbody></table><table class="sc-table" style="margin-top:10px"><thead><tr><th class="rowlbl">Loch</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th class="sumh">IN</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">5</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">5</td><td class="parrow">4</td><td class="parrow">4</td><td class="sumh">37</td></tr><tr><td class="rowlbl">Meter</td><td class="">456</td><td class="">340</td><td class="">180</td><td class="">365</td><td class="">442</td><td class="">137</td><td class="">442</td><td class="">370</td><td class="">371</td><td class="sumh">3103</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">9</td><td class="dim">15</td><td class="dim">3</td><td class="dim">17</td><td class="dim">13</td><td class="dim">7</td><td class="dim">11</td><td class="dim">5</td><td class="dim">1</td><td class="sumh">81</td></tr></tbody></table></div></div>
     </section>
     <section class="view" id="day3">
       <div class="page-head"><div><div class="eyebrow">Montag · 14.09.2026</div><h1>Spieltag 3 — Major (Finale)</h1></div><span class="fee-badge">Greenfee 115,50 €</span></div>
       <div class="grid2">
-        <div class="card map-card"><h3>📍 Golfbaan Stippelberg</h3><iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=5.77%2C51.568%2C5.83%2C51.628&layer=mapnik&marker=51.598%2C5.8"></iframe>
-          <div class="map-actions"><a class="btn" target="_blank" href="https://www.google.com/maps/dir/Overloon,+Netherlands/51.598,5.8">🚗 Route in Google Maps</a><span class="drive-pill">⏱ ca. 14 Min ab Airbnb</span></div></div>
+        <div class="card map-card"><div class="course-title"><span class="pin">📍</span><span class="txt">Golfbaan Stippelberg</span></div><iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=5.77%2C51.568%2C5.83%2C51.628&layer=mapnik&marker=51.598%2C5.8"></iframe>
+          <div class="map-actions"><a class="btn" target="_blank" href="https://www.google.com/maps/dir/Overloon,+Netherlands/51.598,5.8">🚗 Route in Google Maps</a>
+            <a class="btn ghost-btn" target="_blank" href="https://golfbaan-stippelberg.com/">🌐 Homepage Golfbaan Stippelberg</a>
+            <span class="drive-pill">⏱ ca. 14 Min ab Airbnb</span></div></div>
         <div class="stack"><div class="card"><h3>⛳ Tee Times</h3><div class="tees"><div class="tee"><span class="teef">Flight 1</span><span class="teet">11:00</span></div><div class="tee"><span class="teef">Flight 2</span><span class="teet">11:10</span></div></div></div>
           <div class="card"><h3>🎮 Spielmodus · Major (Single)</h3><p>Voller Fokus auf das eigene Spiel! Der Gewinner des Vortages kann seinen Mulligan einsetzen. Der Mulligan muss vor dem Schlag angekündigt werden – der Spieler darf sich dann zwischen seinen beiden Schlägen entscheiden.</p><p class="notes"><strong>Hinweis:</strong> Flights nach Zwischenergebnis nach drei Tagen.</p></div></div>
       </div>
+    
+      <div class="card" style="margin-top:20px"><h3>🗺️ Platz-Informationen · Golfbaan Stippelberg (Championship)</h3><div class="stat-row" style="margin-bottom:16px"><div class="stat"><div class="k">Par gesamt</div><div class="v g">71</div></div><div class="stat"><div class="k">Länge (Meter)</div><div class="v">5934</div></div><div class="stat"><div class="k">Par 3 / 4 / 5</div><div class="v">5 / 9 / 4</div></div><div class="stat"><div class="k">Info</div><div class="v" style="font-size:13px;color:var(--dim)">Hooizak 7, Gemert-Bakel · Par 71 · Geel-Tee</div></div></div><div class="scroll-x"><table class="sc-table"><thead><tr><th class="rowlbl">Loch</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th class="sumh">OUT</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">3</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">5</td><td class="parrow">4</td><td class="sumh">35</td></tr><tr><td class="rowlbl">Meter</td><td class="">164</td><td class="">475</td><td class="">144</td><td class="">330</td><td class="">405</td><td class="">334</td><td class="">172</td><td class="">503</td><td class="">299</td><td class="sumh">2826</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">15</td><td class="dim">5</td><td class="dim">17</td><td class="dim">7</td><td class="dim">1</td><td class="dim">11</td><td class="dim">13</td><td class="dim">3</td><td class="dim">9</td><td class="sumh">81</td></tr></tbody></table><table class="sc-table" style="margin-top:10px"><thead><tr><th class="rowlbl">Loch</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th class="sumh">IN</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">5</td><td class="parrow">4</td><td class="sumh">36</td></tr><tr><td class="rowlbl">Meter</td><td class="">385</td><td class="">135</td><td class="">538</td><td class="">490</td><td class="">155</td><td class="">256</td><td class="">341</td><td class="">461</td><td class="">347</td><td class="sumh">3108</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">18</td><td class="dim">4</td><td class="dim">6</td><td class="dim">14</td><td class="dim">16</td><td class="dim">12</td><td class="dim">10</td><td class="dim">8</td><td class="dim">2</td><td class="sumh">90</td></tr></tbody></table></div></div>
     </section>
       
+      
+      <!-- AIRBNB -->
+      <section class="view" id="airbnb">
+        <div class="page-head">
+          <div><div class="eyebrow">12. – 15.09.2026 · Base Camp</div><h1>🏡 Buitenplaats de Zuydsehoeve</h1></div>
+          <a class="fee-badge" href="https://www.airbnb.de/rooms/1426839466246647636?unique_share_id=21bdc3e1-f3a4-40e7-a7ee-119300e14b18&viralityEntryPoint=1&s=76&source_impression_id=p3_1788779446_P3NYxkFeyOOprpDR" target="_blank" style="text-decoration:none">Auf Airbnb ansehen ↗</a>
+        </div>
+        <div class="stat-row" style="margin-bottom:20px">
+          <div class="stat"><div class="k">Schlafzimmer</div><div class="v g">5</div></div>
+          <div class="stat"><div class="k">Betten</div><div class="v">5 Doppel</div></div>
+          <div class="stat"><div class="k">Badezimmer</div><div class="v">3</div></div>
+          <div class="stat"><div class="k">Für</div><div class="v g">10 Pers.</div></div>
+        </div>
+        <div class="grid2">
+          <div class="card map-card">
+            <h3>📍 Adresse & Lage</h3>
+            <iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=5.962000000000001%2C51.534499999999994%2C6.002%2C51.5745&layer=mapnik&marker=51.5545%2C5.982"></iframe>
+            <div class="map-actions">
+              <a class="btn" target="_blank" href="https://www.google.com/maps/search/Holthesedijk+6,+5825+JG+Overloon">🗺️ In Google Maps öffnen</a>
+              <a class="btn ghost-btn" target="_blank" href="https://www.airbnb.de/rooms/1426839466246647636?unique_share_id=21bdc3e1-f3a4-40e7-a7ee-119300e14b18&viralityEntryPoint=1&s=76&source_impression_id=p3_1788779446_P3NYxkFeyOOprpDR">🏡 Airbnb-Seite</a>
+            </div>
+            <p style="margin-top:14px"><strong>Holthesedijk 6, 5825 JG Overloon</strong><br>Noord-Brabant, Niederlande</p>
+          </div>
+          <div class="stack">
+            <div class="card">
+              <h3>🏡 Über die Unterkunft</h3>
+              <p>Buitenplaats de Zuydsehoeve ist eine wunderschöne Familienunterkunft für <strong>10 Personen</strong>. Der Hof ist in 't Voorhuys und 't Achterhuis unterteilt, wo die Besitzer wohnen. Auf der Wiese steht neben den Schafen eine Unterkunft für 4 Personen.</p>
+              <p>Der Hof liegt am <strong>Waldrand</strong> und am Erholungssee <strong>'t Schaartven</strong>, wo man auf der hinteren Wiese öffentlich (kostenlos) schwimmen kann. Sehr luxuriös renoviert – mit <strong>5 Schlafzimmern und 3 Badezimmern</strong>.</p>
+              <p class="notes">Der großzügige Garten verfügt über einen <strong>XL-Whirlpool</strong>, eine Feuerstelle, einen Grill und einen Parkplatz. 🔥🛁🍖</p>
+            </div>
+            <div class="card">
+              <h3>🛏️ Schlafzimmer & Betten</h3>
+              <ul class="pl">
+                <li>1 Schlafzimmer mit eigenem Bad im <strong>Erdgeschoss</strong></li>
+                <li>4 Schlafzimmer im <strong>zweiten Stock</strong></li>
+                <li>Separate Toilette & Bad im Erd- und ersten Stock</li>
+                <li>Betten: <strong>3× Kingsize, 1× Queensize, 2× Einzel</strong> (Kinderbetten auf Anfrage)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <h3>🔑 Zugang für Gäste</h3>
+            <p>Der Bauernhof besteht aus einem <strong>Vorderhaus mit Garten</strong>, das den Gästen vollständig zur Verfügung steht. Das Hinterhaus wird von den Besitzern mit ihrer Familie bewohnt.</p>
+          </div>
+          <div class="card side">
+            <h3>ℹ️ Wichtige Hinweise</h3>
+            <ul class="pl">
+              <li>Der <strong>Whirlpool</strong> kann nach Zahlung bei Ankunft gefüllt und beheizt werden.</li>
+              <li>Den <strong>Feuerkorb</strong> nur bei passendem Wetter verwenden.</li>
+              <li>Holz optional gegen Gebühr erhältlich.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>📸 Fotos</h3>
+          <p style="margin-bottom:14px">Die Original-Fotos befinden sich auf der Airbnb-Seite (aus Urheberrechts-/Offline-Gründen hier nicht direkt eingebettet). Die Kacheln unten verlinken direkt dorthin – du kannst sie jederzeit durch eigene Bilder ersetzen.</p>
+          <div class="photo-grid">
+            <a class="photo ph1" href="https://www.airbnb.de/rooms/1426839466246647636?unique_share_id=21bdc3e1-f3a4-40e7-a7ee-119300e14b18&viralityEntryPoint=1&s=76&source_impression_id=p3_1788779446_P3NYxkFeyOOprpDR" target="_blank"><span>🏡 Vorderhaus & Hof</span></a>
+            <a class="photo ph2" href="https://www.airbnb.de/rooms/1426839466246647636?unique_share_id=21bdc3e1-f3a4-40e7-a7ee-119300e14b18&viralityEntryPoint=1&s=76&source_impression_id=p3_1788779446_P3NYxkFeyOOprpDR" target="_blank"><span>🛁 XL-Whirlpool</span></a>
+            <a class="photo ph3" href="https://www.airbnb.de/rooms/1426839466246647636?unique_share_id=21bdc3e1-f3a4-40e7-a7ee-119300e14b18&viralityEntryPoint=1&s=76&source_impression_id=p3_1788779446_P3NYxkFeyOOprpDR" target="_blank"><span>🔥 Feuerstelle & Garten</span></a>
+            <a class="photo ph4" href="https://www.airbnb.de/rooms/1426839466246647636?unique_share_id=21bdc3e1-f3a4-40e7-a7ee-119300e14b18&viralityEntryPoint=1&s=76&source_impression_id=p3_1788779446_P3NYxkFeyOOprpDR" target="_blank"><span>🛏️ Schlafzimmer</span></a>
+          </div>
+          <p style="margin-top:14px;font-size:13px;color:var(--muted)">👉 <a href="https://www.airbnb.de/rooms/1426839466246647636?unique_share_id=21bdc3e1-f3a4-40e7-a7ee-119300e14b18&viralityEntryPoint=1&s=76&source_impression_id=p3_1788779446_P3NYxkFeyOOprpDR" target="_blank" style="color:var(--gold2);font-weight:600">Alle Fotos & Details auf Airbnb ansehen ↗</a></p>
+        </div>
+      </section>
+
       <section class="view" id="hotel">
         <div class="page-head"><div><div class="eyebrow">Freitag · 11.09.2026 · Solheim Cup</div><h1>🏨 Landgoed De Ruwenberg</h1></div><span class="fee-badge">Übernachtung Solheim-Cup-Tag</span></div>
         <div class="grid2">
@@ -250,6 +384,27 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
           <div class="prize-grid"><div class="prize"><div class="pp">🥇 Champion</div><div class="pv">140 €</div><div class="pc">50 %</div></div><div class="prize"><div class="pp">🥈 Zweiter</div><div class="pv">70 €</div><div class="pc">25 %</div></div><div class="prize"><div class="pp">🥉 Dritter</div><div class="pv">42 €</div><div class="pc">15 %</div></div><div class="prize"><div class="pp">🔥 Bestes Tagesergebnis</div><div class="pv">28 €</div><div class="pc">10 %</div></div></div>
         </div>
       </section>
+
+      
+      <!-- SCORES -->
+      <section class="view" id="scores">
+        <div class="page-head"><div><div class="eyebrow">Detailauswertung</div><h1>📊 Scores &amp; Auswertung</h1></div></div>
+
+        <div class="live-hero" style="margin-bottom:20px"><div class="lh-in">
+          <span class="live-tag" style="background:var(--accent);box-shadow:0 6px 20px rgba(62,166,255,.4)">📱 LIVE AM PLATZ</span>
+          <h1 style="font-size:clamp(24px,4vw,34px)">Tracking via 18Birdies</h1>
+          <div class="lh-sub">Am Spieltag verfolgen wir die Scores live über ein Turnier in der <strong>18Birdies</strong>-App. Die <strong>konsolidierte Gesamtauswertung</strong> (Netto, Ø Par 3/4/5, Standing) erfolgt hier im Dashboard.</div>
+        </div></div>
+        <div class="card" style="margin-bottom:20px">
+          <h3>👤 Spieler auswählen</h3>
+          <div id="playerChips" class="chips"></div>
+        </div>
+
+        
+
+        <div id="scoreDetail"></div>
+      </section>
+
     </div>
   </div>
 </div>
@@ -257,9 +412,219 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 const views=document.querySelectorAll('.view');const navbtns=document.querySelectorAll('.navbtn');
 const sidebar=document.getElementById('sidebar');const backdrop=document.getElementById('backdrop');
 function closeMenu(){sidebar.classList.remove('open');backdrop.classList.remove('show');}
-function go(v){views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));window.scrollTo({top:0,behavior:'smooth'});closeMenu();}
+function go(v){views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));window.scrollTo({top:0,behavior:'smooth'});closeMenu();if(v==='scores'){renderChips();renderDetail();}}
 document.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',()=>go(el.dataset.view)));
 document.getElementById('burger').addEventListener('click',()=>{sidebar.classList.add('open');backdrop.classList.add('show');});
 backdrop.addEventListener('click',closeMenu);
+
+const DATA = {"par": [4, 5, 4, 4, 4, 4, 3, 4, 3, 5, 4, 5, 3, 4, 5, 3, 5, 4], "si": [3, 15, 9, 17, 1, 7, 13, 5, 11, 2, 16, 10, 14, 12, 6, 18, 4, 8], "rounds": ["R1 · Cut Major", "R2a · Scramble", "R2b · Single", "R3 · Major"], "players": [{"name": "F. Bandt", "hcp": "5,6", "phcp": 6, "key": "fbandt"}, {"name": "L. Breuer", "hcp": "8,8", "phcp": 9, "key": "lbreuer"}, {"name": "D. Busch", "hcp": "10,2", "phcp": 10, "key": "dbusch"}, {"name": "J. Haberstock", "hcp": "3,8", "phcp": 4, "key": "jhaberstock"}, {"name": "J. Glatter", "hcp": "9,6", "phcp": 10, "key": "jglatter"}, {"name": "M. Glatter", "hcp": "5,7", "phcp": 6, "key": "mglatter"}, {"name": "M. Preis", "hcp": "3,3", "phcp": 3, "key": "mpreis"}], "scores": {"fbandt": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "lbreuer": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "dbusch": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "jhaberstock": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "jglatter": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "mglatter": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "mpreis": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]}, "courses": {"Bleijenbeek": {"name": "Golfbaan Landgoed Bleijenbeek", "meta": "Par 72 · Referenz-Tee", "par": [4, 5, 4, 4, 4, 4, 3, 4, 3, 5, 4, 5, 3, 4, 5, 3, 5, 4], "si": [3, 15, 9, 17, 1, 7, 13, 5, 11, 2, 16, 10, 14, 12, 6, 18, 4, 8], "mtr": [366, 475, 392, 175, 358, 332, 191, 380, 375, 507, 310, 297, 155, 461, 371, 178, 490, 471]}, "Golfhorst": {"name": "Golfbaan de Golfhorst", "meta": "Raamweg 8, 5966 RM America · Par 70", "par": [5, 5, 5, 3, 4, 4, 3, 3, 4, 3, 5, 4, 5, 3, 4, 3, 4, 3], "si": [7, 5, 3, 17, 1, 11, 15, 13, 9, 14, 4, 2, 6, 12, 18, 10, 8, 16], "mtr": [368, 367, 398, 94, 303, 271, 105, 143, 281, 134, 400, 306, 382, 103, 197, 127, 271, 120]}, "Geijsteren": {"name": "Golf- & Countryclub \"Geijsteren\"", "meta": "Par 72 · Geel-Tee", "par": [4, 4, 4, 4, 4, 4, 3, 5, 3, 5, 4, 3, 4, 5, 3, 5, 4, 4], "si": [6, 16, 2, 8, 14, 4, 12, 10, 18, 9, 15, 3, 17, 13, 7, 11, 5, 1], "mtr": [344, 285, 379, 320, 336, 335, 164, 464, 163, 456, 340, 180, 365, 442, 137, 442, 370, 371]}, "Stippelberg": {"name": "Golfbaan Stippelberg (Championship)", "meta": "Hooizak 7, Gemert-Bakel · Par 71 · Geel-Tee", "par": [3, 5, 3, 4, 4, 4, 3, 5, 4, 4, 3, 4, 5, 3, 4, 4, 5, 4], "si": [15, 5, 17, 7, 1, 11, 13, 3, 9, 18, 4, 6, 14, 16, 12, 10, 8, 2], "mtr": [164, 475, 144, 330, 405, 334, 172, 503, 299, 385, 135, 538, 490, 155, 256, 341, 461, 347]}}, "roundCourse": ["Bleijenbeek", "Golfhorst", "Geijsteren", "Stippelberg"]};
+
+// ---- helpers ----
+function parForRound(ri){
+  const ck = (DATA.roundCourse && DATA.roundCourse[ri]) ? DATA.roundCourse[ri] : null;
+  if(ck && DATA.courses[ck]) return DATA.courses[ri!=null?ck:ck].par;
+  return DATA.par;
+}
+function siForRound(ri){
+  const ck = (DATA.roundCourse && DATA.roundCourse[ri]) ? DATA.roundCourse[ri] : null;
+  if(ck && DATA.courses[ck]) return DATA.courses[ck].si;
+  return DATA.si;
+}
+function courseNameForRound(ri){
+  const ck=(DATA.roundCourse&&DATA.roundCourse[ri])?DATA.roundCourse[ri]:null;
+  return (ck&&DATA.courses[ck])? DATA.courses[ck].name : '';
+}
+function roundTotals(scores, par){
+  // scores: array 18 (numbers or null). returns {gross, played, toPar, out, in_}
+  let gross=0, played=0, parPlayed=0, out=0, inn=0;
+  for(let i=0;i<18;i++){
+    const s=scores[i];
+    if(s!==null && s!==undefined && s!==""){
+      const v=Number(s); gross+=v; parPlayed+=par[i]; played++;
+      if(i<9) out+=v; else inn+=v;
+    }
+  }
+  return {gross, played, toPar: gross-parPlayed, out, inn, parPlayed};
+}
+function avgByPar(allScores){
+  // allScores: array of rounds, each 18. Aggregate per par type (per-round course par).
+  const acc={3:{s:0,n:0},4:{s:0,n:0},5:{s:0,n:0}};
+  allScores.forEach((rd,ri)=>{
+    const par=parForRound(ri);
+    for(let i=0;i<18;i++){
+      const s=rd[i];
+      if(s!==null&&s!==undefined&&s!==""){
+        const p=par[i]; if(acc[p]){acc[p].s+=Number(s);acc[p].n++;}
+      }
+    }
+  });
+  const fmt=o=>o.n? (o.s/o.n).toFixed(2):"–";
+  return {p3:fmt(acc[3]),p4:fmt(acc[4]),p5:fmt(acc[5]),n3:acc[3].n,n4:acc[4].n,n5:acc[5].n};
+}
+function fmtToPar(x){ if(x===0) return "E"; return x>0? "+"+x : ""+x; }
+
+// ---- leaderboard/standing computation (netto) ----
+function playerNettoTotal(pkey){
+  const sc=DATA.scores[pkey];
+  const pl=DATA.players.find(p=>p.key===pkey);
+  let totalGross=0, totalPar=0, anyPlayed=false;
+  sc.forEach((rd,ri)=>{
+    const t=roundTotals(rd, parForRound(ri));
+    if(t.played>0){ anyPlayed=true; totalGross+=t.gross; totalPar+=t.parPlayed; }
+  });
+  // simple netto: gross - playing handicap per played round (approx). If no rounds played -> null
+  const roundsPlayed = sc.filter((rd,ri)=>roundTotals(rd,parForRound(ri)).played>0).length;
+  const netto = anyPlayed ? (totalGross - pl.phcp*roundsPlayed) : null;
+  return {gross:totalGross, netto, toPar: anyPlayed? totalGross-totalPar : null, played:anyPlayed};
+}
+function overallStanding(pkey){
+  // rank players by netto (lower better); unplayed -> tie at bottom
+  const arr = DATA.players.map(p=>({key:p.key, ...playerNettoTotal(p.key)}));
+  const played = arr.filter(a=>a.played);
+  played.sort((a,b)=> (a.netto)-(b.netto));
+  const idx = played.findIndex(a=>a.key===pkey);
+  if(idx===-1) return {pos:"–", total: played.length? played.length : DATA.players.length};
+  return {pos: idx+1, total: DATA.players.length};
+}
+
+// ---- render ----
+let currentPlayer = DATA.players[0].key;
+
+function renderChips(){
+  const wrap=document.getElementById('playerChips');
+  wrap.innerHTML = DATA.players.map(p=>
+    `<button class="chip ${p.key===currentPlayer?'active':''}" data-pk="${p.key}">${p.name}</button>`
+  ).join('');
+  wrap.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
+    currentPlayer=c.dataset.pk; renderChips(); renderDetail();
+  }));
+}
+
+function renderDetail(){
+  const pl=DATA.players.find(p=>p.key===currentPlayer);
+  const sc=DATA.scores[currentPlayer];
+  const st=overallStanding(currentPlayer);
+  const nt=playerNettoTotal(currentPlayer);
+  const av=avgByPar(sc);
+
+  // KPI cards
+  const kpis = `
+    <div class="stat-row" style="margin-bottom:20px">
+      <div class="stat"><div class="k">Handicap</div><div class="v g">${pl.hcp}</div></div>
+      <div class="stat"><div class="k">Turnier-Standing</div><div class="v">${st.pos}<span style="font-size:14px;color:var(--muted)"> / ${st.total}</span></div></div>
+      <div class="stat"><div class="k">Total (Brutto)</div><div class="v">${nt.played? nt.gross : "–"}</div></div>
+      <div class="stat"><div class="k">+/- Par</div><div class="v g">${nt.played? fmtToPar(nt.toPar) : "–"}</div></div>
+    </div>
+    <div class="stat-row" style="margin-bottom:20px">
+      <div class="stat"><div class="k">Ø Par 3 <span class="stat-n">(${av.n3})</span></div><div class="v">${av.p3}</div></div>
+      <div class="stat"><div class="k">Ø Par 4 <span class="stat-n">(${av.n4})</span></div><div class="v">${av.p4}</div></div>
+      <div class="stat"><div class="k">Ø Par 5 <span class="stat-n">(${av.n5})</span></div><div class="v">${av.p5}</div></div>
+      <div class="stat"><div class="k">Netto (Turnier)</div><div class="v g">${nt.played? nt.netto : "–"}</div></div>
+    </div>`;
+
+  // Per-round scorecards
+  let cards='';
+  sc.forEach((rd,ri)=>{
+    const rpar=parForRound(ri);
+    const t=roundTotals(rd, rpar);
+    const cell=(i)=>{
+      const s=rd[i];
+      const has=(s!==null&&s!==undefined&&s!=="");
+      let cls='sc-cell';
+      if(has){
+        const d=Number(s)-rpar[i];
+        if(d<=-2) cls+=' eagle'; else if(d===-1) cls+=' birdie';
+        else if(d===0) cls+=' parc'; else if(d===1) cls+=' bogey'; else cls+=' dbogey';
+      }
+      return `<td class="${cls}">${has? s : '–'}</td>`;
+    };
+    const holesOut = [...Array(9).keys()].map(i=>`<th>${i+1}</th>`).join('');
+    const holesIn  = [...Array(9).keys()].map(i=>`<th>${i+10}</th>`).join('');
+    const parOut = [...Array(9).keys()].map(i=>`<td class="parrow">${rpar[i]}</td>`).join('');
+    const parIn  = [...Array(9).keys()].map(i=>`<td class="parrow">${rpar[i+9]}</td>`).join('');
+    const scOut = [...Array(9).keys()].map(i=>cell(i)).join('');
+    const scIn  = [...Array(9).keys()].map(i=>cell(i+9)).join('');
+    const outGross = rd.slice(0,9).reduce((a,b)=> a+(b?Number(b):0),0) || (t.out||'');
+    const inGross  = rd.slice(9,18).reduce((a,b)=> a+(b?Number(b):0),0) || (t.inn||'');
+
+    cards += `
+      <div class="card" style="margin-bottom:20px">
+        <div class="rc-head"><h3>${DATA.rounds[ri]}<span style="font-weight:500;color:var(--muted);font-size:12px;margin-left:8px">· ${courseNameForRound(ri)}</span></h3>
+          <span class="rc-badge">${t.played? ('Score '+t.gross+' · '+fmtToPar(t.toPar)) : 'noch offen'}</span></div>
+        <div class="scroll-x">
+        <table class="sc-table">
+          <thead><tr><th class="rowlbl">Loch</th>${holesOut}<th class="sumh">OUT</th></tr></thead>
+          <tbody>
+            <tr><td class="rowlbl">Par</td>${parOut}<td class="parrow sumh">${rpar.slice(0,9).reduce((a,b)=>a+b,0)}</td></tr>
+            <tr><td class="rowlbl">Score</td>${scOut}<td class="sumh">${t.played? (outGross||'–'):'–'}</td></tr>
+          </tbody>
+        </table>
+        <table class="sc-table" style="margin-top:10px">
+          <thead><tr><th class="rowlbl">Loch</th>${holesIn}<th class="sumh">IN</th></tr></thead>
+          <tbody>
+            <tr><td class="rowlbl">Par</td>${parIn}<td class="parrow sumh">${rpar.slice(9).reduce((a,b)=>a+b,0)}</td></tr>
+            <tr><td class="rowlbl">Score</td>${scIn}<td class="sumh">${t.played? (inGross||'–'):'–'}</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>`;
+  });
+
+  document.getElementById('scoreDetail').innerHTML =
+    `<div class="detail-title"><h2>${pl.name}</h2></div>`
+    + kpis
+    + `<div class="legend"><span><i class="lg eagle"></i>Eagle−</span><span><i class="lg birdie"></i>Birdie</span><span><i class="lg parc"></i>Par</span><span><i class="lg bogey"></i>Bogey</span><span><i class="lg dbogey"></i>Dbl+</span></div>`
+    + cards;
+}
+
+
+// ---- Course info ----
+const COURSE_KEYS = Object.keys(DATA.courses);
+let currentCourse = COURSE_KEYS[0];
+function courseParCounts(c){
+  let n3=0,n4=0,n5=0,mtr=0,parTot=0;
+  for(let i=0;i<18;i++){const p=c.par[i]; if(p===3)n3++; else if(p===4)n4++; else if(p===5)n5++; mtr+=c.mtr[i]; parTot+=p;}
+  return {n3,n4,n5,mtr,parTot};
+}
+function renderCourseChips(){
+  const wrap=document.getElementById('courseChips'); if(!wrap) return;
+  wrap.innerHTML = COURSE_KEYS.map(k=>`<button class="chip ${k===currentCourse?'active':''}" data-ck="${k}">${DATA.courses[k].name}</button>`).join('');
+  wrap.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{currentCourse=c.dataset.ck;renderCourseChips();renderCourseInfo();}));
+}
+function renderCourseInfo(){
+  const box=document.getElementById('courseInfo'); if(!box) return;
+  const c=DATA.courses[currentCourse]; const cc=courseParCounts(c);
+  const cell=(arr,i,cls)=>`<td class="${cls||''}">${arr[i]}</td>`;
+  const holesOut=[...Array(9).keys()].map(i=>`<th>${i+1}</th>`).join('');
+  const holesIn=[...Array(9).keys()].map(i=>`<th>${i+10}</th>`).join('');
+  const mk=(label,arr,cls,sumFn)=>{
+    const out=[...Array(9).keys()].map(i=>cell(arr,i,cls)).join('');
+    const inn=[...Array(9).keys()].map(i=>cell(arr,i+9,cls)).join('');
+    const so=sumFn?`<td class="sumh">${arr.slice(0,9).reduce((a,b)=>a+b,0)}</td>`:'<td class="sumh">–</td>';
+    const si=sumFn?`<td class="sumh">${arr.slice(9).reduce((a,b)=>a+b,0)}</td>`:'<td class="sumh">–</td>';
+    return {outRow:`<tr><td class="rowlbl">${label}</td>${out}${so}</tr>`, inRow:`<tr><td class="rowlbl">${label}</td>${inn}${si}</tr>`};
+  };
+  const par=mk('Par',c.par,'parrow',true);
+  const si=mk('S.I.',c.si,'dim',false);
+  const mt=mk('Meter',c.mtr,'',true);
+  box.innerHTML = `
+    <div class="stat-row" style="margin-bottom:16px">
+      <div class="stat"><div class="k">Par gesamt</div><div class="v g">${cc.parTot}</div></div>
+      <div class="stat"><div class="k">Länge (Meter)</div><div class="v">${cc.mtr}</div></div>
+      <div class="stat"><div class="k">Par 3 / 4 / 5</div><div class="v">${cc.n3} / ${cc.n4} / ${cc.n5}</div></div>
+      <div class="stat"><div class="k">Info</div><div class="v" style="font-size:14px;color:var(--dim)">${c.meta}</div></div>
+    </div>
+    <div class="scroll-x">
+      <table class="sc-table">
+        <thead><tr><th class="rowlbl">Loch</th>${holesOut}<th class="sumh">OUT</th></tr></thead>
+        <tbody>${par.outRow}${mt.outRow}${si.outRow}</tbody>
+      </table>
+      <table class="sc-table" style="margin-top:10px">
+        <thead><tr><th class="rowlbl">Loch</th>${holesIn}<th class="sumh">IN</th></tr></thead>
+        <tbody>${par.inRow}${mt.inRow}${si.inRow}</tbody>
+      </table>
+    </div>`;
+}
+
 </script>
 </body></html>
