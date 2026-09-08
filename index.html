@@ -164,6 +164,11 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 .live-status.err{color:var(--red);border-color:rgba(229,72,77,.4);background:rgba(229,72,77,.08)}
 .live-status.load{color:var(--gold2);border-color:rgba(233,185,73,.4);background:rgba(233,185,73,.08)}
 .live-status.off{color:var(--muted)}
+
+/* Scorecard alignment fix: alle Zellen zentriert, nur die Zeilen-Beschriftung links */
+.sc-table th, .sc-table td{ text-align:center !important; }
+.sc-table .rowlbl{ text-align:left !important; }
+
 @media(max-width:900px){.live-controls{flex-direction:column;align-items:stretch}.live-refresh{width:100%;justify-content:center}.live-status{text-align:center}}
 
 @media(max-width:900px){}
@@ -301,7 +306,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 
         <div class="card"><h3>🏆 Champion-Wertung — Netto gesamt <span style="font-weight:500;color:var(--muted);font-size:12px">(3 Einzelrunden + Team-Scramble)</span></h3>
           <div class="scroll-x"><table>
-            <thead><tr><th>#</th><th>Player</th><th>Hcp</th><th>R1</th><th>Team 2a</th><th>R2b</th><th>R3</th><th>Net Total</th><th>+/- Par</th></tr></thead>
+            <thead><tr><th>#</th><th>Player</th><th>Hcp</th><th>1</th><th>2a · Team</th><th>2b</th><th>3</th><th>Net Total</th><th>+/- Par</th></tr></thead>
             <tbody id="champBody"></tbody>
           </table></div>
           <p style="margin-top:14px;font-size:13px;color:var(--muted)">💡 Für die Runden-Details je Spieler → <a data-view="scores" style="color:var(--gold2);cursor:pointer;font-weight:600">Scores &amp; Spieler</a></p>
@@ -804,7 +809,7 @@ function renderCourseInfo(){
 
 // ================= DASHBOARD: Champion + Best Single Round =================
 const SINGLE_ROUNDS = [0,2,3];   // R1, R2b, R3 are individual (Einzel) rounds; index 1 = Team Scramble
-const ROUND_SHORT = ['R1','Team 2a','R2b','R3'];
+const ROUND_SHORT = ['1','2a','2b','3'];
 
 function medal(pos){ return ({1:'🥇',2:'🥈',3:'🥉'})[pos] || pos; }
 
@@ -1060,13 +1065,27 @@ function renderStats(){
 // ================= GOOGLE-SHEET LIVE-ABRUF =================
 function _lnorm(s){ return (s||"").toString().trim().toLowerCase().replace(/\s+/g,' '); }
 function setLiveStatus(msg, cls){ var el=document.getElementById('liveStatus'); if(!el) return; el.className='live-status '+(cls||''); el.innerHTML=msg; }
+
+function roundToIndex(raw){
+  if(raw===null||raw===undefined) return null;
+  var s=(''+raw).trim().toLowerCase().replace(/\s+/g,'');
+  s=s.replace(/^spieltag/,'').replace(/^runde/,'').replace(/^r/,'');
+  if(s.indexOf('2a')>=0) return 1;
+  if(s.indexOf('2b')>=0) return 2;
+  if(s==='1'||s==='0') return 0;
+  if(s==='2') return 1;
+  if(s==='3') return 3;
+  var n=parseInt(raw,10);
+  if(!isNaN(n)){ if(n===1)return 0; if(n===2)return 1; if(n===3)return 3; if(n===0)return 0; }
+  return null;
+}
+
 function applySheetRows(rows){
   DATA.players.forEach(function(p){ DATA.scores[p.key]=DATA.scores[p.key].map(function(){return new Array(18).fill(null);}); });
   var applied=0;
   rows.forEach(function(rw){
-    var lbl=_lnorm(rw.runde);
-    var ri = (lbl in ROUND_LABEL_TO_INDEX) ? ROUND_LABEL_TO_INDEX[lbl] : parseInt(rw.runde,10);
-    if(isNaN(ri)||ri<0||ri>3) return;
+    var ri=roundToIndex(rw.runde);
+    if(ri===null) return;
     var nk=_lnorm(rw.name); var keys=null;
     if(SHEET_TEAM_KEYS[nk]) keys=SHEET_TEAM_KEYS[nk];
     else if(SHEET_NAME_TO_KEY[nk]) keys=[SHEET_NAME_TO_KEY[nk]];
@@ -1146,7 +1165,7 @@ function loadLiveScores(silent){
       if(typeof renderChips==='function') renderChips();
       if(typeof renderDetail==='function') renderDetail();
       var ts=new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
-      setLiveStatus('🟢 Live · Stand '+ts,'ok');
+      var br=(window.__lastApply&&window.__lastApply.byRound)||{}; var _lbl=['1','2a','2b','3']; var _p=[];[0,1,2,3].forEach(function(k){ if(br[k]>0) _p.push(_lbl[k]); });setLiveStatus('🟢 Live · Stand '+ts+(_p.length?(' · Runden: '+_p.join(', ')):''),'ok');
     })
     .catch(function(err){ setLiveStatus('🔴 Live-Abruf fehlgeschlagen – Sheet öffentlich lesbar? ('+err.message+')','err'); });
 }
