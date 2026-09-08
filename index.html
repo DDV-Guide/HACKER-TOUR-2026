@@ -172,8 +172,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
  .content{padding:22px 16px} .grid2,.stat-row,.prize-grid,.md-grid{grid-template-columns:1fr}
  .hero{padding:34px 16px 30px} .hero-logo{width:170px;margin-bottom:20px} .hero-stats{gap:22px}
  table{font-size:13px} thead th,tbody td{padding:10px 8px} .live-hero{padding:22px 18px}
- .timeline{flex-direction:column;gap:0} .timeline:before{top:20px;bottom:20px;left:17px;right:auto;width:2px;height:auto;background:linear-gradient(180deg,var(--accent),var(--gold))}
- .tl-item{display:flex;align-items:center;gap:14px;text-align:left;padding:12px 0} .tl-dot{margin:0;flex:0 0 34px;width:34px;height:34px;font-size:16px;line-height:1} .tl-item .tl-date{font-size:13px} .tl-item>div:not(.tl-dot){display:flex;flex-direction:column;gap:2px}
+ .timeline{flex-direction:column;gap:0} .timeline:before{top:22px;bottom:22px;left:18px;right:auto;width:2px;height:auto;background:linear-gradient(180deg,var(--accent),var(--gold))} .tl-item{display:grid;grid-template-columns:38px 1fr;grid-auto-rows:min-content;align-items:center;column-gap:14px;text-align:left;padding:12px 0} .tl-dot{margin:0;grid-column:1;grid-row:1 / span 3;align-self:center;width:38px;height:38px;font-size:17px;line-height:1} .tl-date{grid-column:2;grid-row:1;font-size:13.5px;margin:0;line-height:1.25} .tl-title{grid-column:2;grid-row:2;font-size:14px;margin:0;line-height:1.25} .tl-sub{grid-column:2;grid-row:3;font-size:12px;margin:0;line-height:1.25}
 }
 
 .ghost-btn{background:transparent!important;color:var(--txt)!important;border:1px solid var(--line)}
@@ -205,7 +204,35 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 .legend span{display:flex;align-items:center;gap:6px}
 .legend .lg{width:14px;height:14px;border-radius:4px;display:inline-block}
 .legend .lg.eagle{background:rgba(233,185,73,.7)} .legend .lg.birdie{background:rgba(229,72,77,.7)}
-.legend .lg.parc{background:var(--card2);border:1px solid var(--line)} .legend .lg.bogey{background:rgba(62,166,255,.4)} .legend .lg.dbogey{background:rgba(62,166,255,.7)}
+.legend .lg.parc{background:var(--card2);border:1px solid var(--line)} .legend .lg.bogey{background:rgba(62,166,255,.4)} .legend .lg.dbogey{background:rgba(62,166,255,.7)
+  /* --- Mobile polish --- */
+  html,body{overflow-x:hidden}
+  .content{padding:20px 14px}
+  .page-head{align-items:flex-start}
+  .page-head h1{font-size:24px;line-height:1.15}
+  .fee-badge{font-size:12.5px;padding:7px 12px}
+  .card{padding:18px 16px;border-radius:16px}
+  .card h3{font-size:14.5px}
+  .stat{padding:14px}
+  .stat .v{font-size:21px}
+  .best-hero{padding:16px}
+  .best-hero .bh-l{min-width:140px}
+  .bh-num{font-size:20px}
+  .bh-name{font-size:18px}
+  .live-hero h1{font-size:30px}
+  .teet{font-size:26px}
+  .map{height:230px}
+  table{font-size:12.5px}
+  thead th,tbody td{padding:9px 7px}
+  .sc-table th,.sc-table td{padding:7px 3px;font-size:11.5px}
+  .back-btn{width:100%;justify-content:center}
+  .btn,.cta{width:100%;justify-content:center;text-align:center}
+  .map-actions{flex-direction:column;align-items:stretch}
+  .map-actions .drive-pill{text-align:center}
+  .hero-cta .cta{width:100%}
+  .side-brand{padding-left:4px}
+
+}
 </style>
 </head>
 <body>
@@ -256,6 +283,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
       </section>
 
       <section class="view" id="dashboard">
+        <button class="back-btn" onclick="goBack()">← Zurück</button>
         <div class="live-hero"><div class="lh-in"><span class="live-tag"><span class="live-dot"></span>LIVE STANDINGS</span><h1>Leaderboard</h1><div class="lh-sub">🍺 Wer greift nach dem goldenen Zapfhahn? · Wird jeden Abend nach den Spieltagen aktualisiert</div></div></div>
         <div class="stat-row"><div class="stat"><div class="k">Spieltage insgesamt</div><div class="v" id="stTotal">4</div></div><div class="stat"><div class="k">Davon gespielt</div><div class="v g" id="stPlayed">0</div></div><div class="stat"><div class="k">Noch zu spielen</div><div class="v" id="stRemain">4</div></div><div class="stat"><div class="k">Preisgeld gesamt</div><div class="v g">280 €</div></div></div>
 
@@ -304,12 +332,14 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
       </section>
 
       <section class="view" id="players">
+        <button class="back-btn" onclick="goBack()">← Zurück</button>
         <div class="page-head"><div><div class="eyebrow">Teilnehmerfeld</div><h1>Spieler</h1></div></div>
         <div class="card" style="max-width:520px"><div class="scroll-x"><table><thead><tr><th>#</th><th>Player</th><th>Hcp</th></tr></thead><tbody><tr><td class="pos">1</td><td class="pname"><span class="pname-link" data-player="fbandt">F. Bandt</span></td><td>5,6</td></tr><tr><td class="pos">2</td><td class="pname"><span class="pname-link" data-player="lbreuer">L. Breuer</span></td><td>8,8</td></tr><tr><td class="pos">3</td><td class="pname"><span class="pname-link" data-player="dbusch">D. Busch</span></td><td>10,2</td></tr><tr><td class="pos">4</td><td class="pname"><span class="pname-link" data-player="jhaberstock">J. Haberstock</span></td><td>4,3</td></tr><tr><td class="pos">5</td><td class="pname"><span class="pname-link" data-player="jglatter">J. Glatter</span></td><td>9,6</td></tr><tr><td class="pos">6</td><td class="pname"><span class="pname-link" data-player="mglatter">M. Glatter</span></td><td>5,7</td></tr><tr><td class="pos">7</td><td class="pname"><span class="pname-link" data-player="mpreis">M. Preis</span></td><td>3,2</td></tr></tbody></table></div></div>
       </section>
 
       
     <section class="view" id="day1">
+        <button class="back-btn" onclick="goBack()">← Zurück</button>
       <div class="page-head"><div><div class="eyebrow">Samstag · 12.09.2026</div><h1>Spieltag 1 — Einzel / Cut Major</h1></div><span class="fee-badge">Greenfee 100,00 €</span></div>
       <div class="grid2">
         <div class="card map-card"><div class="course-title"><span class="pin">📍</span><span class="txt">Golfbaan Landgoed Bleijenbeek</span></div><p class="notes" style="margin-bottom:14px"><strong>Achtung – Ausnahme:</strong> An diesem Tag starten wir <strong>nicht vom Airbnb</strong>, sondern vom Solheim-Cup-Hotel <strong>Landgoed De Ruwenberg</strong> (siehe Tab „🏨 Hotel").</p><iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=6.055%2C51.4922%2C6.115%2C51.5522&layer=mapnik&marker=51.5222%2C6.085"></iframe>
@@ -323,6 +353,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
       <div class="card" style="margin-top:20px"><h3>🗺️ Platz-Informationen · Golfbaan Landgoed Bleijenbeek</h3><div class="stat-row" style="margin-bottom:16px"><div class="stat"><div class="k">Par gesamt</div><div class="v g">73</div></div><div class="stat"><div class="k">Länge (Meter)</div><div class="v">6284</div></div><div class="stat"><div class="k">Par 3 / 4 / 5</div><div class="v">4 / 9 / 5</div></div><div class="stat"><div class="k">Info</div><div class="v" style="font-size:13px;color:var(--dim)">Par 72 · Referenz-Tee</div></div></div><div class="scroll-x"><table class="sc-table"><thead><tr><th class="rowlbl">Loch</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th class="sumh">OUT</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">4</td><td class="parrow">5</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">3</td><td class="sumh">35</td></tr><tr><td class="rowlbl">Meter</td><td class="">366</td><td class="">475</td><td class="">392</td><td class="">175</td><td class="">358</td><td class="">332</td><td class="">191</td><td class="">380</td><td class="">375</td><td class="sumh">3044</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">3</td><td class="dim">15</td><td class="dim">9</td><td class="dim">17</td><td class="dim">1</td><td class="dim">7</td><td class="dim">13</td><td class="dim">5</td><td class="dim">11</td><td class="sumh">81</td></tr></tbody></table><table class="sc-table" style="margin-top:10px"><thead><tr><th class="rowlbl">Loch</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th class="sumh">IN</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">5</td><td class="parrow">4</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">5</td><td class="parrow">4</td><td class="sumh">38</td></tr><tr><td class="rowlbl">Meter</td><td class="">507</td><td class="">310</td><td class="">297</td><td class="">155</td><td class="">461</td><td class="">371</td><td class="">178</td><td class="">490</td><td class="">471</td><td class="sumh">3240</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">2</td><td class="dim">16</td><td class="dim">10</td><td class="dim">14</td><td class="dim">12</td><td class="dim">6</td><td class="dim">18</td><td class="dim">4</td><td class="dim">8</td><td class="sumh">90</td></tr></tbody></table></div></div>
     </section>
     <section class="view" id="day2a">
+        <button class="back-btn" onclick="goBack()">← Zurück</button>
       <div class="page-head"><div><div class="eyebrow">Sonntag · 13.09.2026 · Vormittag</div><h1>Spieltag 2a — Scramble (Vormittag)</h1></div><span class="fee-badge">Greenfee 55,00 €</span></div>
       <div class="grid2">
         <div class="card map-card"><div class="course-title"><span class="pin">📍</span><span class="txt">Golfvereniging Golfhorst</span></div><iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=6.044%2C51.4%2C6.104%2C51.46&layer=mapnik&marker=51.43%2C6.074"></iframe>
@@ -336,6 +367,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
             <div class="card" style="margin-top:20px"><h3>🗺️ Platz-Informationen · Golfbaan de Golfhorst</h3><div class="stat-row" style="margin-bottom:16px"><div class="stat"><div class="k">Par gesamt</div><div class="v g">70</div></div><div class="stat"><div class="k">Länge (Meter)</div><div class="v">5098</div></div><div class="stat"><div class="k">Par 3 / 4 / 5</div><div class="v">7 / 6 / 5</div></div><div class="stat"><div class="k">Info</div><div class="v" style="font-size:13px;color:var(--dim)">Raamweg 8, 5966 RM America · Par 70</div></div></div><div class="scroll-x"><table class="sc-table"><thead><tr><th class="rowlbl">Loch</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th class="sumh">OUT</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">5</td><td class="parrow">5</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">3</td><td class="parrow">4</td><td class="sumh">36</td></tr><tr><td class="rowlbl">Meter</td><td class="">445</td><td class="">416</td><td class="">458</td><td class="">101</td><td class="">350</td><td class="">295</td><td class="">152</td><td class="">157</td><td class="">339</td><td class="sumh">2713</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">7</td><td class="dim">5</td><td class="dim">3</td><td class="dim">17</td><td class="dim">1</td><td class="dim">11</td><td class="dim">15</td><td class="dim">13</td><td class="dim">9</td><td class="sumh">81</td></tr></tbody></table><table class="sc-table" style="margin-top:10px"><thead><tr><th class="rowlbl">Loch</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th class="sumh">IN</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">3</td><td class="parrow">5</td><td class="parrow">4</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">3</td><td class="sumh">34</td></tr><tr><td class="rowlbl">Meter</td><td class="">152</td><td class="">471</td><td class="">341</td><td class="">443</td><td class="">115</td><td class="">230</td><td class="">182</td><td class="">312</td><td class="">139</td><td class="sumh">2385</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">14</td><td class="dim">4</td><td class="dim">2</td><td class="dim">6</td><td class="dim">12</td><td class="dim">18</td><td class="dim">10</td><td class="dim">8</td><td class="dim">16</td><td class="sumh">90</td></tr></tbody></table></div></div>
     </section>
     <section class="view" id="day2b">
+        <button class="back-btn" onclick="goBack()">← Zurück</button>
       <div class="page-head"><div><div class="eyebrow">Sonntag · 13.09.2026 · Nachmittag</div><h1>Spieltag 2b — Single (Nachmittag)</h1></div><span class="fee-badge">Greenfee 60,00 €</span></div>
       <div class="grid2">
         <div class="card map-card"><div class="course-title"><span class="pin">📍</span><span class="txt">Golf- en Countryclub "Geijsteren"</span></div><iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=6.037999999999999%2C51.51%2C6.098%2C51.57&layer=mapnik&marker=51.54%2C6.068"></iframe>
@@ -349,6 +381,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
       <div class="card" style="margin-top:20px"><h3>🗺️ Platz-Informationen · Golf- & Countryclub "Geijsteren"</h3><div class="stat-row" style="margin-bottom:16px"><div class="stat"><div class="k">Par gesamt</div><div class="v g">72</div></div><div class="stat"><div class="k">Länge (Meter)</div><div class="v">5893</div></div><div class="stat"><div class="k">Par 3 / 4 / 5</div><div class="v">4 / 10 / 4</div></div><div class="stat"><div class="k">Info</div><div class="v" style="font-size:13px;color:var(--dim)">Par 72 · Geel-Tee</div></div></div><div class="scroll-x"><table class="sc-table"><thead><tr><th class="rowlbl">Loch</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th class="sumh">OUT</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">5</td><td class="parrow">3</td><td class="sumh">35</td></tr><tr><td class="rowlbl">Meter</td><td class="">344</td><td class="">285</td><td class="">379</td><td class="">320</td><td class="">336</td><td class="">335</td><td class="">164</td><td class="">464</td><td class="">163</td><td class="sumh">2790</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">6</td><td class="dim">16</td><td class="dim">2</td><td class="dim">8</td><td class="dim">14</td><td class="dim">4</td><td class="dim">12</td><td class="dim">10</td><td class="dim">18</td><td class="sumh">90</td></tr></tbody></table><table class="sc-table" style="margin-top:10px"><thead><tr><th class="rowlbl">Loch</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th class="sumh">IN</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">5</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">5</td><td class="parrow">4</td><td class="parrow">4</td><td class="sumh">37</td></tr><tr><td class="rowlbl">Meter</td><td class="">456</td><td class="">340</td><td class="">180</td><td class="">365</td><td class="">442</td><td class="">137</td><td class="">442</td><td class="">370</td><td class="">371</td><td class="sumh">3103</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">9</td><td class="dim">15</td><td class="dim">3</td><td class="dim">17</td><td class="dim">13</td><td class="dim">7</td><td class="dim">11</td><td class="dim">5</td><td class="dim">1</td><td class="sumh">81</td></tr></tbody></table></div></div>
     </section>
     <section class="view" id="day3">
+        <button class="back-btn" onclick="goBack()">← Zurück</button>
       <div class="page-head"><div><div class="eyebrow">Montag · 14.09.2026</div><h1>Spieltag 3 — Major (Finale)</h1></div><span class="fee-badge">Greenfee 115,50 €</span></div>
       <div class="grid2">
         <div class="card map-card"><div class="course-title"><span class="pin">📍</span><span class="txt">Golfbaan Stippelberg</span></div><iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=5.77%2C51.568%2C5.83%2C51.628&layer=mapnik&marker=51.598%2C5.8"></iframe>
@@ -365,6 +398,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
       
       <!-- AIRBNB -->
       <section class="view" id="airbnb">
+        <button class="back-btn" onclick="goBack()">← Zurück</button>
         <div class="page-head">
           <div><div class="eyebrow">12. – 15.09.2026 · Base Camp</div><h1>🏡 Buitenplaats de Zuydsehoeve</h1></div>
           <a class="fee-badge" href="https://www.airbnb.de/rooms/1426839466246647636?unique_share_id=21bdc3e1-f3a4-40e7-a7ee-119300e14b18&viralityEntryPoint=1&s=76&source_impression_id=p3_1788779446_P3NYxkFeyOOprpDR" target="_blank" style="text-decoration:none">Auf Airbnb ansehen ↗</a>
@@ -432,6 +466,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
       </section>
 
       <section class="view" id="hotel">
+        <button class="back-btn" onclick="goBack()">← Zurück</button>
         <div class="page-head"><div><div class="eyebrow">Freitag · 11.09.2026 · Solheim Cup</div><h1>🏨 Landgoed De Ruwenberg</h1></div><span class="fee-badge">Übernachtung Solheim-Cup-Tag</span></div>
         <div class="grid2">
           <div class="card map-card"><h3>📍 Landgoed De Ruwenberg</h3><iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=5.328%2C51.616%2C5.367999999999999%2C51.656000000000006&layer=mapnik&marker=51.636%2C5.348"></iframe>
@@ -461,6 +496,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
       
       <!-- PACKLISTE -->
       <section class="view" id="packliste">
+        <button class="back-btn" onclick="goBack()">← Zurück</button>
         <div class="page-head"><div><div class="eyebrow">Was muss mit?</div><h1>🎒 Packliste</h1></div></div>
         <div class="card" style="max-width:640px">
           <h3>Zu packende Themen &amp; Zuständigkeit</h3>
@@ -480,6 +516,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
       </section>
 
       <section class="view" id="info">
+        <button class="back-btn" onclick="goBack()">← Zurück</button>
         <div class="page-head"><div><div class="eyebrow">Regelwerk</div><h1>Ermittlung des Champions & Preisgeld</h1></div></div>
         <div class="card"><h3>👑 Ermittlung des Champions</h3>
           <p>Jeder Spieler spielt in jeder Runde seinen Ball komplett bis ins Loch (Strich: Doppelpar). Der Spieler mit dem besten Netto-Score aus <strong>3 Einzelrunden</strong> sowie dem <strong>Teamzock</strong> wird am <strong>Montagabend</strong> bei der Siegerehrung zum <span style="color:var(--red);font-weight:700">Champion</span> gekrönt.</p>
@@ -517,7 +554,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 const views=document.querySelectorAll('.view');const navbtns=document.querySelectorAll('.navbtn');
 const sidebar=document.getElementById('sidebar');const backdrop=document.getElementById('backdrop');
 function closeMenu(){sidebar.classList.remove('open');backdrop.classList.remove('show');}
-var PREV_VIEW='welcome';var CUR_VIEW='welcome';function go(v){if(v!==CUR_VIEW){PREV_VIEW=CUR_VIEW;}CUR_VIEW=v;views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));window.scrollTo({top:0,behavior:'smooth'});closeMenu();if(v==='scores'){renderChips();renderDetail();}if(v==='dashboard'){renderDashboard();}}function goBack(){go(PREV_VIEW && PREV_VIEW!=='scores' ? PREV_VIEW : 'dashboard');}
+var VIEW_STACK=[];var CUR_VIEW='welcome';function applyView(v){views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));window.scrollTo({top:0,behavior:'smooth'});closeMenu();if(v==='scores'){renderChips();renderDetail();}if(v==='dashboard'){renderDashboard();}}function go(v){if(v===CUR_VIEW)return;VIEW_STACK.push(CUR_VIEW);CUR_VIEW=v;applyView(v);}function goBack(){var prev=VIEW_STACK.pop();var t=prev||'welcome';CUR_VIEW=t;applyView(t);}
 document.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',()=>go(el.dataset.view)));
 function goPlayer(key){ if(!key) return; currentPlayer=key; go('scores'); }
 document.addEventListener('click',function(e){
