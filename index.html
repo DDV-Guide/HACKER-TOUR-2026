@@ -142,6 +142,21 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 .pname-link{color:var(--txt);font-weight:600;cursor:pointer;border-bottom:1px dotted rgba(233,185,73,.5);transition:.15s}
 .pname-link:hover{color:var(--gold2);border-bottom-color:var(--gold2)}
 
+
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--line);color:var(--dim);padding:9px 16px;border-radius:10px;font-family:'Inter';font-weight:600;font-size:13.5px;cursor:pointer;margin-bottom:18px;transition:.15s}
+.back-btn:hover{color:var(--gold2);border-color:rgba(233,185,73,.5);transform:translateX(-2px)}
+.pk-person{display:inline-block;background:rgba(47,191,113,.14);color:var(--grn);border:1px solid rgba(47,191,113,.35);padding:4px 12px;border-radius:20px;font-weight:600;font-size:13px}
+.pk-person.tbd{background:rgba(233,185,73,.12);color:var(--gold2);border-color:rgba(233,185,73,.4)}
+
+
+
+
+
+
+
+  
+@media(max-width:900px){}
+
 @media(max-width:900px){.best-hero{gap:14px}.bh-mid,.bh-score{min-width:60px}.bh-num{font-size:22px}.bh-name{font-size:20px}}
 
 @media(max-width:900px){.ab-photo-grid{grid-template-columns:1fr 1fr}}
@@ -191,7 +206,8 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 .legend .lg{width:14px;height:14px;border-radius:4px;display:inline-block}
 .legend .lg.eagle{background:rgba(233,185,73,.7)} .legend .lg.birdie{background:rgba(229,72,77,.7)}
 .legend .lg.parc{background:var(--card2);border:1px solid var(--line)} .legend .lg.bogey{background:rgba(62,166,255,.4)} .legend .lg.dbogey{background:rgba(62,166,255,.7)}
-</style></head>
+</style>
+</head>
 <body>
 <div class="shell">
   <div class="backdrop" id="backdrop"></div>
@@ -202,6 +218,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
     <button class="navbtn" data-view="dashboard">📊 Live Standings</button>
     <button class="navbtn" data-view="hotel">🏨 Hotel (Solheim Cup)</button>
     <button class="navbtn" data-view="airbnb">🏡 Airbnb (Base Camp)</button>
+    <button class="navbtn" data-view="packliste">🎒 Packliste</button>
     <div class="navlabel">Spieltage</div>
     <button class="navbtn" data-view="day1">⛳ Spieltag 1 · Sa 12.09.</button>
 <button class="navbtn" data-view="day2a">⛳ Spieltag 2a · So 13.09. (Vorm.)</button>
@@ -240,7 +257,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 
       <section class="view" id="dashboard">
         <div class="live-hero"><div class="lh-in"><span class="live-tag"><span class="live-dot"></span>LIVE STANDINGS</span><h1>Leaderboard</h1><div class="lh-sub">🍺 Wer greift nach dem goldenen Zapfhahn? · Wird jeden Abend nach den Spieltagen aktualisiert</div></div></div>
-        <div class="stat-row"><div class="stat"><div class="k">Spieler</div><div class="v g">7</div></div><div class="stat"><div class="k">Spieltage</div><div class="v">4</div></div><div class="stat"><div class="k">Plätze</div><div class="v">4</div></div><div class="stat"><div class="k">Preisgeld gesamt</div><div class="v g">280 €</div></div></div>
+        <div class="stat-row"><div class="stat"><div class="k">Spieltage insgesamt</div><div class="v" id="stTotal">4</div></div><div class="stat"><div class="k">Davon gespielt</div><div class="v g" id="stPlayed">0</div></div><div class="stat"><div class="k">Noch zu spielen</div><div class="v" id="stRemain">4</div></div><div class="stat"><div class="k">Preisgeld gesamt</div><div class="v g">280 €</div></div></div>
 
         <div class="card"><h3>🏆 Champion-Wertung — Netto gesamt <span style="font-weight:500;color:var(--muted);font-size:12px">(3 Einzelrunden + Team-Scramble)</span></h3>
           <div class="scroll-x"><table>
@@ -441,6 +458,27 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
         </div>
       </section>
 
+      
+      <!-- PACKLISTE -->
+      <section class="view" id="packliste">
+        <div class="page-head"><div><div class="eyebrow">Was muss mit?</div><h1>🎒 Packliste</h1></div></div>
+        <div class="card" style="max-width:640px">
+          <h3>Zu packende Themen &amp; Zuständigkeit</h3>
+          <div class="scroll-x">
+          <table>
+            <thead><tr><th>Thema</th><th>Zuständig</th></tr></thead>
+            <tbody>
+              <tr><td class="pname">🃏 Poker-Set</td><td><span class="pk-person">Marcel Glatter</span></td></tr>
+              <tr><td class="pname">🥄 Schockbesteck</td><td><span class="pk-person">Alle</span></td></tr>
+              <tr><td class="pname">🔊 Musik-Box</td><td><span class="pk-person tbd">TBD — noch zu klären</span></td></tr>
+              <tr><td class="pname">🍺 Bier-Pong-Tisch (inkl. Bälle & Cups)</td><td><span class="pk-person tbd">TBD — noch zu klären</span></td></tr>
+            </tbody>
+          </table>
+          </div>
+          <p class="notes" style="margin-top:16px">🟡 „TBD" = Zuständigkeit noch offen — bitte klären, wer mitbringt.</p>
+        </div>
+      </section>
+
       <section class="view" id="info">
         <div class="page-head"><div><div class="eyebrow">Regelwerk</div><h1>Ermittlung des Champions & Preisgeld</h1></div></div>
         <div class="card"><h3>👑 Ermittlung des Champions</h3>
@@ -454,6 +492,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
       
       <!-- SCORES -->
       <section class="view" id="scores">
+        <button class="back-btn" onclick="goBack()">← Zurück</button>
         <div class="page-head"><div><div class="eyebrow">Detailauswertung</div><h1>📊 Scores &amp; Auswertung</h1></div></div>
 
         <div class="live-hero" style="margin-bottom:20px"><div class="lh-in">
@@ -478,7 +517,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 const views=document.querySelectorAll('.view');const navbtns=document.querySelectorAll('.navbtn');
 const sidebar=document.getElementById('sidebar');const backdrop=document.getElementById('backdrop');
 function closeMenu(){sidebar.classList.remove('open');backdrop.classList.remove('show');}
-function go(v){views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));window.scrollTo({top:0,behavior:'smooth'});closeMenu();if(v==='scores'){renderChips();renderDetail();}if(v==='dashboard'){renderDashboard();}}
+var PREV_VIEW='welcome';var CUR_VIEW='welcome';function go(v){if(v!==CUR_VIEW){PREV_VIEW=CUR_VIEW;}CUR_VIEW=v;views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));window.scrollTo({top:0,behavior:'smooth'});closeMenu();if(v==='scores'){renderChips();renderDetail();}if(v==='dashboard'){renderDashboard();}}function goBack(){go(PREV_VIEW && PREV_VIEW!=='scores' ? PREV_VIEW : 'dashboard');}
 document.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',()=>go(el.dataset.view)));
 function goPlayer(key){ if(!key) return; currentPlayer=key; go('scores'); }
 document.addEventListener('click',function(e){
@@ -809,7 +848,7 @@ function renderBestSingle(){
   body.innerHTML = rowsPlayed + rowsEmpty;
 }
 
-function renderDashboard(){ renderChampion(); renderBestSingle(); renderBirdies(); }
+function renderDashboard(){ renderChampion(); renderBestSingle(); renderBirdies(); renderStats(); }
 
 
 try{renderDashboard();}catch(e){}
@@ -936,6 +975,24 @@ function renderBirdies(){
       <td class="net">${x.birdies}</td><td>${x.eagles}</td><td class="dim">${x.roundsPlayed}</td></tr>`;
   }).join('');
 }
+
+
+// ================= Live-Standings Kennzahlen (gespielt / offen) =================
+function roundIsPlayed(ri){
+  return DATA.players.some(p=>{
+    const rd=DATA.scores[p.key][ri]; if(!rd) return false;
+    let n=0; for(let i=0;i<18;i++){ if(rd[i]!==null&&rd[i]!==undefined&&rd[i]!=="") n++; }
+    return n>=18;
+  });
+}
+function renderStats(){
+  const total=DATA.rounds.length; let played=0;
+  for(let ri=0; ri<total; ri++){ if(roundIsPlayed(ri)) played++; }
+  const t=document.getElementById('stTotal'), pl=document.getElementById('stPlayed'), rm=document.getElementById('stRemain');
+  if(t) t.textContent=total; if(pl) pl.textContent=played; if(rm) rm.textContent=(total-played);
+}
+
+
 
 </script>
 </body></html>
