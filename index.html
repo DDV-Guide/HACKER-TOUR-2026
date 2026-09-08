@@ -1107,9 +1107,16 @@ function parseGviz(text){
   var rows=[];
   (obj.table.rows||[]).forEach(function(r){
     var cells=r.c||[];
+    // reiner Wert v
     function val(i){ return (cells[i]&&cells[i].v!==null&&cells[i].v!==undefined)? cells[i].v : null; }
-    var runde=val(idxRunde); var name=val(idxName);
-    if(name===null||runde===null) return;
+    // bevorzugt formatierter Text f (wichtig fuer "2a"/"2b", die Google als gemischte Zelle liefert)
+    function txt(i){
+      if(!cells[i]) return null;
+      if(cells[i].f!==null && cells[i].f!==undefined && cells[i].f!=='') return cells[i].f;
+      return (cells[i].v!==null && cells[i].v!==undefined)? cells[i].v : null;
+    }
+    var runde=txt(idxRunde); var name=txt(idxName);
+    if(name===null||name===''||runde===null||runde==='') return;
     rows.push({runde:runde, name:name, holes:holeIdx.map(function(i){return val(i);})});
   });
   return rows;
@@ -1129,8 +1136,8 @@ function parseTeamsGviz(text){
   var t1=[], t2=[];
   (obj.table.rows||[]).forEach(function(r){
     var cells=r.c||[];
-    function val(i){ return (cells[i]&&cells[i].v!==null&&cells[i].v!==undefined)? cells[i].v : null; }
-    var n1=val(c1), n2=val(c2);
+    function txt(i){ if(!cells[i]) return null; if(cells[i].f!==null&&cells[i].f!==undefined&&cells[i].f!=='') return cells[i].f; return (cells[i].v!==null&&cells[i].v!==undefined)? cells[i].v : null; }
+    var n1=txt(c1), n2=txt(c2);
     if(n1){ var k1=SHEET_NAME_TO_KEY[_lnorm(n1)]; if(k1) t1.push(k1); }
     if(n2){ var k2=SHEET_NAME_TO_KEY[_lnorm(n2)]; if(k2) t2.push(k2); }
   });
