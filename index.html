@@ -138,6 +138,10 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 .bh-num{font-family:'Sora';font-weight:800;font-size:28px}
 .bh-num.g{color:var(--gold2)}
 .bh-lbl{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:2px}
+
+.pname-link{color:var(--txt);font-weight:600;cursor:pointer;border-bottom:1px dotted rgba(233,185,73,.5);transition:.15s}
+.pname-link:hover{color:var(--gold2);border-bottom-color:var(--gold2)}
+
 @media(max-width:900px){.best-hero{gap:14px}.bh-mid,.bh-score{min-width:60px}.bh-num{font-size:22px}.bh-name{font-size:20px}}
 
 @media(max-width:900px){.ab-photo-grid{grid-template-columns:1fr 1fr}}
@@ -255,6 +259,14 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
           </table></div>
         </div>
 
+        <div class="card" style="margin-top:20px">
+          <h3>🐦 Birdie-Wertung <span style="font-weight:500;color:var(--muted);font-size:12px">(alle Runden · Score = Par − 1 oder besser)</span></h3>
+          <div id="birdieHero"></div>
+          <div class="scroll-x" style="margin-top:16px"><table>
+            <thead><tr><th>#</th><th>Player</th><th>Birdies</th><th>davon Eagles+</th><th>Runden</th></tr></thead>
+            <tbody id="birdieBody"></tbody>
+          </table></div>
+        </div>
         <div class="card" style="margin-top:20px"><h3>⛳ Spieltage</h3><div class="md-grid">
       <button class="md-card" data-view="day1"><div class="md-chip">SA</div>
         <div class="md-body"><div class="md-name">Spieltag 1 · Sa 12.09.</div><div class="md-sub">Golfbaan Landgoed Bleijenbeek</div>
@@ -276,7 +288,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 
       <section class="view" id="players">
         <div class="page-head"><div><div class="eyebrow">Teilnehmerfeld</div><h1>Spieler</h1></div></div>
-        <div class="card" style="max-width:520px"><div class="scroll-x"><table><thead><tr><th>#</th><th>Player</th><th>Hcp</th></tr></thead><tbody><tr><td class="pos">1</td><td class="pname">F. Bandt</td><td>5,6</td></tr><tr><td class="pos">2</td><td class="pname">L. Breuer</td><td>8,8</td></tr><tr><td class="pos">3</td><td class="pname">D. Busch</td><td>10,2</td></tr><tr><td class="pos">4</td><td class="pname">J. Haberstock</td><td>4,3</td></tr><tr><td class="pos">5</td><td class="pname">J. Glatter</td><td>9,6</td></tr><tr><td class="pos">6</td><td class="pname">M. Glatter</td><td>5,7</td></tr><tr><td class="pos">7</td><td class="pname">M. Preis</td><td>3,2</td></tr></tbody></table></div></div>
+        <div class="card" style="max-width:520px"><div class="scroll-x"><table><thead><tr><th>#</th><th>Player</th><th>Hcp</th></tr></thead><tbody><tr><td class="pos">1</td><td class="pname"><span class="pname-link" data-player="fbandt">F. Bandt</span></td><td>5,6</td></tr><tr><td class="pos">2</td><td class="pname"><span class="pname-link" data-player="lbreuer">L. Breuer</span></td><td>8,8</td></tr><tr><td class="pos">3</td><td class="pname"><span class="pname-link" data-player="dbusch">D. Busch</span></td><td>10,2</td></tr><tr><td class="pos">4</td><td class="pname"><span class="pname-link" data-player="jhaberstock">J. Haberstock</span></td><td>4,3</td></tr><tr><td class="pos">5</td><td class="pname"><span class="pname-link" data-player="jglatter">J. Glatter</span></td><td>9,6</td></tr><tr><td class="pos">6</td><td class="pname"><span class="pname-link" data-player="mglatter">M. Glatter</span></td><td>5,7</td></tr><tr><td class="pos">7</td><td class="pname"><span class="pname-link" data-player="mpreis">M. Preis</span></td><td>3,2</td></tr></tbody></table></div></div>
       </section>
 
       
@@ -304,7 +316,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
           <div class="card"><h3>🎮 Spielmodus · Scramble — Teams: 3 vs. 4</h3><p>Beim Scramble tritt ein 3er-Team gegen ein 4er-Team an. Um den Vorteil des 4er-Teams (ein Spieler mehr) auszugleichen gelten folgende Regeln:</p><ul class="pl" style="margin-top:12px"><li><strong>3er-Team:</strong> Von jedem Spieler müssen mindestens 5 Abschläge verwendet werden.</li><li><strong>4er-Team:</strong> Von jedem Spieler müssen mindestens 4 Abschläge und mindestens 2 zweite Schläge (ohne Par 3) verwendet werden.</li></ul><p class="notes"><strong>Hinweis:</strong> Teams werden zusammengestellt anhand der Handicaps, um ein Match ohne Vorgaben zu generieren.</p></div></div>
       </div><div class="grid2"><div class="card"><h3>🏆 Platzierungen & Konsequenzen</h3><ul class="pl"><li><strong>Gewinnerteam:</strong> Ein (1) Nettoschlag Abzug bei der Einzelrunde am Nachmittag</li><li><strong>Verliererteam:</strong> Bierchen an Tee 1 vernichten</li></ul></div></div>
     
-      <div class="card" style="margin-top:20px"><h3>🗺️ Platz-Informationen · Golfbaan de Golfhorst</h3><div class="stat-row" style="margin-bottom:16px"><div class="stat"><div class="k">Par gesamt</div><div class="v g">70</div></div><div class="stat"><div class="k">Länge (Meter)</div><div class="v">4370</div></div><div class="stat"><div class="k">Par 3 / 4 / 5</div><div class="v">7 / 6 / 5</div></div><div class="stat"><div class="k">Info</div><div class="v" style="font-size:13px;color:var(--dim)">Raamweg 8, 5966 RM America · Par 70</div></div></div><div class="scroll-x"><table class="sc-table"><thead><tr><th class="rowlbl">Loch</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th class="sumh">OUT</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">5</td><td class="parrow">5</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">3</td><td class="parrow">4</td><td class="sumh">36</td></tr><tr><td class="rowlbl">Meter</td><td class="">368</td><td class="">367</td><td class="">398</td><td class="">94</td><td class="">303</td><td class="">271</td><td class="">105</td><td class="">143</td><td class="">281</td><td class="sumh">2330</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">7</td><td class="dim">5</td><td class="dim">3</td><td class="dim">17</td><td class="dim">1</td><td class="dim">11</td><td class="dim">15</td><td class="dim">13</td><td class="dim">9</td><td class="sumh">81</td></tr></tbody></table><table class="sc-table" style="margin-top:10px"><thead><tr><th class="rowlbl">Loch</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th class="sumh">IN</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">3</td><td class="parrow">5</td><td class="parrow">4</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">3</td><td class="sumh">34</td></tr><tr><td class="rowlbl">Meter</td><td class="">134</td><td class="">400</td><td class="">306</td><td class="">382</td><td class="">103</td><td class="">197</td><td class="">127</td><td class="">271</td><td class="">120</td><td class="sumh">2040</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">14</td><td class="dim">4</td><td class="dim">2</td><td class="dim">6</td><td class="dim">12</td><td class="dim">18</td><td class="dim">10</td><td class="dim">8</td><td class="dim">16</td><td class="sumh">90</td></tr></tbody></table></div></div>
+            <div class="card" style="margin-top:20px"><h3>🗺️ Platz-Informationen · Golfbaan de Golfhorst</h3><div class="stat-row" style="margin-bottom:16px"><div class="stat"><div class="k">Par gesamt</div><div class="v g">70</div></div><div class="stat"><div class="k">Länge (Meter)</div><div class="v">5098</div></div><div class="stat"><div class="k">Par 3 / 4 / 5</div><div class="v">7 / 6 / 5</div></div><div class="stat"><div class="k">Info</div><div class="v" style="font-size:13px;color:var(--dim)">Raamweg 8, 5966 RM America · Par 70</div></div></div><div class="scroll-x"><table class="sc-table"><thead><tr><th class="rowlbl">Loch</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th class="sumh">OUT</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">5</td><td class="parrow">5</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">3</td><td class="parrow">4</td><td class="sumh">36</td></tr><tr><td class="rowlbl">Meter</td><td class="">445</td><td class="">416</td><td class="">458</td><td class="">101</td><td class="">350</td><td class="">295</td><td class="">152</td><td class="">157</td><td class="">339</td><td class="sumh">2713</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">7</td><td class="dim">5</td><td class="dim">3</td><td class="dim">17</td><td class="dim">1</td><td class="dim">11</td><td class="dim">15</td><td class="dim">13</td><td class="dim">9</td><td class="sumh">81</td></tr></tbody></table><table class="sc-table" style="margin-top:10px"><thead><tr><th class="rowlbl">Loch</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th class="sumh">IN</th></tr></thead><tbody><tr><td class="rowlbl">Par</td><td class="parrow">3</td><td class="parrow">5</td><td class="parrow">4</td><td class="parrow">5</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">3</td><td class="parrow">4</td><td class="parrow">3</td><td class="sumh">34</td></tr><tr><td class="rowlbl">Meter</td><td class="">152</td><td class="">471</td><td class="">341</td><td class="">443</td><td class="">115</td><td class="">230</td><td class="">182</td><td class="">312</td><td class="">139</td><td class="sumh">2385</td></tr><tr><td class="rowlbl">S.I.</td><td class="dim">14</td><td class="dim">4</td><td class="dim">2</td><td class="dim">6</td><td class="dim">12</td><td class="dim">18</td><td class="dim">10</td><td class="dim">8</td><td class="dim">16</td><td class="sumh">90</td></tr></tbody></table></div></div>
     </section>
     <section class="view" id="day2b">
       <div class="page-head"><div><div class="eyebrow">Sonntag · 13.09.2026 · Nachmittag</div><h1>Spieltag 2b — Single (Nachmittag)</h1></div><span class="fee-badge">Greenfee 60,00 €</span></div>
@@ -468,10 +480,15 @@ const sidebar=document.getElementById('sidebar');const backdrop=document.getElem
 function closeMenu(){sidebar.classList.remove('open');backdrop.classList.remove('show');}
 function go(v){views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));window.scrollTo({top:0,behavior:'smooth'});closeMenu();if(v==='scores'){renderChips();renderDetail();}if(v==='dashboard'){renderDashboard();}}
 document.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',()=>go(el.dataset.view)));
+function goPlayer(key){ if(!key) return; currentPlayer=key; go('scores'); }
+document.addEventListener('click',function(e){
+  var el=e.target.closest('[data-player]');
+  if(el){ e.preventDefault(); goPlayer(el.getAttribute('data-player')); }
+});
 document.getElementById('burger').addEventListener('click',()=>{sidebar.classList.add('open');backdrop.classList.add('show');});
 backdrop.addEventListener('click',closeMenu);
 
-const DATA = {"par": [4, 5, 4, 4, 4, 4, 3, 4, 3, 5, 4, 5, 3, 4, 5, 3, 5, 4], "si": [3, 15, 9, 17, 1, 7, 13, 5, 11, 2, 16, 10, 14, 12, 6, 18, 4, 8], "rounds": ["R1 · Cut Major", "R2a · Scramble", "R2b · Single", "R3 · Major"], "players": [{"name": "F. Bandt", "hcp": "5,6", "phcp": 6, "key": "fbandt"}, {"name": "L. Breuer", "hcp": "8,8", "phcp": 9, "key": "lbreuer"}, {"name": "D. Busch", "hcp": "10,2", "phcp": 10, "key": "dbusch"}, {"name": "J. Haberstock", "hcp": "4,3", "phcp": 4, "key": "jhaberstock"}, {"name": "J. Glatter", "hcp": "9,6", "phcp": 10, "key": "jglatter"}, {"name": "M. Glatter", "hcp": "5,7", "phcp": 6, "key": "mglatter"}, {"name": "M. Preis", "hcp": "3,2", "phcp": 3, "key": "mpreis"}], "scores": {"fbandt": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "lbreuer": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "dbusch": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "jhaberstock": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "jglatter": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "mglatter": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "mpreis": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]}, "courses": {"Bleijenbeek": {"name": "Golfbaan Landgoed Bleijenbeek", "meta": "Par 72 · Referenz-Tee", "par": [4, 5, 4, 4, 4, 4, 3, 4, 3, 5, 4, 5, 3, 4, 5, 3, 5, 4], "si": [3, 15, 9, 17, 1, 7, 13, 5, 11, 2, 16, 10, 14, 12, 6, 18, 4, 8], "mtr": [366, 475, 392, 175, 358, 332, 191, 380, 375, 507, 310, 297, 155, 461, 371, 178, 490, 471]}, "Golfhorst": {"name": "Golfbaan de Golfhorst", "meta": "Raamweg 8, 5966 RM America · Par 70", "par": [5, 5, 5, 3, 4, 4, 3, 3, 4, 3, 5, 4, 5, 3, 4, 3, 4, 3], "si": [7, 5, 3, 17, 1, 11, 15, 13, 9, 14, 4, 2, 6, 12, 18, 10, 8, 16], "mtr": [368, 367, 398, 94, 303, 271, 105, 143, 281, 134, 400, 306, 382, 103, 197, 127, 271, 120]}, "Geijsteren": {"name": "Golf- & Countryclub \"Geijsteren\"", "meta": "Par 72 · Geel-Tee", "par": [4, 4, 4, 4, 4, 4, 3, 5, 3, 5, 4, 3, 4, 5, 3, 5, 4, 4], "si": [6, 16, 2, 8, 14, 4, 12, 10, 18, 9, 15, 3, 17, 13, 7, 11, 5, 1], "mtr": [344, 285, 379, 320, 336, 335, 164, 464, 163, 456, 340, 180, 365, 442, 137, 442, 370, 371]}, "Stippelberg": {"name": "Golfbaan Stippelberg (Championship)", "meta": "Hooizak 7, Gemert-Bakel · Par 71 · Geel-Tee", "par": [3, 5, 3, 4, 4, 4, 3, 5, 4, 4, 3, 4, 5, 3, 4, 4, 5, 4], "si": [15, 5, 17, 7, 1, 11, 13, 3, 9, 18, 4, 6, 14, 16, 12, 10, 8, 2], "mtr": [164, 475, 144, 330, 405, 334, 172, 503, 299, 385, 135, 538, 490, 155, 256, 341, 461, 347]}}, "roundCourse": ["Bleijenbeek", "Golfhorst", "Geijsteren", "Stippelberg"]};
+const DATA = {"par": [4, 5, 4, 4, 4, 4, 3, 4, 3, 5, 4, 5, 3, 4, 5, 3, 5, 4], "si": [3, 15, 9, 17, 1, 7, 13, 5, 11, 2, 16, 10, 14, 12, 6, 18, 4, 8], "rounds": ["R1 · Cut Major", "R2a · Scramble", "R2b · Single", "R3 · Major"], "players": [{"name": "F. Bandt", "hcp": "5,6", "phcp": 6, "key": "fbandt"}, {"name": "L. Breuer", "hcp": "8,8", "phcp": 9, "key": "lbreuer"}, {"name": "D. Busch", "hcp": "10,2", "phcp": 10, "key": "dbusch"}, {"name": "J. Haberstock", "hcp": "4,3", "phcp": 4, "key": "jhaberstock"}, {"name": "J. Glatter", "hcp": "9,6", "phcp": 10, "key": "jglatter"}, {"name": "M. Glatter", "hcp": "5,7", "phcp": 6, "key": "mglatter"}, {"name": "M. Preis", "hcp": "3,2", "phcp": 3, "key": "mpreis"}], "scores": {"fbandt": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "lbreuer": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "dbusch": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "jhaberstock": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "jglatter": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "mglatter": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "mpreis": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]}, "courses": {"Bleijenbeek": {"name": "Golfbaan Landgoed Bleijenbeek", "meta": "Par 72 · Referenz-Tee", "par": [4, 5, 4, 4, 4, 4, 3, 4, 3, 5, 4, 5, 3, 4, 5, 3, 5, 4], "si": [3, 15, 9, 17, 1, 7, 13, 5, 11, 2, 16, 10, 14, 12, 6, 18, 4, 8], "mtr": [366, 475, 392, 175, 358, 332, 191, 380, 375, 507, 310, 297, 155, 461, 371, 178, 490, 471]}, "Golfhorst": {"name": "Golfbaan de Golfhorst", "meta": "Raamweg 8, 5966 RM America · Par 70", "par": [5, 5, 5, 3, 4, 4, 3, 3, 4, 3, 5, 4, 5, 3, 4, 3, 4, 3], "si": [7, 5, 3, 17, 1, 11, 15, 13, 9, 14, 4, 2, 6, 12, 18, 10, 8, 16], "mtr": [445, 416, 458, 101, 350, 295, 152, 157, 339, 152, 471, 341, 443, 115, 230, 182, 312, 139]}, "Geijsteren": {"name": "Golf- & Countryclub \"Geijsteren\"", "meta": "Par 72 · Geel-Tee", "par": [4, 4, 4, 4, 4, 4, 3, 5, 3, 5, 4, 3, 4, 5, 3, 5, 4, 4], "si": [6, 16, 2, 8, 14, 4, 12, 10, 18, 9, 15, 3, 17, 13, 7, 11, 5, 1], "mtr": [344, 285, 379, 320, 336, 335, 164, 464, 163, 456, 340, 180, 365, 442, 137, 442, 370, 371]}, "Stippelberg": {"name": "Golfbaan Stippelberg (Championship)", "meta": "Hooizak 7, Gemert-Bakel · Par 71 · Geel-Tee", "par": [3, 5, 3, 4, 4, 4, 3, 5, 4, 4, 3, 4, 5, 3, 4, 4, 5, 4], "si": [15, 5, 17, 7, 1, 11, 13, 3, 9, 18, 4, 6, 14, 16, 12, 10, 8, 2], "mtr": [164, 475, 144, 330, 405, 334, 172, 503, 299, 385, 135, 538, 490, 155, 256, 341, 461, 347]}}, "roundCourse": ["Bleijenbeek", "Golfhorst", "Geijsteren", "Stippelberg"], "scrambleTeams": {"roundIndex": 1, "A": {"players": ["jglatter", "jhaberstock", "dbusch"], "gross": 63}, "B": {"players": ["fbandt", "lbreuer", "mglatter", "mpreis"], "gross": 64}}};
 
 // ---- helpers ----
 function parForRound(ri){
@@ -521,14 +538,17 @@ function fmtToPar(x){ if(x===0) return "E"; return x>0? "+"+x : ""+x; }
 function playerNettoTotal(pkey){
   const sc=DATA.scores[pkey];
   const pl=DATA.players.find(p=>p.key===pkey);
-  let totalGross=0, totalPar=0, anyPlayed=false;
+  const SCRAMBLE_RI = (DATA.scrambleTeams? DATA.scrambleTeams.roundIndex : -1);
+  let totalGross=0, totalPar=0, hcpTotal=0, anyPlayed=false;
   sc.forEach((rd,ri)=>{
     const t=roundTotals(rd, parForRound(ri));
-    if(t.played>0){ anyPlayed=true; totalGross+=t.gross; totalPar+=t.parPlayed; }
+    if(t.played>0){
+      anyPlayed=true; totalGross+=t.gross; totalPar+=t.parPlayed;
+      // Scramble: netto = brutto (kein Handicap-Abzug). Einzelrunden: volles Playing-Hcp.
+      if(ri!==SCRAMBLE_RI) hcpTotal+=pl.phcp;
+    }
   });
-  // simple netto: gross - playing handicap per played round (approx). If no rounds played -> null
-  const roundsPlayed = sc.filter((rd,ri)=>roundTotals(rd,parForRound(ri)).played>0).length;
-  const netto = anyPlayed ? (totalGross - pl.phcp*roundsPlayed) : null;
+  const netto = anyPlayed ? (totalGross - hcpTotal) : null;
   return {gross:totalGross, netto, toPar: anyPlayed? totalGross-totalPar : null, played:anyPlayed};
 }
 function overallStanding(pkey){
@@ -603,7 +623,7 @@ function renderDetail(){
 
     cards += `
       <div class="card" style="margin-bottom:20px">
-        <div class="rc-head"><h3>${DATA.rounds[ri]}<span style="font-weight:500;color:var(--muted);font-size:12px;margin-left:8px">· ${courseNameForRound(ri)}</span></h3>
+        <div class="rc-head"><h3>${DATA.rounds[ri]}<span style="font-weight:500;color:var(--muted);font-size:12px;margin-left:8px">· ${courseNameForRound(ri)}${(DATA.scrambleTeams&&ri===DATA.scrambleTeams.roundIndex)?' · Team-Score':''}</span></h3>
           <span class="rc-badge">${t.played? ('Score '+t.gross+' · '+fmtToPar(t.toPar)) : 'noch offen'}</span></div>
         <div class="scroll-x">
         <table class="sc-table">
@@ -704,13 +724,15 @@ function renderChampion(){
   const rows = DATA.players.map(p=>{
     const nt = playerNettoTotal(p.key);
     // per round netto-to-par cell text
+    const SCRAMBLE_RI = (DATA.scrambleTeams? DATA.scrambleTeams.roundIndex : -1);
     const cells = [0,1,2,3].map(ri=>{
       const rd=DATA.scores[p.key][ri];
       const t=roundTotals(rd, parForRound(ri));
       if(t.played<18) return '<td class="dim">–</td>';
-      const netto = t.gross - p.phcp;
+      const netto = (ri===SCRAMBLE_RI) ? t.gross : (t.gross - p.phcp); // Scramble: netto=brutto
       const ntp = netto - t.parPlayed;
-      return `<td>${netto} <span style="color:var(--muted);font-size:11px">(${fmtToPar(ntp)})</span></td>`;
+      const tag = (ri===SCRAMBLE_RI) ? ' <span style="color:var(--muted);font-size:10px">(Team)</span>' : '';
+      return `<td>${netto} <span style="color:var(--muted);font-size:11px">(${fmtToPar(ntp)})</span>${tag}</td>`;
     });
     return {p, nt, cells};
   });
@@ -728,7 +750,7 @@ function renderChampion(){
     const posCell = played ? medal(idx+1) : '–';
     return `<tr>
       <td class="pos">${posCell}</td>
-      <td class="pname">${r.p.name}</td>
+      <td class="pname"><span class="pname-link" data-player="${r.p.key}">${r.p.name}</span></td>
       <td>${r.p.hcp}</td>
       ${r.cells.join('')}
       <td class="net">${played? r.nt.netto : 0}</td>
@@ -762,7 +784,7 @@ function renderBestSingle(){
     const top=played[0];
     hero.innerHTML = `<div class="best-hero"><div class="bh-l">
         <span class="bh-tag">🏅 Beste Einzelrunde aktuell</span>
-        <div class="bh-name">${top.p.name}</div>
+        <div class="bh-name"><span class="pname-link" data-player="${top.p.key}">${top.p.name}</span></div>
         <div class="bh-sub">${DATA.rounds[top.bestRi]} · ${courseNameForRound(top.bestRi)}</div>
       </div>
       <div class="bh-mid"><div class="bh-num">${top.best.gross}</div><div class="bh-lbl">Brutto</div></div>
@@ -774,22 +796,146 @@ function renderBestSingle(){
   // Full list (all players, best single round each)
   const rowsPlayed = played.map((x,idx)=>`<tr>
       <td class="pos">${medal(idx+1)}</td>
-      <td class="pname">${x.p.name}</td>
+      <td class="pname"><span class="pname-link" data-player="${x.p.key}">${x.p.name}</span></td>
       <td>${DATA.rounds[x.bestRi].replace(/·.*/,'').trim()} <span style="color:var(--muted);font-size:11px">${courseNameForRound(x.bestRi)}</span></td>
       <td>${x.best.gross}</td>
       <td class="net">${x.best.netto}</td>
       <td class="par">${fmtToPar(x.best.nettoToPar)}</td>
     </tr>`).join('');
   const rowsEmpty = list.filter(x=>x.best===null).map(x=>`<tr>
-      <td class="pos">–</td><td class="pname">${x.p.name}</td>
+      <td class="pos">–</td><td class="pname"><span class="pname-link" data-player="${x.p.key}">${x.p.name}</span></td>
       <td class="dim">noch keine gewertete Runde</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td>
     </tr>`).join('');
   body.innerHTML = rowsPlayed + rowsEmpty;
 }
 
-function renderDashboard(){ renderChampion(); renderBestSingle(); }
+function renderDashboard(){ renderChampion(); renderBestSingle(); renderBirdies(); }
 
 
 try{renderDashboard();}catch(e){}
+
+// ================= DASHBOARD: Birdie-Wertung =================
+function playerBirdieStats(pkey){
+  const sc = DATA.scores[pkey];
+  const SCRAMBLE_RI = (DATA.scrambleTeams? DATA.scrambleTeams.roundIndex : 1);
+  let birdies=0, eagles=0, roundsPlayed=0;
+  sc.forEach((rd,ri)=>{
+    if(ri===SCRAMBLE_RI) return; // Scramble (Team) zaehlt nicht fuer individuelle Birdie-Wertung
+    const par=parForRound(ri);
+    let played=0;
+    for(let i=0;i<18;i++){
+      const s=rd[i];
+      if(s!==null&&s!==undefined&&s!==""){
+        played++;
+        const d=Number(s)-par[i];
+        if(d===-1) birdies++;
+        else if(d<=-2){ birdies++; eagles++; }   // eagle or better also counts as a birdie-or-better
+      }
+    }
+    if(played>0) roundsPlayed++;
+  });
+  return {birdies, eagles, roundsPlayed};
+}
+
+function renderBirdies(){
+  const hero=document.getElementById('birdieHero');
+  const body=document.getElementById('birdieBody');
+  if(!hero||!body) return;
+  const list = DATA.players.map(p=>({p, ...playerBirdieStats(p.key)}));
+  const anyPlayed = list.some(x=>x.roundsPlayed>0);
+  // sort by birdies desc, then eagles desc
+  list.sort((a,b)=> (b.birdies-a.birdies) || (b.eagles-a.eagles));
+
+  if(!anyPlayed){
+    hero.innerHTML = `<div class="best-hero empty"><div class="bh-l"><span class="bh-tag">Noch keine Birdies gewertet</span>
+      <div class="bh-name">—</div><div class="bh-sub">Sobald Ergebnisse eingetragen sind, erscheint hier der Birdie-König.</div></div>
+      <div class="bh-score"><div class="bh-num">–</div><div class="bh-lbl">Birdies</div></div></div>`;
+  } else {
+    const top=list[0];
+    hero.innerHTML = `<div class="best-hero"><div class="bh-l">
+        <span class="bh-tag">🐦 Birdie-König aktuell</span>
+        <div class="bh-name">${top.birdies>0? '<span class="pname-link" data-player="'+top.p.key+'">'+top.p.name+'</span>' : '—'}</div>
+        <div class="bh-sub">${top.birdies>0? ('über '+top.roundsPlayed+' Runde'+(top.roundsPlayed>1?'n':'')) : 'noch kein Birdie gespielt'}</div>
+      </div>
+      <div class="bh-mid"><div class="bh-num">${top.eagles}</div><div class="bh-lbl">Eagles+</div></div>
+      <div class="bh-score"><div class="bh-num g">${top.birdies}</div><div class="bh-lbl">Birdies</div></div>
+    </div>`;
+  }
+
+  let pos=0, lastKey=null, lastVal=null;
+  body.innerHTML = list.map((x,idx)=>{
+    // dense ranking with ties on birdie count
+    let rankCell;
+    if(x.roundsPlayed===0){ rankCell='–'; }
+    else {
+      if(lastVal===null || x.birdies!==lastVal){ pos=idx+1; lastVal=x.birdies; }
+      rankCell = ({1:'🥇',2:'🥈',3:'🥉'})[pos] || pos;
+    }
+    return `<tr>
+      <td class="pos">${rankCell}</td>
+      <td class="pname"><span class="pname-link" data-player="${x.p.key}">${x.p.name}</span></td>
+      <td class="net">${x.birdies}</td>
+      <td>${x.eagles}</td>
+      <td class="dim">${x.roundsPlayed}</td>
+    </tr>`;
+  }).join('');
+}
+
+
+// ================= DASHBOARD: Birdie-Wertung =================
+function playerBirdieStats(pkey){
+  const sc = DATA.scores[pkey];
+  const SCRAMBLE_RI = (DATA.scrambleTeams? DATA.scrambleTeams.roundIndex : 1);
+  let birdies=0, eagles=0, roundsPlayed=0;
+  sc.forEach((rd,ri)=>{
+    if(ri===SCRAMBLE_RI) return; // Scramble (Team) zaehlt nicht fuer individuelle Birdie-Wertung
+    const par=parForRound(ri);
+    let played=0;
+    for(let i=0;i<18;i++){
+      const s=rd[i];
+      if(s!==null&&s!==undefined&&s!==""){
+        played++;
+        const d=Number(s)-par[i];
+        if(d===-1){ birdies++; }
+        else if(d<=-2){ birdies++; eagles++; }
+      }
+    }
+    if(played>0) roundsPlayed++;
+  });
+  return {birdies, eagles, roundsPlayed};
+}
+function renderBirdies(){
+  const hero=document.getElementById('birdieHero');
+  const body=document.getElementById('birdieBody');
+  if(!hero||!body) return;
+  const list = DATA.players.map(p=>({p, ...playerBirdieStats(p.key)}));
+  const anyPlayed = list.some(x=>x.roundsPlayed>0);
+  list.sort((a,b)=> (b.birdies-a.birdies) || (b.eagles-a.eagles));
+  if(!anyPlayed){
+    hero.innerHTML = `<div class="best-hero empty"><div class="bh-l"><span class="bh-tag">Noch keine Birdies gewertet</span>
+      <div class="bh-name">—</div><div class="bh-sub">Sobald Ergebnisse eingetragen sind, erscheint hier der Birdie-König.</div></div>
+      <div class="bh-score"><div class="bh-num">–</div><div class="bh-lbl">Birdies</div></div></div>`;
+  } else {
+    const top=list[0];
+    hero.innerHTML = `<div class="best-hero"><div class="bh-l">
+        <span class="bh-tag">🐦 Birdie-König aktuell</span>
+        <div class="bh-name">${top.birdies>0? '<span class="pname-link" data-player="'+top.p.key+'">'+top.p.name+'</span>' : '—'}</div>
+        <div class="bh-sub">${top.birdies>0? ('über '+top.roundsPlayed+' Runde'+(top.roundsPlayed>1?'n':'')) : 'noch kein Birdie gespielt'}</div>
+      </div>
+      <div class="bh-mid"><div class="bh-num">${top.eagles}</div><div class="bh-lbl">Eagles+</div></div>
+      <div class="bh-score"><div class="bh-num g">${top.birdies}</div><div class="bh-lbl">Birdies</div></div>
+    </div>`;
+  }
+  let pos=0, lastVal=null;
+  body.innerHTML = list.map((x,idx)=>{
+    let rankCell;
+    if(x.roundsPlayed===0){ rankCell='–'; }
+    else { if(lastVal===null || x.birdies!==lastVal){ pos=idx+1; lastVal=x.birdies; }
+           rankCell = ({1:'🥇',2:'🥈',3:'🥉'})[pos] || pos; }
+    return `<tr><td class="pos">${rankCell}</td><td class="pname"><span class="pname-link" data-player="${x.p.key}">${x.p.name}</span></td>
+      <td class="net">${x.birdies}</td><td>${x.eagles}</td><td class="dim">${x.roundsPlayed}</td></tr>`;
+  }).join('');
+}
+
 </script>
 </body></html>
