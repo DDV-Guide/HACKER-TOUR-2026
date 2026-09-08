@@ -581,11 +581,14 @@ const DATA = {"par": [4, 5, 4, 4, 4, 4, 3, 4, 3, 5, 4, 5, 3, 4, 5, 3, 5, 4], "si
 /* ====== GOOGLE-SHEET LIVE-KONFIG ====== */
 const SHEET_ID = "11aVw3bFTZR6KfTPIAe5KgiewwT0NBji3JGO2gJHqlEE";
 const SHEET_TAB = "Ergebnisse";
+const SHEET_TEAMS_TAB = "Teams";   // Tab mit Team-Zuordnung (Team 1 / Team 2)
+/* Runden-Bezeichnung im Sheet -> interner Index (0..3) */
+const ROUND_LABEL_TO_INDEX = { "1":0, "2a":1, "2b":2, "3":3 };
 const SHEET_NAME_TO_KEY = {
   "f. bandt":"fbandt","l. breuer":"lbreuer","d. busch":"dbusch","j. haberstock":"jhaberstock",
   "j. glatter":"jglatter","m. glatter":"mglatter","m. preis":"mpreis"
 };
-const SHEET_TEAM_KEYS = { "team a":["jglatter","jhaberstock","dbusch"], "team b":["fbandt","lbreuer","mglatter","mpreis"] };
+let SHEET_TEAM_KEYS = { "team 1":["jglatter","jhaberstock","dbusch"], "team 2":["fbandt","lbreuer","mglatter","mpreis"], "team a":["jglatter","jhaberstock","dbusch"], "team b":["fbandt","lbreuer","mglatter","mpreis"] };
 
 
 // ---- helpers ----
@@ -1061,7 +1064,9 @@ function applySheetRows(rows){
   DATA.players.forEach(function(p){ DATA.scores[p.key]=DATA.scores[p.key].map(function(){return new Array(18).fill(null);}); });
   var applied=0;
   rows.forEach(function(rw){
-    var ri=parseInt(rw.runde,10); if(isNaN(ri)||ri<0||ri>3) return;
+    var lbl=_lnorm(rw.runde);
+    var ri = (lbl in ROUND_LABEL_TO_INDEX) ? ROUND_LABEL_TO_INDEX[lbl] : parseInt(rw.runde,10);
+    if(isNaN(ri)||ri<0||ri>3) return;
     var nk=_lnorm(rw.name); var keys=null;
     if(SHEET_TEAM_KEYS[nk]) keys=SHEET_TEAM_KEYS[nk];
     else if(SHEET_NAME_TO_KEY[nk]) keys=[SHEET_NAME_TO_KEY[nk]];
@@ -1090,11 +1095,51 @@ function parseGviz(text){
   });
   return rows;
 }
+
+// ---- Team-Zuordnung aus dem Tab "Teams" lesen ----
+function parseTeamsGviz(text){
+  var s=text.indexOf('{'); var e=text.lastIndexOf('}');
+  var obj=JSON.parse(text.substring(s, e+1));
+  var cols=(obj.table.cols||[]).map(function(c){ return _lnorm(c.label||c.id||''); });
+  // find columns for team 1 and team 2
+  function findCol(preds){ for(var i=0;i<cols.length;i++){ for(var p=0;p<preds.length;p++){ if(cols[i].indexOf(preds[p])>=0) return i; } } return -1; }
+  var c1=findCol(['team 1','team1','team a','teama']);
+  var c2=findCol(['team 2','team2','team b','teamb']);
+  // fallback to first two columns
+  if(c1<0) c1=0; if(c2<0) c2=1;
+  var t1=[], t2=[];
+  (obj.table.rows||[]).forEach(function(r){
+    var cells=r.c||[];
+    function val(i){ return (cells[i]&&cells[i].v!==null&&cells[i].v!==undefined)? cells[i].v : null; }
+    var n1=val(c1), n2=val(c2);
+    if(n1){ var k1=SHEET_NAME_TO_KEY[_lnorm(n1)]; if(k1) t1.push(k1); }
+    if(n2){ var k2=SHEET_NAME_TO_KEY[_lnorm(n2)]; if(k2) t2.push(k2); }
+  });
+  return {t1:t1, t2:t2};
+}
+function loadTeams(){
+  if(!SHEET_ID) return Promise.resolve();
+  var url='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?sheet='+encodeURIComponent(SHEET_TEAMS_TAB)+'&headers=1&tqx=out:json&_cb='+Date.now();
+  return fetch(url).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
+    .then(function(t){
+      var tt=parseTeamsGviz(t);
+      if(tt.t1.length || tt.t2.length){
+        SHEET_TEAM_KEYS = {
+          "team 1":tt.t1, "team 2":tt.t2,
+          "team a":tt.t1, "team b":tt.t2   // Aliase, falls im Ergebnis-Tab "Team A"/"B" steht
+        };
+        // keep dashboard scramble team display in sync
+        if(DATA.scrambleTeams){ DATA.scrambleTeams.A={players:tt.t1}; DATA.scrambleTeams.B={players:tt.t2}; }
+      }
+    })
+    .catch(function(){ /* Teams-Tab optional: bei Fehler bleibt Standard-Zuordnung */ });
+}
+
 function loadLiveScores(silent){
   if(!SHEET_ID){ setLiveStatus('⚙️ Live-Sheet nicht konfiguriert','off'); return; }
   if(!silent) setLiveStatus('⏳ Lade Live-Ergebnisse …','load');
   var url='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?sheet='+encodeURIComponent(SHEET_TAB)+'&headers=1&tqx=out:json&_cb='+Date.now();
-  fetch(url).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
+  loadTeams().then(function(){ return fetch(url); }).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
     .then(function(t){
       var rows=parseGviz(t); var n=applySheetRows(rows);
       if(typeof renderDashboard==='function') renderDashboard();
