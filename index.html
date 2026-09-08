@@ -190,6 +190,11 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 .bn-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:12.5px;color:var(--dim)}
 .bn-legend strong{color:var(--gold2)}
 
+
+/* Champion-Leaderboard Werte mittig */
+#champBody td{ text-align:center; }
+#champBody td.pos, #champBody td.pname{ text-align:left; }
+
 @media(max-width:900px){ #champBody td.pname, #dashboard table thead tr.grp th:nth-child(2){ min-width:98px; } }
 @media(max-width:900px){
   #champBody td, table thead tr.grp th, table thead tr.sub th{padding:7px 4px;font-size:11.5px}
@@ -278,6 +283,26 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
   .side-brand{padding-left:4px}
 
 }
+
+/* --- Mobile Feinschliff (Review) --- */
+@media(max-width:560px){
+  .hero h1{font-size:clamp(40px,13vw,60px)}
+  .hero-stats{gap:16px 22px}
+  .hs .n{font-size:26px}
+  .weather-hs .n{font-size:22px}
+  .wx-ico{font-size:22px}
+  .page-head h1{font-size:21px}
+  .live-hero h1{font-size:26px}
+  #champBody td, #dashboard table thead tr.grp th, #dashboard table thead tr.sub th{padding:6px 4px;font-size:11px}
+  #dashboard table thead tr.sub th{font-size:9px}
+  .bn-legend{font-size:11.5px;gap:12px}
+  .sc-table th,.sc-table td{padding:6px 3px;font-size:11px}
+  .stat .v{font-size:19px}
+  .md-card{padding:14px}
+  .prize .pv{font-size:19px}
+  .ph-fig img{height:96px}
+}
+
 </style>
 </head>
 <body>
@@ -517,7 +542,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
         <div class="page-head"><div><div class="eyebrow">Freitag · 11.09.2026 · Solheim Cup</div><h1>🏨 Landgoed De Ruwenberg</h1></div><span class="fee-badge">Übernachtung Solheim-Cup-Tag</span></div>
         <div class="grid2">
           <div class="card map-card"><h3>📍 Landgoed De Ruwenberg</h3><iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=5.328%2C51.616%2C5.367999999999999%2C51.656000000000006&layer=mapnik&marker=51.636%2C5.348"></iframe>
-            <div class="map-actions"><a class="btn" target="_blank" href="https://www.google.com/maps/search/Landgoed+De+Ruwenberg,+Ruwenbergstraat+7,+5271+AG+Sint-Michielsgestel">🗺️ In Google Maps öffnen</a><a class="btn ghost-btn" target="_blank" href="https://ruwenberg.nl/">🌐 ruwenberg.nl</a><span class="drive-pill">📍 Sint-Michielsgestel</span></div></div>
+            <div class="map-actions"><a class="btn" target="_blank" href="https://www.google.com/maps/search/Landgoed+De+Ruwenberg,+Ruwenbergstraat+7,+5271+AG+Sint-Michielsgestel">🗺️ In Google Maps öffnen</a><a class="btn ghost-btn" target="_blank" href="https://ruwenberg.nl/">🌐 Hotel Homepage</a><span class="drive-pill">📍 Sint-Michielsgestel</span></div></div>
           <div class="stack">
             <div class="card"><h3>🏨 Unterkunft &amp; Adresse</h3><p><strong>Landgoed De Ruwenberg</strong><br>Ruwenbergstraat 7, 5271 AG Sint-Michielsgestel, Niederlande</p>
               <p class="notes"><strong>Hintergrund:</strong> Am <strong>Freitag, 11.09.</strong> sind wir beim <strong>Solheim Cup</strong> auf dem <strong>Bernardus Golf</strong> als Zuschauer – übernachtet wird im nahegelegenen Landgoed De Ruwenberg.</p></div>
@@ -1219,6 +1244,12 @@ document.addEventListener('DOMContentLoaded', function(){ loadLiveScores(false);
 
 
 // ================= WETTER (Open-Meteo, kein API-Key) =================
+var WX_SCHEDULE = [
+  {date:'2026-09-11', day:'FR', place:"'s-Hertogenbosch", lat:51.66, lon:5.25},
+  {date:'2026-09-12', day:'SA', place:'Bleijenbeek',       lat:51.5222, lon:6.0850},
+  {date:'2026-09-13', day:'SO', place:'Golfhorst',         lat:51.43,   lon:6.074},
+  {date:'2026-09-14', day:'MO', place:'Stippelberg',       lat:51.598,  lon:5.80}
+];
 function wxIcon(code){
   if(code===0) return '☀️';
   if(code===1||code===2) return '🌤️';
@@ -1231,14 +1262,29 @@ function wxIcon(code){
   if(code>=95) return '⛈️';
   return '🌡️';
 }
+function wxPickTarget(){
+  // Wähle den nächsten relevanten Tag (heute oder in der Zukunft). Nach dem letzten Tag -> letzter Eintrag.
+  var todayStr=new Date().toISOString().slice(0,10);
+  for(var i=0;i<WX_SCHEDULE.length;i++){ if(WX_SCHEDULE[i].date>=todayStr) return WX_SCHEDULE[i]; }
+  return WX_SCHEDULE[WX_SCHEDULE.length-1];
+}
 function loadWeather(){
   var t=document.getElementById('wxTemp'), dsc=document.getElementById('wxDesc');
   if(!t) return;
-  var url='https://api.open-meteo.com/v1/forecast?latitude=51.66&longitude=5.25&current_weather=true&timezone=Europe%2FAmsterdam';
+  var tgt=wxPickTarget();
+  var url='https://api.open-meteo.com/v1/forecast?latitude='+tgt.lat+'&longitude='+tgt.lon
+    +'&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=Europe%2FAmsterdam&start_date='+tgt.date+'&end_date='+tgt.date;
   fetch(url).then(function(r){ if(!r.ok) throw new Error('x'); return r.json(); })
-    .then(function(j){ var cw=j.current_weather||{}; var temp=Math.round(cw.temperature);
-      t.innerHTML='<span class="wx-ico">'+wxIcon(cw.weathercode)+'</span>'+temp+'°';
-      if(dsc) dsc.textContent='Wetter · Bernardus'; })
+    .then(function(j){
+      var code, temp;
+      if(j.daily && j.daily.time && j.daily.time.length){
+        code=j.daily.weathercode[0];
+        var tmax=Math.round(j.daily.temperature_2m_max[0]);
+        temp=tmax;
+      } else if(j.current_weather){ code=j.current_weather.weathercode; temp=Math.round(j.current_weather.temperature); }
+      t.innerHTML='<span class="wx-ico">'+wxIcon(code)+'</span>'+temp+'°';
+      if(dsc) dsc.textContent=tgt.day+' · '+tgt.place;
+    })
     .catch(function(){ if(dsc) dsc.textContent='Wetter n/v'; });
 }
 document.addEventListener('DOMContentLoaded', loadWeather);
