@@ -125,6 +125,21 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 .ph-fig{margin:0;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--card2)}
 .ph-fig img{width:100%;height:110px;object-fit:cover;display:block}
 .ph-fig figcaption{font-size:11px;color:var(--dim);padding:7px 8px;text-align:center;font-weight:600}
+
+.best-hero{display:flex;align-items:center;gap:22px;flex-wrap:wrap;border-radius:16px;padding:20px 24px;
+  background:linear-gradient(120deg,rgba(233,185,73,.16),rgba(62,166,255,.10));border:1px solid rgba(233,185,73,.35)}
+.best-hero.empty{background:var(--card2);border-color:var(--line)}
+.best-hero .bh-l{flex:1;min-width:180px}
+.bh-tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.5px;color:var(--gold2);
+  background:rgba(233,185,73,.14);border:1px solid rgba(233,185,73,.35);padding:4px 12px;border-radius:20px}
+.bh-name{font-family:'Sora';font-weight:800;font-size:24px;margin-top:10px}
+.bh-sub{color:var(--dim);font-size:13px;margin-top:4px}
+.bh-mid,.bh-score{text-align:center;min-width:70px}
+.bh-num{font-family:'Sora';font-weight:800;font-size:28px}
+.bh-num.g{color:var(--gold2)}
+.bh-lbl{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:2px}
+@media(max-width:900px){.best-hero{gap:14px}.bh-mid,.bh-score{min-width:60px}.bh-num{font-size:22px}.bh-name{font-size:20px}}
+
 @media(max-width:900px){.ab-photo-grid{grid-template-columns:1fr 1fr}}
 
 @media(max-width:900px){.photo-grid{grid-template-columns:1fr 1fr}}
@@ -222,8 +237,24 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
       <section class="view" id="dashboard">
         <div class="live-hero"><div class="lh-in"><span class="live-tag"><span class="live-dot"></span>LIVE STANDINGS</span><h1>Leaderboard</h1><div class="lh-sub">🍺 Wer greift nach dem goldenen Zapfhahn? · Wird jeden Abend nach den Spieltagen aktualisiert</div></div></div>
         <div class="stat-row"><div class="stat"><div class="k">Spieler</div><div class="v g">7</div></div><div class="stat"><div class="k">Spieltage</div><div class="v">4</div></div><div class="stat"><div class="k">Plätze</div><div class="v">4</div></div><div class="stat"><div class="k">Preisgeld gesamt</div><div class="v g">280 €</div></div></div>
-        <div class="card"><h3>🏆 Leaderboard — Netto</h3><div class="scroll-x"><table><thead><tr><th>#</th><th>Player</th><th>Hcp</th><th>R1</th><th>R2</th><th>Team</th><th>R3</th><th>Net Total</th><th>+/- Par</th></tr></thead><tbody><tr><td class="pos">🥇</td><td class="pname">F. Bandt</td><td>5,6</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">🥈</td><td class="pname">L. Breuer</td><td>8,8</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">🥉</td><td class="pname">D. Busch</td><td>10,2</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">4</td><td class="pname">J. Haberstock</td><td>4,3</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">5</td><td class="pname">J. Glatter</td><td>9,6</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">6</td><td class="pname">M. Glatter</td><td>5,7</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr><tr><td class="pos">7</td><td class="pname">M. Preis</td><td>3,2</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td><td class="net">0</td><td class="par">E</td></tr></tbody></table></div>
-          <p style="margin-top:14px;font-size:13px;color:var(--muted)">💡 Für die Runden-Details je Spieler → <a data-view="scores" style="color:var(--gold2);cursor:pointer;font-weight:600">Scores &amp; Spieler</a></p></div>
+
+        <div class="card"><h3>🏆 Champion-Wertung — Netto gesamt <span style="font-weight:500;color:var(--muted);font-size:12px">(3 Einzelrunden + Team-Scramble)</span></h3>
+          <div class="scroll-x"><table>
+            <thead><tr><th>#</th><th>Player</th><th>Hcp</th><th>R1</th><th>Team 2a</th><th>R2b</th><th>R3</th><th>Net Total</th><th>+/- Par</th></tr></thead>
+            <tbody id="champBody"></tbody>
+          </table></div>
+          <p style="margin-top:14px;font-size:13px;color:var(--muted)">💡 Für die Runden-Details je Spieler → <a data-view="scores" style="color:var(--gold2);cursor:pointer;font-weight:600">Scores &amp; Spieler</a></p>
+        </div>
+
+        <div class="card" style="margin-top:20px">
+          <h3>🎯 Beste Einzelrunde — Netto <span style="font-weight:500;color:var(--muted);font-size:12px">(nur Einzelrunden: R1, R2b, R3)</span></h3>
+          <div id="bestSingleHero"></div>
+          <div class="scroll-x" style="margin-top:16px"><table>
+            <thead><tr><th>#</th><th>Player</th><th>Beste Runde</th><th>Brutto</th><th>Netto</th><th>Netto +/- Par</th></tr></thead>
+            <tbody id="bestSingleBody"></tbody>
+          </table></div>
+        </div>
+
         <div class="card" style="margin-top:20px"><h3>⛳ Spieltage</h3><div class="md-grid">
       <button class="md-card" data-view="day1"><div class="md-chip">SA</div>
         <div class="md-body"><div class="md-name">Spieltag 1 · Sa 12.09.</div><div class="md-sub">Golfbaan Landgoed Bleijenbeek</div>
@@ -435,7 +466,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 const views=document.querySelectorAll('.view');const navbtns=document.querySelectorAll('.navbtn');
 const sidebar=document.getElementById('sidebar');const backdrop=document.getElementById('backdrop');
 function closeMenu(){sidebar.classList.remove('open');backdrop.classList.remove('show');}
-function go(v){views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));window.scrollTo({top:0,behavior:'smooth'});closeMenu();if(v==='scores'){renderChips();renderDetail();}}
+function go(v){views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));window.scrollTo({top:0,behavior:'smooth'});closeMenu();if(v==='scores'){renderChips();renderDetail();}if(v==='dashboard'){renderDashboard();}}
 document.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',()=>go(el.dataset.view)));
 document.getElementById('burger').addEventListener('click',()=>{sidebar.classList.add('open');backdrop.classList.add('show');});
 backdrop.addEventListener('click',closeMenu);
@@ -649,5 +680,116 @@ function renderCourseInfo(){
     </div>`;
 }
 
+
+// ================= DASHBOARD: Champion + Best Single Round =================
+const SINGLE_ROUNDS = [0,2,3];   // R1, R2b, R3 are individual (Einzel) rounds; index 1 = Team Scramble
+const ROUND_SHORT = ['R1','Team 2a','R2b','R3'];
+
+function medal(pos){ return ({1:'🥇',2:'🥈',3:'🥉'})[pos] || pos; }
+
+function roundNettoToPar(pkey, ri){
+  // netto for a single round: gross - playing handicap ; toPar vs course par
+  const rd = DATA.scores[pkey][ri];
+  const t = roundTotals(rd, parForRound(ri));
+  if(t.played < 18) return null;   // only count fully completed rounds
+  const pl = DATA.players.find(p=>p.key===pkey);
+  const netto = t.gross - pl.phcp;
+  const nettoToPar = netto - t.parPlayed;
+  return {gross:t.gross, netto, toPar:t.toPar, nettoToPar};
+}
+
+function renderChampion(){
+  const body=document.getElementById('champBody'); if(!body) return;
+  // compute per player
+  const rows = DATA.players.map(p=>{
+    const nt = playerNettoTotal(p.key);
+    // per round netto-to-par cell text
+    const cells = [0,1,2,3].map(ri=>{
+      const rd=DATA.scores[p.key][ri];
+      const t=roundTotals(rd, parForRound(ri));
+      if(t.played<18) return '<td class="dim">–</td>';
+      const netto = t.gross - p.phcp;
+      const ntp = netto - t.parPlayed;
+      return `<td>${netto} <span style="color:var(--muted);font-size:11px">(${fmtToPar(ntp)})</span></td>`;
+    });
+    return {p, nt, cells};
+  });
+  // sort: played first (by netto asc), then unplayed
+  rows.sort((a,b)=>{
+    if(a.nt.played && b.nt.played) return a.nt.netto-b.nt.netto;
+    if(a.nt.played) return -1;
+    if(b.nt.played) return 1;
+    return 0;
+  });
+  let pos=0, lastPlayed=null;
+  body.innerHTML = rows.map((r,idx)=>{
+    const played=r.nt.played;
+    const rank = played ? (idx+1) : '–';
+    const posCell = played ? medal(idx+1) : '–';
+    return `<tr>
+      <td class="pos">${posCell}</td>
+      <td class="pname">${r.p.name}</td>
+      <td>${r.p.hcp}</td>
+      ${r.cells.join('')}
+      <td class="net">${played? r.nt.netto : 0}</td>
+      <td class="par">${played? fmtToPar(r.nt.toPar) : 'E'}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderBestSingle(){
+  const hero=document.getElementById('bestSingleHero');
+  const body=document.getElementById('bestSingleBody');
+  if(!hero||!body) return;
+  // For each player: find their best single round (lowest nettoToPar)
+  const list = DATA.players.map(p=>{
+    let best=null, bestRi=null;
+    SINGLE_ROUNDS.forEach(ri=>{
+      const r=roundNettoToPar(p.key, ri);
+      if(r){ if(best===null || r.nettoToPar < best.nettoToPar){ best=r; bestRi=ri; } }
+    });
+    return {p, best, bestRi};
+  });
+  const played = list.filter(x=>x.best!==null);
+  played.sort((a,b)=> a.best.nettoToPar - b.best.nettoToPar);
+
+  // Hero box: current best single round
+  if(played.length===0){
+    hero.innerHTML = `<div class="best-hero empty"><div class="bh-l"><span class="bh-tag">Noch keine Einzelrunde gewertet</span>
+      <div class="bh-name">—</div><div class="bh-sub">Sobald die erste vollständige Einzelrunde eingetragen ist, erscheint hier der Führende.</div></div>
+      <div class="bh-score"><div class="bh-num">–</div><div class="bh-lbl">Netto +/- Par</div></div></div>`;
+  } else {
+    const top=played[0];
+    hero.innerHTML = `<div class="best-hero"><div class="bh-l">
+        <span class="bh-tag">🏅 Beste Einzelrunde aktuell</span>
+        <div class="bh-name">${top.p.name}</div>
+        <div class="bh-sub">${DATA.rounds[top.bestRi]} · ${courseNameForRound(top.bestRi)}</div>
+      </div>
+      <div class="bh-mid"><div class="bh-num">${top.best.gross}</div><div class="bh-lbl">Brutto</div></div>
+      <div class="bh-mid"><div class="bh-num">${top.best.netto}</div><div class="bh-lbl">Netto</div></div>
+      <div class="bh-score"><div class="bh-num g">${fmtToPar(top.best.nettoToPar)}</div><div class="bh-lbl">Netto +/- Par</div></div>
+    </div>`;
+  }
+
+  // Full list (all players, best single round each)
+  const rowsPlayed = played.map((x,idx)=>`<tr>
+      <td class="pos">${medal(idx+1)}</td>
+      <td class="pname">${x.p.name}</td>
+      <td>${DATA.rounds[x.bestRi].replace(/·.*/,'').trim()} <span style="color:var(--muted);font-size:11px">${courseNameForRound(x.bestRi)}</span></td>
+      <td>${x.best.gross}</td>
+      <td class="net">${x.best.netto}</td>
+      <td class="par">${fmtToPar(x.best.nettoToPar)}</td>
+    </tr>`).join('');
+  const rowsEmpty = list.filter(x=>x.best===null).map(x=>`<tr>
+      <td class="pos">–</td><td class="pname">${x.p.name}</td>
+      <td class="dim">noch keine gewertete Runde</td><td class="dim">–</td><td class="dim">–</td><td class="dim">–</td>
+    </tr>`).join('');
+  body.innerHTML = rowsPlayed + rowsEmpty;
+}
+
+function renderDashboard(){ renderChampion(); renderBestSingle(); }
+
+
+try{renderDashboard();}catch(e){}
 </script>
 </body></html>
