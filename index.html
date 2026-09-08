@@ -155,6 +155,17 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 
 
   
+
+.live-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px}
+.live-refresh{background:var(--gold);color:#20180a;font-weight:800}
+.live-refresh:hover{filter:brightness(1.05)}
+.live-status{font-size:13px;font-weight:700;padding:6px 12px;border-radius:20px;border:1px solid var(--line);background:var(--card2)}
+.live-status.ok{color:var(--grn);border-color:rgba(47,191,113,.4);background:rgba(47,191,113,.1)}
+.live-status.err{color:var(--red);border-color:rgba(229,72,77,.4);background:rgba(229,72,77,.08)}
+.live-status.load{color:var(--gold2);border-color:rgba(233,185,73,.4);background:rgba(233,185,73,.08)}
+.live-status.off{color:var(--muted)}
+@media(max-width:900px){.live-controls{flex-direction:column;align-items:stretch}.live-refresh{width:100%;justify-content:center}.live-status{text-align:center}}
+
 @media(max-width:900px){}
 
 @media(max-width:900px){.best-hero{gap:14px}.bh-mid,.bh-score{min-width:60px}.bh-num{font-size:22px}.bh-name{font-size:20px}}
@@ -284,7 +295,8 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 
       <section class="view" id="dashboard">
         <button class="back-btn" onclick="goBack()">← Zurück</button>
-        <div class="live-hero"><div class="lh-in"><span class="live-tag"><span class="live-dot"></span>LIVE STANDINGS</span><h1>Leaderboard</h1><div class="lh-sub">🍺 Wer greift nach dem goldenen Zapfhahn? · Wird jeden Abend nach den Spieltagen aktualisiert</div></div></div>
+        <div class="live-hero"><div class="lh-in"><span class="live-tag"><span class="live-dot"></span>LIVE STANDINGS</span><h1>Leaderboard</h1><div class="lh-sub">🍺 Wer greift nach dem goldenen Zapfhahn? · Wird jeden Abend nach den Spieltagen aktualisiert</div>
+          <div class="live-controls"><button class="btn live-refresh" onclick="loadLiveScores(false)">🔄 Ergebnisse aktualisieren</button><span id="liveStatus" class="live-status off">⚙️ Live wird geladen …</span></div></div></div>
         <div class="stat-row"><div class="stat"><div class="k">Spieltage insgesamt</div><div class="v" id="stTotal">4</div></div><div class="stat"><div class="k">Davon gespielt</div><div class="v g" id="stPlayed">0</div></div><div class="stat"><div class="k">Noch zu spielen</div><div class="v" id="stRemain">4</div></div><div class="stat"><div class="k">Preisgeld gesamt</div><div class="v g">280 €</div></div></div>
 
         <div class="card"><h3>🏆 Champion-Wertung — Netto gesamt <span style="font-weight:500;color:var(--muted);font-size:12px">(3 Einzelrunden + Team-Scramble)</span></h3>
@@ -565,6 +577,16 @@ document.getElementById('burger').addEventListener('click',()=>{sidebar.classLis
 backdrop.addEventListener('click',closeMenu);
 
 const DATA = {"par": [4, 5, 4, 4, 4, 4, 3, 4, 3, 5, 4, 5, 3, 4, 5, 3, 5, 4], "si": [3, 15, 9, 17, 1, 7, 13, 5, 11, 2, 16, 10, 14, 12, 6, 18, 4, 8], "rounds": ["R1 · Cut Major", "R2a · Scramble", "R2b · Single", "R3 · Major"], "players": [{"name": "F. Bandt", "hcp": "5,6", "phcp": 6, "key": "fbandt"}, {"name": "L. Breuer", "hcp": "8,8", "phcp": 9, "key": "lbreuer"}, {"name": "D. Busch", "hcp": "10,2", "phcp": 10, "key": "dbusch"}, {"name": "J. Haberstock", "hcp": "4,3", "phcp": 4, "key": "jhaberstock"}, {"name": "J. Glatter", "hcp": "9,6", "phcp": 10, "key": "jglatter"}, {"name": "M. Glatter", "hcp": "5,7", "phcp": 6, "key": "mglatter"}, {"name": "M. Preis", "hcp": "3,2", "phcp": 3, "key": "mpreis"}], "scores": {"fbandt": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "lbreuer": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "dbusch": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "jhaberstock": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "jglatter": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "mglatter": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "mpreis": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]}, "courses": {"Bleijenbeek": {"name": "Golfbaan Landgoed Bleijenbeek", "meta": "Par 72 · Referenz-Tee", "par": [4, 5, 4, 4, 4, 4, 3, 4, 3, 5, 4, 5, 3, 4, 5, 3, 5, 4], "si": [3, 15, 9, 17, 1, 7, 13, 5, 11, 2, 16, 10, 14, 12, 6, 18, 4, 8], "mtr": [366, 475, 392, 175, 358, 332, 191, 380, 375, 507, 310, 297, 155, 461, 371, 178, 490, 471]}, "Golfhorst": {"name": "Golfbaan de Golfhorst", "meta": "Raamweg 8, 5966 RM America · Par 70", "par": [5, 5, 5, 3, 4, 4, 3, 3, 4, 3, 5, 4, 5, 3, 4, 3, 4, 3], "si": [7, 5, 3, 17, 1, 11, 15, 13, 9, 14, 4, 2, 6, 12, 18, 10, 8, 16], "mtr": [445, 416, 458, 101, 350, 295, 152, 157, 339, 152, 471, 341, 443, 115, 230, 182, 312, 139]}, "Geijsteren": {"name": "Golf- & Countryclub \"Geijsteren\"", "meta": "Par 72 · Geel-Tee", "par": [4, 4, 4, 4, 4, 4, 3, 5, 3, 5, 4, 3, 4, 5, 3, 5, 4, 4], "si": [6, 16, 2, 8, 14, 4, 12, 10, 18, 9, 15, 3, 17, 13, 7, 11, 5, 1], "mtr": [344, 285, 379, 320, 336, 335, 164, 464, 163, 456, 340, 180, 365, 442, 137, 442, 370, 371]}, "Stippelberg": {"name": "Golfbaan Stippelberg (Championship)", "meta": "Hooizak 7, Gemert-Bakel · Par 71 · Geel-Tee", "par": [3, 5, 3, 4, 4, 4, 3, 5, 4, 4, 3, 4, 5, 3, 4, 4, 5, 4], "si": [15, 5, 17, 7, 1, 11, 13, 3, 9, 18, 4, 6, 14, 16, 12, 10, 8, 2], "mtr": [164, 475, 144, 330, 405, 334, 172, 503, 299, 385, 135, 538, 490, 155, 256, 341, 461, 347]}}, "roundCourse": ["Bleijenbeek", "Golfhorst", "Geijsteren", "Stippelberg"], "scrambleTeams": {"roundIndex": 1, "A": {"players": ["jglatter", "jhaberstock", "dbusch"], "gross": 63}, "B": {"players": ["fbandt", "lbreuer", "mglatter", "mpreis"], "gross": 64}}};
+
+/* ====== GOOGLE-SHEET LIVE-KONFIG ====== */
+const SHEET_ID = "11aVw3bFTZR6KfTPIAe5KgiewwT0NBji3JGO2gJHqlEE";
+const SHEET_TAB = "Ergebnisse";
+const SHEET_NAME_TO_KEY = {
+  "f. bandt":"fbandt","l. breuer":"lbreuer","d. busch":"dbusch","j. haberstock":"jhaberstock",
+  "j. glatter":"jglatter","m. glatter":"mglatter","m. preis":"mpreis"
+};
+const SHEET_TEAM_KEYS = { "team a":["jglatter","jhaberstock","dbusch"], "team b":["fbandt","lbreuer","mglatter","mpreis"] };
+
 
 // ---- helpers ----
 function parForRound(ri){
@@ -1030,6 +1052,60 @@ function renderStats(){
 }
 
 
+
+
+// ================= GOOGLE-SHEET LIVE-ABRUF =================
+function _lnorm(s){ return (s||"").toString().trim().toLowerCase().replace(/\s+/g,' '); }
+function setLiveStatus(msg, cls){ var el=document.getElementById('liveStatus'); if(!el) return; el.className='live-status '+(cls||''); el.innerHTML=msg; }
+function applySheetRows(rows){
+  DATA.players.forEach(function(p){ DATA.scores[p.key]=DATA.scores[p.key].map(function(){return new Array(18).fill(null);}); });
+  var applied=0;
+  rows.forEach(function(rw){
+    var ri=parseInt(rw.runde,10); if(isNaN(ri)||ri<0||ri>3) return;
+    var nk=_lnorm(rw.name); var keys=null;
+    if(SHEET_TEAM_KEYS[nk]) keys=SHEET_TEAM_KEYS[nk];
+    else if(SHEET_NAME_TO_KEY[nk]) keys=[SHEET_NAME_TO_KEY[nk]];
+    if(!keys) return;
+    var arr=new Array(18).fill(null); var any=false;
+    for(var i=0;i<18;i++){ var v=rw.holes[i]; if(v!==null&&v!==undefined&&v!==''&&!isNaN(Number(v))){ arr[i]=Number(v); any=true; } }
+    if(any){ keys.forEach(function(k){ if(DATA.scores[k]) DATA.scores[k][ri]=arr.slice(); }); applied++; }
+  });
+  return applied;
+}
+function parseGviz(text){
+  var s=text.indexOf('{'); var e=text.lastIndexOf('}');
+  var obj=JSON.parse(text.substring(s, e+1));
+  var cols=obj.table.cols.map(function(c){ return _lnorm(c.label||c.id); });
+  var idxRunde=cols.indexOf('runde'); var idxName=cols.indexOf('name');
+  var holeIdx=[]; for(var h=1;h<=18;h++){ holeIdx.push(cols.indexOf('l'+h)); }
+  if(idxRunde<0) idxRunde=0; if(idxName<0) idxName=1;
+  for(var h2=0;h2<18;h2++){ if(holeIdx[h2]<0) holeIdx[h2]=2+h2; }
+  var rows=[];
+  (obj.table.rows||[]).forEach(function(r){
+    var cells=r.c||[];
+    function val(i){ return (cells[i]&&cells[i].v!==null&&cells[i].v!==undefined)? cells[i].v : null; }
+    var runde=val(idxRunde); var name=val(idxName);
+    if(name===null||runde===null) return;
+    rows.push({runde:runde, name:name, holes:holeIdx.map(function(i){return val(i);})});
+  });
+  return rows;
+}
+function loadLiveScores(silent){
+  if(!SHEET_ID){ setLiveStatus('⚙️ Live-Sheet nicht konfiguriert','off'); return; }
+  if(!silent) setLiveStatus('⏳ Lade Live-Ergebnisse …','load');
+  var url='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?sheet='+encodeURIComponent(SHEET_TAB)+'&headers=1&tqx=out:json&_cb='+Date.now();
+  fetch(url).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
+    .then(function(t){
+      var rows=parseGviz(t); var n=applySheetRows(rows);
+      if(typeof renderDashboard==='function') renderDashboard();
+      if(typeof renderChips==='function') renderChips();
+      if(typeof renderDetail==='function') renderDetail();
+      var ts=new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
+      setLiveStatus('🟢 Live · Stand '+ts,'ok');
+    })
+    .catch(function(err){ setLiveStatus('🔴 Live-Abruf fehlgeschlagen – Sheet öffentlich lesbar? ('+err.message+')','err'); });
+}
+document.addEventListener('DOMContentLoaded', function(){ loadLiveScores(false); setInterval(function(){ loadLiveScores(true); }, 60000); });
 
 </script>
 </body></html>
