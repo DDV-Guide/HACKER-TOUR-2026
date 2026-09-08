@@ -1084,42 +1084,54 @@ function roundToIndex(raw){
 
 function applySheetRows(rows){
   DATA.players.forEach(function(p){ DATA.scores[p.key]=DATA.scores[p.key].map(function(){return new Array(18).fill(null);}); });
-  var applied=0;
+  var applied=0; var byRound={0:0,1:0,2:0,3:0}; var skipped=[];
   rows.forEach(function(rw){
     var ri=roundToIndex(rw.runde);
-    if(ri===null) return;
+    if(ri===null){ skipped.push('R?='+rw.runde); return; }
     var nk=_lnorm(rw.name); var keys=null;
     if(SHEET_TEAM_KEYS[nk]) keys=SHEET_TEAM_KEYS[nk];
     else if(SHEET_NAME_TO_KEY[nk]) keys=[SHEET_NAME_TO_KEY[nk]];
-    if(!keys) return;
+    if(!keys){ skipped.push('Name='+rw.name); return; }
     var arr=new Array(18).fill(null); var any=false;
     for(var i=0;i<18;i++){ var v=rw.holes[i]; if(v!==null&&v!==undefined&&v!==''&&!isNaN(Number(v))){ arr[i]=Number(v); any=true; } }
-    if(any){ keys.forEach(function(k){ if(DATA.scores[k]) DATA.scores[k][ri]=arr.slice(); }); applied++; }
+    if(any){ keys.forEach(function(k){ if(DATA.scores[k]) DATA.scores[k][ri]=arr.slice(); }); applied++; byRound[ri]++; }
   });
+  window.__lastApply={applied:applied, byRound:byRound, skipped:skipped};
   return applied;
 }
 function parseGviz(text){
   var s=text.indexOf('{'); var e=text.lastIndexOf('}');
   var obj=JSON.parse(text.substring(s, e+1));
-  var cols=obj.table.cols.map(function(c){ return _lnorm(c.label||c.id); });
+  var cols=(obj.table.cols||[]).map(function(c){ return _lnorm(c.label||c.id||''); });
   var idxRunde=cols.indexOf('runde'); var idxName=cols.indexOf('name');
   var holeIdx=[]; for(var h=1;h<=18;h++){ holeIdx.push(cols.indexOf('l'+h)); }
+  // Fallback auf feste Positionen, falls Labels fehlen
   if(idxRunde<0) idxRunde=0; if(idxName<0) idxName=1;
   for(var h2=0;h2<18;h2++){ if(holeIdx[h2]<0) holeIdx[h2]=2+h2; }
-  var rows=[];
+  function cellText(cells,i){
+    if(!cells[i]) return null;
+    var c=cells[i];
+    if(c.v!==null && c.v!==undefined && c.v!=='') return c.v;      // reiner Wert bevorzugt (Zahlen!)
+    if(c.f!==null && c.f!==undefined && c.f!=='') return c.f;      // sonst formatierter Text
+    return null;
+  }
+  function holeNum(cells,i){
+    if(!cells[i]) return null;
+    var c=cells[i];
+    var raw=(c.v!==null&&c.v!==undefined&&c.v!=='')? c.v : ((c.f!==null&&c.f!==undefined)? c.f : null);
+    if(raw===null||raw==='') return null;
+    var n=Number(raw); return isNaN(n)? null : n;
+  }
+  var rows=[]; window.__parseDebug={total:0, kept:0, byRawRound:{}};
   (obj.table.rows||[]).forEach(function(r){
     var cells=r.c||[];
-    // reiner Wert v
-    function val(i){ return (cells[i]&&cells[i].v!==null&&cells[i].v!==undefined)? cells[i].v : null; }
-    // bevorzugt formatierter Text f (wichtig fuer "2a"/"2b", die Google als gemischte Zelle liefert)
-    function txt(i){
-      if(!cells[i]) return null;
-      if(cells[i].f!==null && cells[i].f!==undefined && cells[i].f!=='') return cells[i].f;
-      return (cells[i].v!==null && cells[i].v!==undefined)? cells[i].v : null;
-    }
-    var runde=txt(idxRunde); var name=txt(idxName);
-    if(name===null||name===''||runde===null||runde==='') return;
-    rows.push({runde:runde, name:name, holes:holeIdx.map(function(i){return val(i);})});
+    window.__parseDebug.total++;
+    var runde=cellText(cells,idxRunde); var name=cellText(cells,idxName);
+    if(name===null||(''+name).trim()===''||runde===null||(''+runde).trim()==='') return;
+    var rr=(''+runde).trim();
+    window.__parseDebug.byRawRound[rr]=(window.__parseDebug.byRawRound[rr]||0)+1;
+    window.__parseDebug.kept++;
+    rows.push({runde:runde, name:name, holes:holeIdx.map(function(i){return holeNum(cells,i);})});
   });
   return rows;
 }
@@ -1174,7 +1186,7 @@ function loadLiveScores(silent){
       if(typeof renderChips==='function') renderChips();
       if(typeof renderDetail==='function') renderDetail();
       var ts=new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
-      var br=(window.__lastApply&&window.__lastApply.byRound)||{}; var _lbl=['1','2a','2b','3']; var _p=[];[0,1,2,3].forEach(function(k){ if(br[k]>0) _p.push(_lbl[k]); });setLiveStatus('🟢 Live · Stand '+ts+(_p.length?(' · Runden: '+_p.join(', ')):''),'ok');
+      var br=(window.__lastApply&&window.__lastApply.byRound)||{}; var _lbl=['1','2a','2b','3']; var _p=[];[0,1,2,3].forEach(function(k){ if(br[k]>0) _p.push(_lbl[k]); });var _raw=(window.__parseDebug&&window.__parseDebug.byRawRound)? Object.keys(window.__parseDebug.byRawRound).join('/'):'';setLiveStatus('🟢 Live · '+ts+(_p.length?(' · Runden: '+_p.join(', ')):'')+(_raw?(' · Sheet-Runden: '+_raw):''),'ok');
     })
     .catch(function(err){ setLiveStatus('🔴 Live-Abruf fehlgeschlagen – Sheet öffentlich lesbar? ('+err.message+')','err'); });
 }
