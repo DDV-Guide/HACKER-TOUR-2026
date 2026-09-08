@@ -170,6 +170,23 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 .sc-table .rowlbl{ text-align:left !important; }
 
 
+
+/* Champion-Leaderboard: weiße Trennlinien zwischen Runden-Gruppen */
+#dashboard table td.grp-sep, #dashboard table th.grp-sep{ border-left:2px solid rgba(255,255,255,.28) !important; }
+#dashboard table thead tr.grp th.grp-sep{ border-left:2px solid rgba(255,255,255,.28) !important; }
+
+
+/* Champion-Leaderboard Kopfzeilen mittig */
+#dashboard table thead tr.grp th, #dashboard table thead tr.sub th{ text-align:center !important; }
+#dashboard table thead tr.grp th:nth-child(1), #dashboard table thead tr.grp th:nth-child(2){ text-align:left !important; }
+
+/* Player-Spalte breiter + kein Umbruch */
+#champBody td.pname, #dashboard table thead tr.grp th:nth-child(2){ white-space:nowrap; min-width:108px; }
+#champBody .pname-link{ white-space:nowrap; }
+
+.weather-hs .n{display:flex;align-items:center;justify-content:center;gap:6px}
+.wx-ico{font-size:26px;line-height:1}
+@media(max-width:900px){ #champBody td.pname, #dashboard table thead tr.grp th:nth-child(2){ min-width:98px; } }
 @media(max-width:900px){
   #champBody td, table thead tr.grp th, table thead tr.sub th{padding:7px 4px;font-size:11.5px}
   table thead tr.sub th{font-size:9px;padding:3px 3px}
@@ -294,7 +311,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
           <div class="tagline">Der Kampf um den goldenen Zapfhahn 🍺</div>
           <div class="dates">11. – 15. September 2026 · Noord-Brabant, Niederlande</div>
           <div class="hero-cta"><button class="cta primary" data-view="dashboard">📊 Live Standings ansehen</button><button class="cta ghost" data-view="day1">⛳ Spieltage entdecken</button><button class="cta ghost" data-view="scores">👥 Scores &amp; Spieler</button></div>
-          <div class="hero-stats"><div class="hs"><div class="n">7</div><div class="l">Spieler</div></div><div class="hs"><div class="n">4</div><div class="l">Spieltage</div></div><div class="hs"><div class="n">4</div><div class="l">Plätze</div></div><div class="hs"><div class="n">280 €</div><div class="l">Preisgeld</div></div></div>
+          <div class="hero-stats"><div class="hs"><div class="n">7</div><div class="l">Spieler</div></div><div class="hs"><div class="n">4</div><div class="l">Spieltage</div></div><div class="hs"><div class="n">4</div><div class="l">Plätze</div></div><div class="hs"><div class="n">280 €</div><div class="l">Preisgeld</div></div><div class="hs weather-hs"><div class="n" id="wxTemp">–</div><div class="l" id="wxDesc">Wetter · Bernardus</div></div></div>
           <div class="timeline-wrap"><h2>🗓️ Unser Trip auf einen Blick</h2><div class="tl-hint">Von der Solheim-Cup-Tribüne bis zum goldenen Zapfhahn</div>
             <div class="timeline">
               <div class="tl-item"><div class="tl-dot">👀</div><div class="tl-date">Fr 11.09.</div><div class="tl-title">Solheim Cup</div><div class="tl-sub">Zuschauen · Bernardus Golf</div></div>
@@ -314,7 +331,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 
         <div class="card"><h3>🏆 Champion-Wertung — Netto gesamt <span style="font-weight:500;color:var(--muted);font-size:12px">(3 Einzelrunden + Team-Scramble)</span></h3>
           <div class="scroll-x"><table>
-            <thead><tr class="grp"><th rowspan="2">#</th><th rowspan="2">Player</th><th rowspan="2">Hcp</th><th colspan="2">1</th><th colspan="2">2a</th><th colspan="2">2b</th><th colspan="2">3</th><th colspan="2">Total</th><th colspan="2">+/- Par</th></tr><tr class="sub"><th>Br</th><th>Ne</th><th>Br</th><th>Ne</th><th>Br</th><th>Ne</th><th>Br</th><th>Ne</th><th>Ne</th><th>Br</th><th>Ne</th><th>Br</th></tr></thead>
+            <thead><tr class="grp"><th rowspan="2">#</th><th rowspan="2">Player</th><th rowspan="2">Hcp</th><th colspan="2" class="grp-sep">R1</th><th colspan="2" class="grp-sep">R2a</th><th colspan="2" class="grp-sep">R2b</th><th colspan="2" class="grp-sep">R3</th><th colspan="2" class="grp-sep">Total</th><th colspan="2" class="grp-sep">+/- Par</th></tr><tr class="sub"><th class="grp-sep">Br</th><th>Ne</th><th class="grp-sep">Br</th><th>Ne</th><th class="grp-sep">Br</th><th>Ne</th><th class="grp-sep">Br</th><th>Ne</th><th class="grp-sep">Ne</th><th>Br</th><th class="grp-sep">Ne</th><th>Br</th></tr></thead>
             <tbody id="champBody"></tbody>
           </table></div>
           <p style="margin-top:14px;font-size:13px;color:var(--muted)">💡 Für die Runden-Details je Spieler → <a data-view="scores" style="color:var(--gold2);cursor:pointer;font-weight:600">Scores &amp; Spieler</a></p>
@@ -560,7 +577,7 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
         <div class="live-hero" style="margin-bottom:20px"><div class="lh-in">
           <span class="live-tag" style="background:var(--accent);box-shadow:0 6px 20px rgba(62,166,255,.4)">📱 LIVE AM PLATZ</span>
           <h1 style="font-size:clamp(24px,4vw,34px)">Tracking via 18Birdies</h1>
-          <div class="lh-sub">Am Spieltag verfolgen wir die Scores live über ein Turnier in der <strong>18Birdies</strong>-App. Die <strong>konsolidierte Gesamtauswertung</strong> (Netto, Ø Par 3/4/5, Standing) erfolgt hier im Dashboard.</div>
+          <div class="lh-sub">Am Spieltag verfolgen wir die Scores live über ein Turnier in der <strong>18Birdies</strong>-App. Die <strong>konsolidierte Gesamtauswertung</strong> (Netto, Ø Par 3/4/5, Standing) erfolgt hier im Dashboard. Die <strong>Auswertung erfolgt per Google Sheets direkt nach jeder Runde</strong> und aktualisiert dieses Dashboard automatisch.</div>
         </div></div>
         <div class="card" style="margin-bottom:20px">
           <h3>👤 Spieler auswählen</h3>
@@ -840,11 +857,11 @@ function renderChampion(){
     var cells=[0,1,2,3].map(function(ri){
       var rd=DATA.scores[p.key][ri];
       var t=roundTotals(rd, parForRound(ri));
-      if(t.played<18) return '<td class="dim">–</td><td class="dim">–</td>';
+      if(t.played<18) return '<td class="dim grp-sep">–</td><td class="dim">–</td>';
       var brutto=t.gross;
       var netto=(ri===SCRAMBLE_RI)? t.gross : (t.gross - p.phcp); // Scramble: netto=brutto
       totBr+=brutto; totPar+=t.parPlayed; if(ri!==SCRAMBLE_RI) hcpSum+=p.phcp; anyPlayed=true;
-      return '<td class="br">'+brutto+'</td><td class="ne">'+netto+'</td>';
+      return '<td class="br grp-sep">'+brutto+'</td><td class="ne">'+netto+'</td>';
     }).join('');
     var totNe = anyPlayed ? (totBr - hcpSum) : null;
     var toParNe = anyPlayed ? (totNe - totPar) : null;
@@ -862,8 +879,8 @@ function renderChampion(){
       + '<td class="pname"><span class="pname-link" data-player="'+r.p.key+'">'+r.p.name+'</span></td>'
       + '<td>'+r.p.hcp+'</td>'
       + r.cells
-      + '<td class="ne tot">'+(r.played? r.totNe : 0)+'</td><td class="br tot">'+(r.played? r.totBr : 0)+'</td>'
-      + '<td class="ne">'+(r.played? fmtToPar(r.toParNe) : 'E')+'</td><td class="br">'+(r.played? fmtToPar(r.toParBr) : 'E')+'</td>'
+      + '<td class="ne tot grp-sep">'+(r.played? r.totNe : 0)+'</td><td class="br tot">'+(r.played? r.totBr : 0)+'</td>'
+      + '<td class="ne grp-sep">'+(r.played? fmtToPar(r.toParNe) : 'E')+'</td><td class="br">'+(r.played? fmtToPar(r.toParBr) : 'E')+'</td>'
       + '</tr>';
   }).join('');
 }
@@ -1188,11 +1205,37 @@ function loadLiveScores(silent){
       if(typeof renderChips==='function') renderChips();
       if(typeof renderDetail==='function') renderDetail();
       var ts=new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
-      var br=(window.__lastApply&&window.__lastApply.byRound)||{}; var _lbl=['1','2a','2b','3']; var _p=[];[0,1,2,3].forEach(function(k){ if(br[k]>0) _p.push(_lbl[k]); });var _raw=(window.__parseDebug&&window.__parseDebug.byRawRound)? Object.keys(window.__parseDebug.byRawRound).join('/'):'';setLiveStatus('🟢 Live · '+ts+(_p.length?(' · Runden: '+_p.join(', ')):'')+(_raw?(' · Sheet-Runden: '+_raw):''),'ok');
+      setLiveStatus('🟢 Live · Stand '+ts,'ok');
     })
     .catch(function(err){ setLiveStatus('🔴 Live-Abruf fehlgeschlagen – Sheet öffentlich lesbar? ('+err.message+')','err'); });
 }
 document.addEventListener('DOMContentLoaded', function(){ loadLiveScores(false); setInterval(function(){ loadLiveScores(true); }, 60000); });
+
+
+// ================= WETTER (Open-Meteo, kein API-Key) =================
+function wxIcon(code){
+  if(code===0) return '☀️';
+  if(code===1||code===2) return '🌤️';
+  if(code===3) return '☁️';
+  if(code>=45&&code<=48) return '🌫️';
+  if(code>=51&&code<=67) return '🌦️';
+  if(code>=71&&code<=77) return '🌨️';
+  if(code>=80&&code<=82) return '🌧️';
+  if(code>=85&&code<=86) return '🌨️';
+  if(code>=95) return '⛈️';
+  return '🌡️';
+}
+function loadWeather(){
+  var t=document.getElementById('wxTemp'), dsc=document.getElementById('wxDesc');
+  if(!t) return;
+  var url='https://api.open-meteo.com/v1/forecast?latitude=51.66&longitude=5.25&current_weather=true&timezone=Europe%2FAmsterdam';
+  fetch(url).then(function(r){ if(!r.ok) throw new Error('x'); return r.json(); })
+    .then(function(j){ var cw=j.current_weather||{}; var temp=Math.round(cw.temperature);
+      t.innerHTML='<span class="wx-ico">'+wxIcon(cw.weathercode)+'</span>'+temp+'°';
+      if(dsc) dsc.textContent='Wetter · Bernardus'; })
+    .catch(function(){ if(dsc) dsc.textContent='Wetter n/v'; });
+}
+document.addEventListener('DOMContentLoaded', loadWeather);
 
 </script>
 </body></html>
