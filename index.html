@@ -145,17 +145,6 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 
 .back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--line);color:var(--dim);padding:9px 16px;border-radius:10px;font-family:'Inter';font-weight:600;font-size:13.5px;cursor:pointer;margin-bottom:18px;transition:.15s}
 .back-btn:hover{color:var(--gold2);border-color:rgba(233,185,73,.5);transform:translateX(-2px)}
-.pk-person{display:inline-block;background:rgba(47,191,113,.14);color:var(--grn);border:1px solid rgba(47,191,113,.35);padding:4px 12px;border-radius:20px;font-weight:600;font-size:13px}
-.pk-person.tbd{background:rgba(233,185,73,.12);color:var(--gold2);border-color:rgba(233,185,73,.4)}
-
-
-
-
-
-
-
-  
-
 .live-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px}
 .live-refresh{background:var(--gold);color:#20180a;font-weight:800}
 .live-refresh:hover{filter:brightness(1.05)}
@@ -194,6 +183,46 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
 /* Champion-Leaderboard Werte mittig */
 #champBody td{ text-align:center; }
 #champBody td.pos, #champBody td.pname{ text-align:left; }
+
+
+.meet-card{width:100%;max-width:900px;margin-top:26px;display:flex;align-items:center;gap:16px;
+  background:linear-gradient(120deg,rgba(62,166,255,.14),rgba(233,185,73,.08));border:1px solid rgba(62,166,255,.32);
+  border-radius:16px;padding:16px 20px}
+.meet-ico{font-size:30px;line-height:1}
+.meet-body{flex:1;min-width:0;text-align:left}
+.meet-title{font-family:'Sora';font-weight:800;font-size:16px}
+.meet-sub{color:var(--dim);font-size:13px;margin-top:3px}
+.meet-btn{white-space:nowrap}
+@media(max-width:640px){.meet-card{flex-direction:column;align-items:stretch;text-align:center}.meet-body{text-align:center}.meet-btn{width:100%;justify-content:center}}
+
+
+.tl-link{cursor:pointer;border-radius:12px;transition:.15s}
+.tl-link:hover{background:rgba(233,185,73,.08)}
+.tl-link .tl-sub{color:var(--gold2)}
+
+
+/* Packliste: farbcodierte Zuständigkeiten (pro Person) */
+.pk-person.pkc1{background:rgba(47,191,113,.16);color:#5fd99a;border-color:rgba(47,191,113,.4)}
+.pk-person.pkc2{background:rgba(62,166,255,.16);color:#7cc2ff;border-color:rgba(62,166,255,.4)}
+.pk-person.pkc3{background:rgba(229,72,77,.16);color:#ff8a8d;border-color:rgba(229,72,77,.4)}
+.pk-person.pkc4{background:rgba(168,85,247,.18);color:#c9a0ff;border-color:rgba(168,85,247,.45)}
+.pk-person.pkc5{background:rgba(20,184,166,.18);color:#5fe6d3;border-color:rgba(20,184,166,.45)}
+.pk-person.pkc6{background:rgba(244,114,182,.18);color:#ffa6d8;border-color:rgba(244,114,182,.45)}
+.pk-person.pkc7{background:rgba(251,146,60,.18);color:#ffb877;border-color:rgba(251,146,60,.45)}
+.pk-person.pkc8{background:rgba(148,163,184,.20);color:#cbd5e1;border-color:rgba(148,163,184,.5)}
+
+
+/* Packliste: farbcodierte Zuständigkeiten (pro Person) */
+.pk-person{display:inline-block;padding:4px 12px;border-radius:20px;font-weight:600;font-size:13px;border:1px solid transparent}
+.pk-person.tbd{background:rgba(233,185,73,.12);color:var(--gold2);border-color:rgba(233,185,73,.4)}
+.pk-person.pkc1{background:rgba(47,191,113,.16);color:#5fd99a;border-color:rgba(47,191,113,.4)}
+.pk-person.pkc2{background:rgba(62,166,255,.16);color:#7cc2ff;border-color:rgba(62,166,255,.4)}
+.pk-person.pkc3{background:rgba(229,72,77,.16);color:#ff8a8d;border-color:rgba(229,72,77,.4)}
+.pk-person.pkc4{background:rgba(168,85,247,.18);color:#c9a0ff;border-color:rgba(168,85,247,.45)}
+.pk-person.pkc5{background:rgba(20,184,166,.18);color:#5fe6d3;border-color:rgba(20,184,166,.45)}
+.pk-person.pkc6{background:rgba(244,114,182,.18);color:#ffa6d8;border-color:rgba(244,114,182,.45)}
+.pk-person.pkc7{background:rgba(251,146,60,.18);color:#ffb877;border-color:rgba(251,146,60,.45)}
+.pk-person.pkc8{background:rgba(148,163,184,.20);color:#cbd5e1;border-color:rgba(148,163,184,.5)}
 
 @media(max-width:900px){ #champBody td.pname, #dashboard table thead tr.grp th:nth-child(2){ min-width:98px; } }
 @media(max-width:900px){
@@ -340,14 +369,10 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
           <div class="tagline">Der Kampf um den goldenen Zapfhahn 🍺</div>
           <div class="dates">11. – 15. September 2026 · Noord-Brabant, Niederlande</div>
           <div class="hero-cta"><button class="cta primary" data-view="dashboard">📊 Live Standings ansehen</button><button class="cta ghost" data-view="day1">⛳ Spieltage entdecken</button><button class="cta ghost" data-view="scores">👥 Scores &amp; Spieler</button></div>
-          <div class="hero-stats"><div class="hs"><div class="n">7</div><div class="l">Spieler</div></div><div class="hs"><div class="n">4</div><div class="l">Spieltage</div></div><div class="hs"><div class="n">4</div><div class="l">Plätze</div></div><div class="hs"><div class="n">280 €</div><div class="l">Preisgeld</div></div><div class="hs weather-hs"><div class="n" id="wxTemp">–</div><div class="l" id="wxDesc">Wetter · Bernardus</div></div></div>
+          <div class="hero-stats"><div class="hs"><div class="n">7</div><div class="l">Spieler</div></div><div class="hs"><div class="n">3</div><div class="l">Spieltage</div></div><div class="hs"><div class="n">4</div><div class="l">Plätze</div></div><div class="hs"><div class="n">280 €</div><div class="l">Preisgeld</div></div><div class="hs weather-hs"><div class="n" id="wxTemp">–</div><div class="l" id="wxDesc">Wetter · Bernardus</div></div></div>
+          <div class="meet-card"><div class="meet-ico">🚗</div><div class="meet-body"><div class="meet-title">Treffpunkt Freitag · 07:00 Uhr</div><div class="meet-sub">Park &amp; Ride Parkplatz, 40549 Düsseldorf — gemeinsame Abfahrt</div></div><a class="btn meet-btn" target="_blank" href="https://www.google.com/maps?q=Park+%26+Ride,+40549+D%C3%BCsseldorf&ftid=0x47b8b5315f12a97d:0x5a5ac59373056b31&entry=gps&shh=CAE&lucs=,94297699,94231188,94280568,47071704,94218641,94282134,100813464,94286869,100820247,100822499&g_ep=CAISEjI2LjMzLjEuOTYxODkxNDMyMBgAIIgnKl0sOTQyOTc2OTksOTQyMzExODgsOTQyODA1NjgsNDcwNzE3MDQsOTQyMTg2NDEsOTQyODIxMzQsMTAwODEzNDY0LDk0Mjg2ODY5LDEwMDgyMDI0NywxMDA4MjI0OTlCAkRF&skid=d12da154-82f0-411d-8d96-3eb5df3cf5d8&g_st=ic">🗺️ In Google Maps</a></div>
           <div class="timeline-wrap"><h2>🗓️ Unser Trip auf einen Blick</h2><div class="tl-hint">Von der Solheim-Cup-Tribüne bis zum goldenen Zapfhahn</div>
-            <div class="timeline">
-              <div class="tl-item"><div class="tl-dot">👀</div><div class="tl-date">Fr 11.09.</div><div class="tl-title">Solheim Cup</div><div class="tl-sub">Zuschauen · Bernardus Golf</div></div>
-              <div class="tl-item hl"><div class="tl-dot">⛳</div><div class="tl-date">Sa 12.09.</div><div class="tl-title">Spieltag 1</div><div class="tl-sub">Cut Major · Bleijenbeek</div></div>
-              <div class="tl-item hl"><div class="tl-dot">⛳</div><div class="tl-date">So 13.09.</div><div class="tl-title">Spieltag 2a &amp; 2b</div><div class="tl-sub">Scramble &amp; Single</div></div>
-              <div class="tl-item hl"><div class="tl-dot">🏆</div><div class="tl-date">Mo 14.09.</div><div class="tl-title">Spieltag 3 · Finale</div><div class="tl-sub">Major · Siegerehrung &amp; Players-Night</div></div>
-              <div class="tl-item"><div class="tl-dot">🚗</div><div class="tl-date">Di 15.09.</div><div class="tl-title">Abreise</div><div class="tl-sub">Heimfahrt</div></div>
+            <div class="timeline"><div class="tl-item"><div class="tl-dot">👀</div><div class="tl-date">Fr 11.09.</div><div class="tl-title">Solheim Cup</div><div class="tl-sub">Zuschauen · Bernardus Golf</div></div><div class="tl-item hl tl-link" data-view="day1"><div class="tl-dot">⛳</div><div class="tl-date">Sa 12.09.</div><div class="tl-title">Spieltag 1 — 18 Loch</div><div class="tl-sub">Cut Major · Bleijenbeek ›</div></div><div class="tl-item hl tl-link" data-view="day2a"><div class="tl-dot">⛳</div><div class="tl-date">So 13.09.</div><div class="tl-title">Spieltag 2 — 36 Loch</div><div class="tl-sub">Scramble &amp; Single ›</div></div><div class="tl-item hl tl-link" data-view="day3"><div class="tl-dot">🏆</div><div class="tl-date">Mo 14.09.</div><div class="tl-title">Spieltag 3 — 18 Loch &amp; Finale</div><div class="tl-sub">Major · Siegerehrung ›</div></div><div class="tl-item"><div class="tl-dot">🚗</div><div class="tl-date">Di 15.09.</div><div class="tl-title">Abreise</div><div class="tl-sub">Heimfahrt</div></div></div>
             </div></div>
         </div>
       </section>
@@ -576,8 +601,8 @@ tbody td{padding:14px;border-bottom:1px solid rgba(34,48,63,.6)} tbody tr:hover{
           <table>
             <thead><tr><th>Thema</th><th>Zuständig</th><th>Kommentar</th></tr></thead>
             <tbody id="packBody">
-              <tr><td class="pname">🃏 Poker-Set</td><td><span class="pk-person">Marcel Glatter</span></td><td class="dim">–</td></tr>
-              <tr><td class="pname">🥄 Schockbesteck</td><td><span class="pk-person">Alle</span></td><td class="dim">–</td></tr>
+              <tr><td class="pname">🃏 Poker-Set</td><td><span class="pk-person pkc1">Marcel Glatter</span></td><td class="dim">–</td></tr>
+              <tr><td class="pname">🥄 Schockbesteck</td><td><span class="pk-person pkc2">Alle</span></td><td class="dim">–</td></tr>
               <tr><td class="pname">🔊 Musik-Box</td><td><span class="pk-person tbd">TBD — noch zu klären</span></td><td class="dim">–</td></tr>
               <tr><td class="pname">🍺 Bier-Pong-Tisch (inkl. Bälle &amp; Cups)</td><td><span class="pk-person tbd">TBD — noch zu klären</span></td><td class="dim">–</td></tr>
             </tbody>
@@ -1313,10 +1338,17 @@ function parsePackGviz(text){
 }
 function renderPack(items){
   var body=document.getElementById('packBody'); if(!body) return;
+  var palette=['pkc1','pkc2','pkc3','pkc4','pkc5','pkc6','pkc7','pkc8'];
+  var colorMap={}; var ci=0;
+  function classFor(wer){
+    var norm=_lnorm(wer);
+    var tbd=(norm===''||norm.indexOf('tbd')>=0||norm.indexOf('noch zu')>=0||norm.indexOf('offen')>=0);
+    if(tbd) return 'pk-person tbd';
+    if(!(norm in colorMap)){ colorMap[norm]=palette[ci % palette.length]; ci++; }
+    return 'pk-person '+colorMap[norm];
+  }
   body.innerHTML = items.map(function(it){
-    var werNorm=_lnorm(it.wer);
-    var tbd = (werNorm===''||werNorm.indexOf('tbd')>=0||werNorm.indexOf('noch zu')>=0||werNorm.indexOf('offen')>=0);
-    var werHtml = it.wer? ('<span class="pk-person'+(tbd?' tbd':'')+'">'+it.wer+'</span>') : '<span class="pk-person tbd">TBD</span>';
+    var werHtml = it.wer? ('<span class="'+classFor(it.wer)+'">'+it.wer+'</span>') : '<span class="pk-person tbd">TBD</span>';
     var kom = it.kommentar? it.kommentar : '<span class="dim">–</span>';
     return '<tr><td class="pname">'+it.thema+'</td><td>'+werHtml+'</td><td>'+kom+'</td></tr>';
   }).join('');
