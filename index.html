@@ -109,7 +109,7 @@ img{max-width:100%}
   border:1px solid var(--line2);
   box-shadow:var(--shadow);
 }
-.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(circle at 50% 20%,#000,transparent 75%);opacity:.5}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(circle at 50% 20%,#000,transparent 75%);opacity:.5}
 .hero-logo{width:200px;max-width:56vw;height:auto;object-fit:contain;background:#fff;border-radius:20px;padding:14px;box-shadow:0 24px 60px rgba(0,0,0,.6);margin-bottom:24px;position:relative;animation:pop .7s cubic-bezier(.2,.8,.2,1)}
 @keyframes pop{from{opacity:0;transform:scale(.9) translateY(12px)}to{opacity:1;transform:none}}
 .hero h1{position:relative;font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:.92;font-size:clamp(48px,9vw,96px);text-transform:uppercase;
@@ -129,7 +129,7 @@ img{max-width:100%}
 .hs .l{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin-top:4px;font-weight:700}
 
 /* ---------- Meeting card ---------- */
-.meet-card{width:100%;max-width:960px;margin-top:24px;display:flex;align-items:center;gap:18px;
+.meet-card{position:relative;z-index:2;width:100%;max-width:960px;margin-top:24px;display:flex;align-items:center;gap:18px;
   background:linear-gradient(120deg,rgba(62,166,255,.12),rgba(198,255,58,.06));border:1px solid var(--line2);border-radius:14px;padding:18px 22px}
 .meet-ico{font-size:30px;line-height:1}
 .meet-body{flex:1;min-width:0;text-align:left}
@@ -138,7 +138,7 @@ img{max-width:100%}
 .meet-btn{white-space:nowrap}
 
 /* ---------- Timeline ---------- */
-.timeline-wrap{width:100%;max-width:960px;margin-top:30px}
+.timeline-wrap{position:relative;z-index:2;width:100%;max-width:960px;margin-top:30px}
 .timeline-wrap h2{font-family:var(--display);font-weight:800;font-size:18px;text-align:center;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
 .timeline-wrap .tl-hint{text-align:center;color:var(--muted);font-size:12.5px;margin-bottom:24px;letter-spacing:.02em}
 .timeline{position:relative;display:flex;justify-content:space-between;gap:8px}
@@ -337,10 +337,10 @@ td.br.tot{color:var(--dim);font-weight:700}
 .meet-card{cursor:pointer;text-decoration:none;color:inherit}
 .meet-card:hover{border-color:var(--lime);transform:translateY(-2px)}
 
-.prize-total{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:20px;padding:22px 26px;border-radius:14px;
+.prize-total{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:4px 0 14px;padding:12px 16px;border-radius:10px;
   background:linear-gradient(120deg,rgba(198,255,58,.14),rgba(232,196,81,.08));border:1px solid var(--line2)}
-.prize-total .pt-label{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--dim);font-size:13px}
-.prize-total .pt-value{font-family:var(--display);font-weight:800;font-size:clamp(38px,7vw,60px);line-height:1;color:var(--lime)}
+.prize-total .pt-label{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);font-size:12px}
+.prize-total .pt-value{font-family:var(--display);font-weight:800;font-size:22px;line-height:1;color:var(--lime)}
 
 @media(max-width:900px){
   .burger{display:block}
@@ -431,7 +431,7 @@ td.br.tot{color:var(--dim);font-weight:700}
           <div class="dates">11. – 15. September 2026 · Noord-Brabant, Niederlande</div>
           <div class="hero-cta"><button class="cta primary" data-view="dashboard">📊 Live Standings ansehen</button><button class="cta ghost" data-view="day1">⛳ Spieltage entdecken</button><button class="cta ghost" data-view="scores">👥 Scores &amp; Spieler</button></div>
           <div class="hero-stats"><div class="hs"><div class="n">7</div><div class="l">Spieler</div></div><div class="hs"><div class="n">3</div><div class="l">Spieltage</div></div><div class="hs"><div class="n">4</div><div class="l">Plätze</div></div><div class="hs weather-hs"><div class="n" id="wxTemp">–</div><div class="l" id="wxDesc">Wetter · Bernardus</div></div></div>
-          <a class="meet-card" id="meetCard" href="https://maps.google.com/?q=Park+%26+Ride+40549+D%C3%BCsseldorf" target="_blank" rel="noopener"><div class="meet-ico">🚗</div><div class="meet-body"><div class="meet-title">Treffpunkt Freitag · 07:00 Uhr</div><div class="meet-sub">Park &amp; Ride Parkplatz, 40549 Düsseldorf — gemeinsame Abfahrt · Tippen für Google Maps ›</div></div><span class="btn meet-btn">🗺️ In Google Maps</span></a>
+          <a class="meet-card" id="meetCard" href="https://www.google.com/maps/search/?api=1&query=Park+%26+Ride%2C+40549+D%C3%BCsseldorf" target="_blank" rel="noopener"><div class="meet-ico">🚗</div><div class="meet-body"><div class="meet-title">Treffpunkt Freitag · 07:00 Uhr</div><div class="meet-sub">Park &amp; Ride Parkplatz, 40549 Düsseldorf — gemeinsame Abfahrt · Tippen für Google Maps ›</div></div><span class="btn meet-btn">🗺️ In Google Maps</span></a>
           <div class="timeline-wrap"><h2>🗓️ Unser Trip auf einen Blick</h2><div class="tl-hint">Von der Solheim-Cup-Tribüne bis zum goldenen Zapfhahn</div>
             <div class="timeline"><div class="tl-item"><div class="tl-dot">👀</div><div class="tl-date">Fr 11.09.</div><div class="tl-title">Solheim Cup</div><div class="tl-sub">Zuschauen · Bernardus Golf</div></div><div class="tl-item hl tl-link" data-view="day1"><div class="tl-dot">⛳</div><div class="tl-date">Sa 12.09.</div><div class="tl-title">Spieltag 1 — 18 Loch</div><div class="tl-sub">Cut Major · Bleijenbeek ›</div></div><div class="tl-item hl tl-link" data-view="day2a"><div class="tl-dot">⛳</div><div class="tl-date">So 13.09.</div><div class="tl-title">Spieltag 2 — 36 Loch</div><div class="tl-sub">Scramble &amp; Single ›</div></div><div class="tl-item hl tl-link" data-view="day3"><div class="tl-dot">🏆</div><div class="tl-date">Mo 14.09.</div><div class="tl-title">Spieltag 3 — 18 Loch &amp; Finale</div><div class="tl-sub">Major · Siegerehrung ›</div></div><div class="tl-item"><div class="tl-dot">🚗</div><div class="tl-date">Di 15.09.</div><div class="tl-title">Abreise</div><div class="tl-sub">Heimfahrt</div></div></div>
             </div></div>
@@ -688,11 +688,11 @@ td.br.tot{color:var(--dim);font-weight:700}
       <section class="view" id="info">
         <button class="back-btn" onclick="goBack()">← Zurück</button>
         <div class="page-head"><div><div class="eyebrow">Regelwerk</div><h1>Ermittlung des Champions & Preisgeld</h1></div></div>
-        <div class="prize-total"><div class="pt-label">Total Preisgeld</div><div class="pt-value">280 €</div></div><div class="card"><h3>👑 Ermittlung des Champions</h3>
+        <div class="card"><h3>👑 Ermittlung des Champions</h3>
           <p>Jeder Spieler spielt in jeder Runde seinen Ball komplett bis ins Loch (Strich: Doppelpar). Der Spieler mit dem besten Netto-Score aus <strong>3 Einzelrunden</strong> sowie dem <strong>Teamzock</strong> wird am <strong>Montagabend</strong> bei der Siegerehrung zum <span style="color:var(--red);font-weight:700">Champion</span> gekrönt.</p>
           <p class="notes" style="border-left-color:var(--gold);background:rgba(233,185,73,.08)">🏆 <strong>Die größte Würdigung:</strong> Der Champion wird natürlich <strong>namentlich auf dem Wanderpokal verewigt</strong> – für die Ewigkeit in der Hacker-Tour-Geschichte.</p>
           <p class="notes">Der Einsatz pro Runde beträgt 10 € p.P. — Gesamt: 40 € p.P. Damit dranbleiben sich lohnt, erhält das insgesamt beste Tagesergebnis 10 % (28 €).</p>
-          <div class="prize-grid"><div class="prize"><div class="pp">🥇 Champion</div><div class="pv">140 €</div><div class="pc">50 %</div></div><div class="prize"><div class="pp">🥈 Zweiter</div><div class="pv">70 €</div><div class="pc">25 %</div></div><div class="prize"><div class="pp">🥉 Dritter</div><div class="pv">42 €</div><div class="pc">15 %</div></div><div class="prize"><div class="pp">🔥 Bestes Tagesergebnis</div><div class="pv">28 €</div><div class="pc">10 %</div></div></div>
+          <div class="prize-total"><div class="pt-label">Gesamt-Preisgeld zum Aufteilen</div><div class="pt-value">280 €</div></div><div class="prize-grid"><div class="prize"><div class="pp">🥇 Champion</div><div class="pv">140 €</div><div class="pc">50 %</div></div><div class="prize"><div class="pp">🥈 Zweiter</div><div class="pv">70 €</div><div class="pc">25 %</div></div><div class="prize"><div class="pp">🥉 Dritter</div><div class="pv">42 €</div><div class="pc">15 %</div></div><div class="prize"><div class="pp">🔥 Bestes Tagesergebnis</div><div class="pv">28 €</div><div class="pc">10 %</div></div></div>
         </div>
       </section>
 
