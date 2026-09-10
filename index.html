@@ -74,7 +74,7 @@ img{max-width:100%}
 .topbar img{width:52px;height:60px;object-fit:contain;filter:drop-shadow(0 6px 16px rgba(0,0,0,.6))}
 .burger{display:none;background:var(--panel);border:1px solid var(--line);color:var(--txt);font-size:20px;width:44px;height:44px;border-radius:11px;cursor:pointer}
 
-.content{padding:46px 40px 34px;max-width:1200px;margin:0 auto}
+.content{padding:44px 40px 40px 56px;max-width:1200px;margin:0 auto}
 .view{display:none;animation:fade .4s cubic-bezier(.2,.7,.2,1)}
 .view.active{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -333,6 +333,15 @@ td.br.tot{color:var(--dim);font-weight:700}
 
 .wx-link{cursor:pointer;text-decoration:none}
 .wx-link:hover{filter:brightness(1.15)}
+
+.meet-card{cursor:pointer;text-decoration:none;color:inherit}
+.meet-card:hover{border-color:var(--lime);transform:translateY(-2px)}
+
+.prize-total{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:20px;padding:22px 26px;border-radius:14px;
+  background:linear-gradient(120deg,rgba(198,255,58,.14),rgba(232,196,81,.08));border:1px solid var(--line2)}
+.prize-total .pt-label{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--dim);font-size:13px}
+.prize-total .pt-value{font-family:var(--display);font-weight:800;font-size:clamp(38px,7vw,60px);line-height:1;color:var(--lime)}
+
 @media(max-width:900px){
   .burger{display:block}
   .sidebar{position:fixed;left:0;top:0;height:100vh;width:82%;max-width:320px;transform:translateX(-105%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:0 0 60px rgba(0,0,0,.7)}
@@ -422,7 +431,7 @@ td.br.tot{color:var(--dim);font-weight:700}
           <div class="dates">11. – 15. September 2026 · Noord-Brabant, Niederlande</div>
           <div class="hero-cta"><button class="cta primary" data-view="dashboard">📊 Live Standings ansehen</button><button class="cta ghost" data-view="day1">⛳ Spieltage entdecken</button><button class="cta ghost" data-view="scores">👥 Scores &amp; Spieler</button></div>
           <div class="hero-stats"><div class="hs"><div class="n">7</div><div class="l">Spieler</div></div><div class="hs"><div class="n">3</div><div class="l">Spieltage</div></div><div class="hs"><div class="n">4</div><div class="l">Plätze</div></div><div class="hs weather-hs"><div class="n" id="wxTemp">–</div><div class="l" id="wxDesc">Wetter · Bernardus</div></div></div>
-          <div class="meet-card" id="meetCard"><div class="meet-ico">🚗</div><div class="meet-body"><div class="meet-title">Treffpunkt Freitag · 07:00 Uhr</div><div class="meet-sub">Park &amp; Ride Parkplatz, 40549 Düsseldorf — gemeinsame Abfahrt</div></div><a class="btn meet-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Park+%26+Ride+40549+D%C3%BCsseldorf">🗺️ In Google Maps</a></div>
+          <a class="meet-card" id="meetCard" href="https://maps.google.com/?q=Park+%26+Ride+40549+D%C3%BCsseldorf" target="_blank" rel="noopener"><div class="meet-ico">🚗</div><div class="meet-body"><div class="meet-title">Treffpunkt Freitag · 07:00 Uhr</div><div class="meet-sub">Park &amp; Ride Parkplatz, 40549 Düsseldorf — gemeinsame Abfahrt · Tippen für Google Maps ›</div></div><span class="btn meet-btn">🗺️ In Google Maps</span></a>
           <div class="timeline-wrap"><h2>🗓️ Unser Trip auf einen Blick</h2><div class="tl-hint">Von der Solheim-Cup-Tribüne bis zum goldenen Zapfhahn</div>
             <div class="timeline"><div class="tl-item"><div class="tl-dot">👀</div><div class="tl-date">Fr 11.09.</div><div class="tl-title">Solheim Cup</div><div class="tl-sub">Zuschauen · Bernardus Golf</div></div><div class="tl-item hl tl-link" data-view="day1"><div class="tl-dot">⛳</div><div class="tl-date">Sa 12.09.</div><div class="tl-title">Spieltag 1 — 18 Loch</div><div class="tl-sub">Cut Major · Bleijenbeek ›</div></div><div class="tl-item hl tl-link" data-view="day2a"><div class="tl-dot">⛳</div><div class="tl-date">So 13.09.</div><div class="tl-title">Spieltag 2 — 36 Loch</div><div class="tl-sub">Scramble &amp; Single ›</div></div><div class="tl-item hl tl-link" data-view="day3"><div class="tl-dot">🏆</div><div class="tl-date">Mo 14.09.</div><div class="tl-title">Spieltag 3 — 18 Loch &amp; Finale</div><div class="tl-sub">Major · Siegerehrung ›</div></div><div class="tl-item"><div class="tl-dot">🚗</div><div class="tl-date">Di 15.09.</div><div class="tl-title">Abreise</div><div class="tl-sub">Heimfahrt</div></div></div>
             </div></div>
@@ -679,7 +688,7 @@ td.br.tot{color:var(--dim);font-weight:700}
       <section class="view" id="info">
         <button class="back-btn" onclick="goBack()">← Zurück</button>
         <div class="page-head"><div><div class="eyebrow">Regelwerk</div><h1>Ermittlung des Champions & Preisgeld</h1></div></div>
-        <div class="card"><h3>👑 Ermittlung des Champions</h3>
+        <div class="prize-total"><div class="pt-label">Total Preisgeld</div><div class="pt-value">280 €</div></div><div class="card"><h3>👑 Ermittlung des Champions</h3>
           <p>Jeder Spieler spielt in jeder Runde seinen Ball komplett bis ins Loch (Strich: Doppelpar). Der Spieler mit dem besten Netto-Score aus <strong>3 Einzelrunden</strong> sowie dem <strong>Teamzock</strong> wird am <strong>Montagabend</strong> bei der Siegerehrung zum <span style="color:var(--red);font-weight:700">Champion</span> gekrönt.</p>
           <p class="notes" style="border-left-color:var(--gold);background:rgba(233,185,73,.08)">🏆 <strong>Die größte Würdigung:</strong> Der Champion wird natürlich <strong>namentlich auf dem Wanderpokal verewigt</strong> – für die Ewigkeit in der Hacker-Tour-Geschichte.</p>
           <p class="notes">Der Einsatz pro Runde beträgt 10 € p.P. — Gesamt: 40 € p.P. Damit dranbleiben sich lohnt, erhält das insgesamt beste Tagesergebnis 10 % (28 €).</p>
@@ -1433,7 +1442,7 @@ function toggleMeetCard(){
   var el=document.getElementById('meetCard'); if(!el) return;
   var cutoff=new Date('2026-09-11T09:00:00+02:00'); // Freitag 09:00 Uhr (NL/DE Sommerzeit)
   if(new Date() >= cutoff){ el.style.display='none'; }
-  else { el.style.display=''; }
+  else { el.style.display='flex'; }
 }
 document.addEventListener('DOMContentLoaded', toggleMeetCard);
 setInterval(toggleMeetCard, 60000);
