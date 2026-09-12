@@ -258,6 +258,7 @@ td.br{color:var(--dim)}
 td.ne{color:var(--txt);font-weight:700}
 td.ne.tot{color:var(--lime);font-weight:800}
 td.br.tot{color:var(--dim);font-weight:700}
+td.pts{color:var(--gold2);font-weight:700}
 #dashboard table td.grp-sep, #dashboard table th.grp-sep{ border-left:2px solid rgba(255,255,255,.16) !important; }
 .bn-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:12.5px;color:var(--dim)}
 .bn-legend strong{color:var(--lime)}
@@ -375,10 +376,11 @@ td.br.tot{color:var(--dim);font-weight:700}
   .map-actions .drive-pill{text-align:center}
   .md-nav{gap:6px}
   .md-nav-btn{flex:1;text-align:center;padding:9px 8px;font-size:12px}
-  #champBody td, #dashboard table thead tr.grp th, #dashboard table thead tr.sub th{padding:7px 4px;font-size:11.5px}
+  #champBody td, #dashboard table thead tr.grp th, #dashboard table thead tr.sub th{padding:7px 3px;font-size:11px}
   #dashboard table thead tr.sub th{font-size:9px}
   #champBody .pname{font-size:11.5px}
   #champBody .pname-link{border-bottom:none}
+  #champBody td.pts.tot, #champBody td.ne.tot{font-size:12.5px}
   .bn-legend{font-size:11.5px;gap:12px}
   .sc-table th,.sc-table td{padding:7px 3px;font-size:11px}
   .md-photo-grid,.md-photo-grid.n2{grid-template-columns:1fr}
@@ -421,6 +423,26 @@ td.br.tot{color:var(--dim);font-weight:700}
   .bn-item .bn-tx{font-size:9px}
   .bn-item .bn-ic{font-size:18px}
 }
+
+/* ===== Mobiles "Sonstiges" Bottom-Sheet ===== */
+.more-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:65;opacity:0;transition:opacity .2s}
+.more-backdrop.show{display:block;opacity:1}
+.more-sheet{
+  display:none;position:fixed;left:0;right:0;bottom:0;z-index:70;
+  background:linear-gradient(180deg,#0d1622,#0a121e);border-top:1px solid var(--line2);
+  border-radius:18px 18px 0 0;padding:10px 16px calc(18px + env(safe-area-inset-bottom,0px));
+  box-shadow:0 -18px 50px -12px rgba(0,0,0,.75);transform:translateY(105%);transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.more-sheet.show{display:block;transform:translateY(0)}
+.more-handle{width:44px;height:5px;border-radius:5px;background:var(--line2);margin:6px auto 12px}
+.more-title{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--lime);margin:0 4px 12px}
+.more-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.more-link{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--txt);
+  padding:12px 12px;border-radius:12px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;text-align:left;transition:.15s}
+.more-link:active{background:rgba(198,255,58,.12);border-color:var(--line2)}
+.more-link .ml-ic{font-size:18px;line-height:1}
+.more-link .ml-tx{line-height:1.2}
+@media(min-width:901px){ .more-sheet,.more-backdrop,#moreBtn{display:none!important} }
 
 </style>
 </head>
@@ -472,14 +494,14 @@ td.br.tot{color:var(--dim);font-weight:700}
           <div class="live-controls"><button class="btn live-refresh" onclick="loadLiveScores(false)">🔄 Ergebnisse aktualisieren</button><span id="liveStatus" class="live-status off">⚙️ Live wird geladen …</span></div></div></div>
         <div class="stat-row"><div class="stat"><div class="k">Spieltage insgesamt</div><div class="v" id="stTotal">4</div></div><div class="stat"><div class="k">Davon gespielt</div><div class="v g" id="stPlayed">0</div></div><div class="stat"><div class="k">Noch zu spielen</div><div class="v" id="stRemain">4</div></div><div class="stat"><div class="k">Preisgeld gesamt</div><div class="v g">280 €</div></div></div>
 
-        <div class="card"><h3>🏆 Champion-Wertung — Netto gesamt <span style="font-weight:500;color:var(--muted);font-size:12px">(3 Einzelrunden + Team-Scramble)</span></h3>
+        <div class="card"><h3>🏆 Punkte-Wertung — Champion <span style="font-weight:500;color:var(--muted);font-size:12px">(Punkte pro Runde nach Netto · 3 Einzelrunden + Team-Scramble)</span></h3>
+          <p style="margin:2px 0 14px;font-size:13px;color:var(--dim)">Pro Runde werden <strong>Punkte</strong> nach dem Netto-Ergebnis vergeben: Der Beste jeder Runde erhält <strong>7 Punkte</strong>, der Zweite <strong>6</strong>, usw. bis der Letzte <strong>1 Punkt</strong> bekommt. Champion ist, wer über alle Runden die <strong>meisten Punkte</strong> sammelt.</p>
           <div class="scroll-x"><table>
-            <thead><tr class="grp"><th rowspan="2">#</th><th rowspan="2">Player</th><th rowspan="2">Hcp</th><th colspan="2" class="grp-sep">R1</th><th colspan="2" class="grp-sep">R2a</th><th colspan="2" class="grp-sep">R2b</th><th colspan="2" class="grp-sep">R3</th><th colspan="2" class="grp-sep">Total</th><th colspan="2" class="grp-sep">+/- Par</th></tr><tr class="sub"><th class="grp-sep">B</th><th>N</th><th class="grp-sep">B</th><th>N</th><th class="grp-sep">B</th><th>N</th><th class="grp-sep">B</th><th>N</th><th class="grp-sep">B</th><th>N</th><th class="grp-sep">B</th><th>N</th></tr></thead>
+            <thead><tr class="grp"><th rowspan="2">#</th><th rowspan="2">Player</th><th rowspan="2" class="grp-sep">Punkte</th><th rowspan="2" class="grp-sep">+/- Par<br><span style="font-weight:500;color:var(--muted);font-size:10px">Netto</span></th><th rowspan="2">Hcp</th><th colspan="2" class="grp-sep">R1</th><th colspan="2" class="grp-sep">R2a</th><th colspan="2" class="grp-sep">R2b</th><th colspan="2" class="grp-sep">R3</th></tr><tr class="sub"><th class="grp-sep">Netto</th><th>Pkt</th><th class="grp-sep">Netto</th><th>Pkt</th><th class="grp-sep">Netto</th><th>Pkt</th><th class="grp-sep">Netto</th><th>Pkt</th></tr></thead>
             <tbody id="champBody"></tbody>
           </table></div>
-          <div class="bn-legend"><span><strong>B</strong> = Brutto</span><span><strong>N</strong> = Netto</span><span style="color:var(--muted)">Sortierung nach Netto-Total</span></div>
-          <p style="margin-top:14px;font-size:13px;color:var(--muted)">💡 Für die Runden-Details je Spieler → <a data-view="scores" style="color:var(--gold2);cursor:pointer;font-weight:600">Scores &amp; Spieler</a></p>
-        </div>
+          <div class="bn-legend"><span><strong>Pkt</strong> = Rundenpunkte (7 = Rundensieg … 1 = Letzter)</span><span><strong>Netto</strong> = Netto-Score der Runde</span><span style="color:var(--muted)">Sortierung nach Gesamtpunkten</span></div>
+          <p style="margin-top:14px;font-size:13px;color:var(--muted)">💡 Für die Runden-Details je Spieler → <a data-view="scores" style="color:var(--gold2);cursor:pointer;font-weight:600">Scores &amp; Spieler</a></p></div>
 
         <div class="card" style="margin-top:20px">
           <h3>🎯 Beste Einzelrunde — Netto <span style="font-weight:500;color:var(--muted);font-size:12px">(nur Einzelrunden: R1, R2b, R3)</span></h3>
@@ -496,6 +518,16 @@ td.br.tot{color:var(--dim);font-weight:700}
           <div class="scroll-x" style="margin-top:16px"><table>
             <thead><tr><th>#</th><th>Player</th><th>Birdies</th><th>davon Eagles+</th><th>Runden</th></tr></thead>
             <tbody id="birdieBody"></tbody>
+          </table></div>
+        </div>
+
+        <div class="card" style="margin-top:20px">
+          <h3>👑 Tripple-König <span style="font-weight:500;color:var(--muted);font-size:12px">(alle Runden · Score = Par + 3 oder schlechter)</span></h3>
+          <p style="margin:2px 0 8px;font-size:13px;color:var(--dim)">Diese Wertung zeigt, wer am häufigsten richtig eingeschlagen hat: Gezählt werden alle Löcher, die mit einem <strong>Triple Bogey oder schlechter</strong> (mindestens 3 Schläge über Par) gespielt wurden – kumuliert über alle Einzelrunden. Wer die meisten hat, trägt die zweifelhafte Krone des <strong>Tripple-Königs</strong>. 👑</p>
+          <div id="tripleHero"></div>
+          <div class="scroll-x" style="margin-top:16px"><table>
+            <thead><tr><th>#</th><th>Player</th><th>Triple+ gesamt</th><th>schlimmstes Loch</th><th>Runden</th></tr></thead>
+            <tbody id="tripleBody"></tbody>
           </table></div>
         </div>
         <div class="card" style="margin-top:20px"><h3>⛳ Spieltage</h3><div class="md-grid">
@@ -730,12 +762,30 @@ td.br.tot{color:var(--dim);font-weight:700}
     </div>
   </div>
 </div>
-<nav class="bottomnav" id="bottomNav"><button class="bn-item" data-view="welcome"><span class="bn-ic">🏠</span><span class="bn-tx">Start</span></button><button class="bn-item" data-view="dashboard"><span class="bn-ic">📊</span><span class="bn-tx">Live</span></button><button class="bn-item" data-view="scores"><span class="bn-ic">👤</span><span class="bn-tx">Spieler</span></button><button class="bn-item" data-view="day1"><span class="bn-ic">⛳</span><span class="bn-tx">Spieltage</span></button><button class="bn-item" data-view="info"><span class="bn-ic">ℹ️</span><span class="bn-tx">Info</span></button></nav>
+<nav class="bottomnav" id="bottomNav"><button class="bn-item" data-view="welcome"><span class="bn-ic">🏠</span><span class="bn-tx">Start</span></button><button class="bn-item" data-view="dashboard"><span class="bn-ic">📊</span><span class="bn-tx">Live</span></button><button class="bn-item" data-view="scores"><span class="bn-ic">👤</span><span class="bn-tx">Spieler</span></button><button class="bn-item" data-view="day1"><span class="bn-ic">⛳</span><span class="bn-tx">Spieltage</span></button><button class="bn-item" id="moreBtn" type="button"><span class="bn-ic">⋯</span><span class="bn-tx">Mehr</span></button></nav>
+
+<!-- Mobiles "Sonstiges"-Menue (Bottom-Sheet) -->
+<div class="more-backdrop" id="moreBackdrop"></div>
+<div class="more-sheet" id="moreSheet" role="dialog" aria-modal="true" aria-label="Weitere Seiten">
+  <div class="more-handle"></div>
+  <div class="more-title">Sonstiges &amp; Navigation</div>
+  <div class="more-grid">
+    <button class="more-link" data-view="dashboard"><span class="ml-ic">📊</span><span class="ml-tx">Live Standings</span></button>
+    <button class="more-link" data-view="scores"><span class="ml-ic">📈</span><span class="ml-tx">Scores &amp; Spieler</span></button>
+    <button class="more-link" data-view="hotel"><span class="ml-ic">🏨</span><span class="ml-tx">Hotel (Solheim Cup)</span></button>
+    <button class="more-link" data-view="airbnb"><span class="ml-ic">🏡</span><span class="ml-tx">Airbnb (Base Camp)</span></button>
+    <button class="more-link" data-view="day1"><span class="ml-ic">⛳</span><span class="ml-tx">Spieltag 1 · Sa</span></button>
+    <button class="more-link" data-view="day2a"><span class="ml-ic">⛳</span><span class="ml-tx">Spieltag 2a · So</span></button>
+    <button class="more-link" data-view="day2b"><span class="ml-ic">⛳</span><span class="ml-tx">Spieltag 2b · So</span></button>
+    <button class="more-link" data-view="day3"><span class="ml-ic">⛳</span><span class="ml-tx">Spieltag 3 · Mo</span></button>
+    <button class="more-link" data-view="info"><span class="ml-ic">ℹ️</span><span class="ml-tx">Modus &amp; Preisgeld</span></button>
+  </div>
+</div>
 <script>
 const views=document.querySelectorAll('.view');const navbtns=document.querySelectorAll('.navbtn');
 const sidebar=document.getElementById('sidebar');const backdrop=document.getElementById('backdrop');
 function closeMenu(){sidebar.classList.remove('open');backdrop.classList.remove('show');}
-var VIEW_STACK=[];var CUR_VIEW='welcome';function applyView(v){views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));document.querySelectorAll('.bn-item').forEach(function(b){var t=b.getAttribute('data-view');var on=(t===v)||(t==='day1'&&['day1','day2a','day2b','day3'].indexOf(v)>=0)||(t==='scores'&&v==='players');b.classList.toggle('active',on);});window.scrollTo({top:0,behavior:'smooth'});closeMenu();if(v==='scores'){renderChips();renderDetail();}if(v==='dashboard'){renderDashboard();}if(v==='packliste'){loadPackliste();}}function go(v){if(v===CUR_VIEW)return;VIEW_STACK.push(CUR_VIEW);CUR_VIEW=v;applyView(v);}function goBack(){var prev=VIEW_STACK.pop();var t=prev||'welcome';CUR_VIEW=t;applyView(t);}
+var VIEW_STACK=[];var CUR_VIEW='welcome';function applyView(v){views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));document.querySelectorAll('.bn-item').forEach(function(b){var t=b.getAttribute('data-view');var on=(t===v)||(t==='day1'&&['day1','day2a','day2b','day3'].indexOf(v)>=0)||(t==='scores'&&v==='players');b.classList.toggle('active',on);});var __mb=document.getElementById('moreBtn');if(__mb){__mb.classList.toggle('active',['hotel','airbnb','info'].indexOf(v)>=0);}window.scrollTo({top:0,behavior:'smooth'});closeMenu();if(v==='scores'){renderChips();renderDetail();}if(v==='dashboard'){renderDashboard();}if(v==='packliste'){loadPackliste();}}function go(v){if(v===CUR_VIEW)return;VIEW_STACK.push(CUR_VIEW);CUR_VIEW=v;applyView(v);}function goBack(){var prev=VIEW_STACK.pop();var t=prev||'welcome';CUR_VIEW=t;applyView(t);}
 document.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',()=>go(el.dataset.view)));
 function goPlayer(key){ if(!key) return; currentPlayer=key; go('scores'); }
 document.addEventListener('click',function(e){
@@ -744,6 +794,22 @@ document.addEventListener('click',function(e){
 });
 document.getElementById('burger').addEventListener('click',()=>{sidebar.classList.add('open');backdrop.classList.add('show');});
 backdrop.addEventListener('click',closeMenu);
+
+/* ===== Mobiles "Sonstiges"-Menue (Bottom-Sheet) ===== */
+(function(){
+  var moreBtn=document.getElementById('moreBtn');
+  var moreSheet=document.getElementById('moreSheet');
+  var moreBackdrop=document.getElementById('moreBackdrop');
+  if(!moreBtn||!moreSheet||!moreBackdrop) return;
+  function openMore(){ moreSheet.classList.add('show'); moreBackdrop.classList.add('show'); moreBtn.classList.add('active'); }
+  function closeMore(){ moreSheet.classList.remove('show'); moreBackdrop.classList.remove('show'); moreBtn.classList.remove('active'); }
+  window.closeMore=closeMore;
+  moreBtn.addEventListener('click',function(e){ e.stopPropagation(); if(moreSheet.classList.contains('show')) closeMore(); else openMore(); });
+  moreBackdrop.addEventListener('click',closeMore);
+  moreSheet.querySelectorAll('.more-link').forEach(function(b){
+    b.addEventListener('click',function(){ var v=b.getAttribute('data-view'); closeMore(); if(typeof go==='function') go(v); });
+  });
+})();
 
 const DATA = {"par": [4, 5, 4, 4, 4, 4, 3, 4, 3, 5, 4, 5, 3, 4, 5, 3, 5, 4], "si": [3, 15, 9, 17, 1, 7, 13, 5, 11, 2, 16, 10, 14, 12, 6, 18, 4, 8], "rounds": ["R1 · Cut Major", "R2a · Shamble", "R2b · Single", "R3 · Major"], "players": [{"name": "F. Bandt", "hcp": "5,6", "phcp": 6, "key": "fbandt"}, {"name": "L. Breuer", "hcp": "8,8", "phcp": 9, "key": "lbreuer"}, {"name": "D. Busch", "hcp": "10,2", "phcp": 10, "key": "dbusch"}, {"name": "J. Haberstock", "hcp": "4,3", "phcp": 4, "key": "jhaberstock"}, {"name": "J. Glatter", "hcp": "9,6", "phcp": 10, "key": "jglatter"}, {"name": "M. Glatter", "hcp": "5,7", "phcp": 6, "key": "mglatter"}, {"name": "M. Preis", "hcp": "3,2", "phcp": 3, "key": "mpreis"}], "scores": {"fbandt": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "lbreuer": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "dbusch": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "jhaberstock": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "jglatter": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "mglatter": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]], "mpreis": [[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]}, "courses": {"Bleijenbeek": {"name": "Golfbaan Landgoed Bleijenbeek", "meta": "Par 72 · Referenz-Tee", "par": [4, 5, 4, 4, 4, 4, 3, 4, 3, 5, 4, 5, 3, 4, 5, 3, 5, 4], "si": [3, 15, 9, 17, 1, 7, 13, 5, 11, 2, 16, 10, 14, 12, 6, 18, 4, 8], "mtr": [366, 475, 392, 175, 358, 332, 191, 380, 375, 507, 310, 297, 155, 461, 371, 178, 490, 471]}, "Golfhorst": {"name": "Golfbaan de Golfhorst", "meta": "Raamweg 8, 5966 RM America · Par 70", "par": [5, 5, 5, 3, 4, 4, 3, 3, 4, 3, 5, 4, 5, 3, 4, 3, 4, 3], "si": [7, 5, 3, 17, 1, 11, 15, 13, 9, 14, 4, 2, 6, 12, 18, 10, 8, 16], "mtr": [445, 416, 458, 101, 350, 295, 152, 157, 339, 152, 471, 341, 443, 115, 230, 182, 312, 139]}, "Geijsteren": {"name": "Golf- & Countryclub \"Geijsteren\"", "meta": "Par 72 · Geel-Tee", "par": [4, 4, 4, 4, 4, 4, 3, 5, 3, 5, 4, 3, 4, 5, 3, 5, 4, 4], "si": [6, 16, 2, 8, 14, 4, 12, 10, 18, 9, 15, 3, 17, 13, 7, 11, 5, 1], "mtr": [344, 285, 379, 320, 336, 335, 164, 464, 163, 456, 340, 180, 365, 442, 137, 442, 370, 371]}, "Stippelberg": {"name": "Golfbaan Stippelberg (Championship)", "meta": "Hooizak 7, Gemert-Bakel · Par 71 · Geel-Tee", "par": [3, 5, 3, 4, 4, 4, 3, 5, 4, 4, 3, 4, 5, 3, 4, 4, 5, 4], "si": [15, 5, 17, 7, 1, 11, 13, 3, 9, 18, 4, 6, 14, 16, 12, 10, 8, 2], "mtr": [164, 475, 144, 330, 405, 334, 172, 503, 299, 385, 135, 538, 490, 155, 256, 341, 461, 347]}}, "roundCourse": ["Bleijenbeek", "Golfhorst", "Geijsteren", "Stippelberg"], "scrambleTeams": {"roundIndex": 1, "A": {"players": ["jglatter", "jhaberstock", "dbusch"], "gross": 63}, "B": {"players": ["fbandt", "lbreuer", "mglatter", "mpreis"], "gross": 64}}};
 
@@ -991,36 +1057,73 @@ function roundNettoToPar(pkey, ri){
 
 function renderChampion(){
   const body=document.getElementById('champBody'); if(!body) return;
-  const SCRAMBLE_RI=(DATA.scrambleTeams?DATA.scrambleTeams.roundIndex:1);
-  const rows = DATA.players.map(function(p){
-    var totBr=0, totPar=0, hcpSum=0, anyPlayed=false;
-    var cells=[0,1,2,3].map(function(ri){
-      var rd=DATA.scores[p.key][ri];
-      var t=roundTotals(rd, parForRound(ri));
+  const RIS=[0,1,2,3];
+
+  // 1) Netto-Ergebnis je Spieler und Runde (nur vollstaendige Runden)
+  const perRound = {};
+  RIS.forEach(function(ri){
+    var list=[];
+    DATA.players.forEach(function(p){
+      var t=roundTotals(DATA.scores[p.key][ri], parForRound(ri));
+      if(t.played>=18){
+        var netto=t.gross - p.phcp;
+        list.push({key:p.key, netto:netto});
+      }
+    });
+    perRound[ri]=list;
+  });
+
+  // 2) Punkte je Runde: Bester=7, dann 6,5... (Letzter=1). Gleichstand -> gemittelte Punkte.
+  const roundPoints = {};
+  RIS.forEach(function(ri){
+    var list=perRound[ri].slice().sort(function(a,b){ return a.netto-b.netto; });
+    var pts={}, n=list.length, i=0;
+    while(i<n){
+      var j=i; while(j+1<n && list[j+1].netto===list[i].netto) j++;
+      var sum=0; for(var r=i;r<=j;r++){ sum += (7-r); }
+      var avg=sum/(j-i+1);
+      for(var k=i;k<=j;k++){ pts[list[k].key]=avg; }
+      i=j+1;
+    }
+    roundPoints[ri]=pts;
+  });
+
+  // 3) Zeilen
+  var rows = DATA.players.map(function(p){
+    var totalPts=0, totBr=0, totPar=0, hcpSum=0, anyPlayed=false;
+    var cells = RIS.map(function(ri){
+      var t=roundTotals(DATA.scores[p.key][ri], parForRound(ri));
       if(t.played<18) return '<td class="dim grp-sep">–</td><td class="dim">–</td>';
-      var brutto=t.gross;
-      var netto=(t.gross - p.phcp); // Shamble & Einzel: Netto = Brutto - Playing-Hcp
-      totBr+=brutto; totPar+=t.parPlayed; if(ri!==SCRAMBLE_RI) hcpSum+=p.phcp; anyPlayed=true;
-      return '<td class="br grp-sep">'+brutto+'</td><td class="ne">'+netto+'</td>';
+      var netto=t.gross - p.phcp;
+      var pts=(roundPoints[ri][p.key]!==undefined)? roundPoints[ri][p.key] : 0;
+      totalPts+=pts; totBr+=t.gross; totPar+=t.parPlayed; hcpSum+=p.phcp; anyPlayed=true;
+      var ptsTxt=(pts%1===0)? pts : pts.toFixed(1);
+      return '<td class="ne grp-sep">'+netto+'</td><td class="pts">'+ptsTxt+'</td>';
     }).join('');
     var totNe = anyPlayed ? (totBr - hcpSum) : null;
     var toParNe = anyPlayed ? (totNe - totPar) : null;
-    var toParBr = anyPlayed ? (totBr - totPar) : null;
-    return {p:p, cells:cells, played:anyPlayed, totBr:totBr, totNe:totNe, toParNe:toParNe, toParBr:toParBr};
+    return {p:p, cells:cells, played:anyPlayed, totalPts:totalPts, toParNe:toParNe};
   });
+
+  // 4) Sortierung: Gesamtpunkte desc; Tie-Break: Netto +/- Par asc
   rows.sort(function(a,b){
-    if(a.played&&b.played) return a.totNe-b.totNe;
+    if(a.played&&b.played){
+      if(b.totalPts!==a.totalPts) return b.totalPts - a.totalPts;
+      return a.toParNe - b.toParNe;
+    }
     if(a.played) return -1; if(b.played) return 1; return 0;
   });
+
   body.innerHTML = rows.map(function(r,idx){
     var pos = r.played ? medal(idx+1) : '–';
+    var ptsTxt = (r.totalPts%1===0)? r.totalPts : r.totalPts.toFixed(1);
     return '<tr>'
       + '<td class="pos">'+pos+'</td>'
       + '<td class="pname"><span class="pname-link" data-player="'+r.p.key+'">'+r.p.name+'</span></td>'
+      + '<td class="pts tot grp-sep" style="font-weight:800;color:var(--lime)">'+(r.played? ptsTxt : 0)+'</td>'
+      + '<td class="ne tot grp-sep" style="font-weight:700">'+(r.played? fmtToPar(r.toParNe) : 'E')+'</td>'
       + '<td>'+r.p.hcp+'</td>'
       + r.cells
-      + '<td class="br tot grp-sep">'+(r.played? r.totBr : 0)+'</td><td class="ne tot">'+(r.played? r.totNe : 0)+'</td>'
-      + '<td class="br grp-sep">'+(r.played? fmtToPar(r.toParBr) : 'E')+'</td><td class="ne">'+(r.played? fmtToPar(r.toParNe) : 'E')+'</td>'
       + '</tr>';
   }).join('');
 }
@@ -1074,7 +1177,7 @@ function renderBestSingle(){
   body.innerHTML = rowsPlayed + rowsEmpty;
 }
 
-function renderDashboard(){ renderChampion(); renderBestSingle(); renderBirdies(); renderStats(); }
+function renderDashboard(){ renderChampion(); renderBestSingle(); renderBirdies(); renderTripleKing(); renderStats(); }
 
 
 try{renderDashboard();}catch(e){}
@@ -1199,6 +1302,63 @@ function renderBirdies(){
            rankCell = ({1:'🥇',2:'🥈',3:'🥉'})[pos] || pos; }
     return `<tr><td class="pos">${rankCell}</td><td class="pname"><span class="pname-link" data-player="${x.p.key}">${x.p.name}</span></td>
       <td class="net">${x.birdies}</td><td>${x.eagles}</td><td class="dim">${x.roundsPlayed}</td></tr>`;
+  }).join('');
+}
+
+
+// ================= DASHBOARD: Tripple-Koenig (Triple Bogey oder schlechter) =================
+function playerTripleStats(pkey){
+  const sc = DATA.scores[pkey];
+  const SCRAMBLE_RI = (DATA.scrambleTeams? DATA.scrambleTeams.roundIndex : 1);
+  let triples=0, worst=0, roundsPlayed=0;
+  sc.forEach((rd,ri)=>{
+    if(ri===SCRAMBLE_RI) return; // Team-Scramble zaehlt nicht fuer die individuelle Wertung
+    const par=parForRound(ri);
+    let played=0;
+    for(let i=0;i<18;i++){
+      const s=rd[i];
+      if(s!==null&&s!==undefined&&s!==""){
+        played++;
+        const d=Number(s)-par[i];
+        if(d>=3){ triples++; if(d>worst) worst=d; }
+      }
+    }
+    if(played>0) roundsPlayed++;
+  });
+  return {triples, worst, roundsPlayed};
+}
+function renderTripleKing(){
+  const hero=document.getElementById('tripleHero');
+  const body=document.getElementById('tripleBody');
+  if(!hero||!body) return;
+  const list = DATA.players.map(p=>({p, ...playerTripleStats(p.key)}));
+  const anyPlayed = list.some(x=>x.roundsPlayed>0);
+  list.sort((a,b)=> (b.triples-a.triples) || (b.worst-a.worst));
+
+  if(!anyPlayed){
+    hero.innerHTML = `<div class="best-hero empty"><div class="bh-l"><span class="bh-tag">Noch kein Tripple-Koenig gekroent</span>
+      <div class="bh-name">—</div><div class="bh-sub">Sobald Ergebnisse eingetragen sind, erscheint hier der Spieler mit den meisten Triple Bogeys+.</div></div>
+      <div class="bh-score"><div class="bh-num">–</div><div class="bh-lbl">Triple+</div></div></div>`;
+  } else {
+    const top=list[0];
+    hero.innerHTML = `<div class="best-hero"><div class="bh-l">
+        <span class="bh-tag">👑 Tripple-König aktuell</span>
+        <div class="bh-name">${top.triples>0? '<span class="pname-link" data-player="'+top.p.key+'">'+top.p.name+'</span>' : '—'}</div>
+        <div class="bh-sub">${top.triples>0? ('über '+top.roundsPlayed+' Runde'+(top.roundsPlayed>1?'n':'')) : 'noch kein Triple Bogey – stark!'}</div>
+      </div>
+      <div class="bh-mid"><div class="bh-num">${top.worst>0? ('+'+top.worst) : '–'}</div><div class="bh-lbl">schlimmstes Loch</div></div>
+      <div class="bh-score"><div class="bh-num g">${top.triples}</div><div class="bh-lbl">Triple+</div></div>
+    </div>`;
+  }
+
+  let pos=0, lastVal=null;
+  body.innerHTML = list.map((x,idx)=>{
+    let rankCell;
+    if(x.roundsPlayed===0){ rankCell='–'; }
+    else { if(lastVal===null || x.triples!==lastVal){ pos=idx+1; lastVal=x.triples; }
+           rankCell = ({1:'👑',2:'🥈',3:'🥉'})[pos] || pos; }
+    return `<tr><td class="pos">${rankCell}</td><td class="pname"><span class="pname-link" data-player="${x.p.key}">${x.p.name}</span></td>
+      <td class="net">${x.triples}</td><td>${x.worst>0? ('+'+x.worst) : '–'}</td><td class="dim">${x.roundsPlayed}</td></tr>`;
   }).join('');
 }
 
