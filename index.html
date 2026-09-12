@@ -393,6 +393,35 @@ td.br.tot{color:var(--dim);font-weight:700}
   .stat .v{font-size:20px}
   .bh-name{font-size:19px}
 }
+
+/* ===== App-style Bottom Navigation (mobil) ===== */
+.bottomnav{display:none}
+@media(max-width:900px){
+  .bottomnav{
+    display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;
+    background:rgba(9,14,22,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line2);
+    padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));justify-content:space-around;align-items:stretch;
+  }
+  .bn-item{flex:1;background:transparent;border:0;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;
+    padding:6px 2px;font-family:var(--font);font-weight:700;cursor:pointer;border-radius:10px;transition:.15s}
+  .bn-item .bn-ic{font-size:19px;line-height:1}
+  .bn-item .bn-tx{font-size:10px;letter-spacing:.04em;text-transform:uppercase}
+  .bn-item.active{color:var(--lime)}
+  .bn-item.active .bn-ic{transform:translateY(-1px)}
+  /* Platz für die Bottom-Bar schaffen */
+  .main{padding-bottom:78px!important}
+  /* Auf Mobil: klassisches Slide-in-Menü + Burger ausblenden, App-Feeling über Bottom-Bar */
+  .burger{display:none!important}
+  .sidebar{display:none!important}
+  .backdrop{display:none!important}
+  .topbar{justify-content:center;text-align:center}
+  .topbar .title{font-size:18px}
+}
+@media(max-width:380px){
+  .bn-item .bn-tx{font-size:9px}
+  .bn-item .bn-ic{font-size:18px}
+}
+
 </style>
 </head>
 <body>
@@ -701,11 +730,12 @@ td.br.tot{color:var(--dim);font-weight:700}
     </div>
   </div>
 </div>
+<nav class="bottomnav" id="bottomNav"><button class="bn-item" data-view="welcome"><span class="bn-ic">🏠</span><span class="bn-tx">Start</span></button><button class="bn-item" data-view="dashboard"><span class="bn-ic">📊</span><span class="bn-tx">Live</span></button><button class="bn-item" data-view="scores"><span class="bn-ic">👤</span><span class="bn-tx">Spieler</span></button><button class="bn-item" data-view="day1"><span class="bn-ic">⛳</span><span class="bn-tx">Spieltage</span></button><button class="bn-item" data-view="info"><span class="bn-ic">ℹ️</span><span class="bn-tx">Info</span></button></nav>
 <script>
 const views=document.querySelectorAll('.view');const navbtns=document.querySelectorAll('.navbtn');
 const sidebar=document.getElementById('sidebar');const backdrop=document.getElementById('backdrop');
 function closeMenu(){sidebar.classList.remove('open');backdrop.classList.remove('show');}
-var VIEW_STACK=[];var CUR_VIEW='welcome';function applyView(v){views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));window.scrollTo({top:0,behavior:'smooth'});closeMenu();if(v==='scores'){renderChips();renderDetail();}if(v==='dashboard'){renderDashboard();}if(v==='packliste'){loadPackliste();}}function go(v){if(v===CUR_VIEW)return;VIEW_STACK.push(CUR_VIEW);CUR_VIEW=v;applyView(v);}function goBack(){var prev=VIEW_STACK.pop();var t=prev||'welcome';CUR_VIEW=t;applyView(t);}
+var VIEW_STACK=[];var CUR_VIEW='welcome';function applyView(v){views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));document.querySelectorAll('.bn-item').forEach(function(b){var t=b.getAttribute('data-view');var on=(t===v)||(t==='day1'&&['day1','day2a','day2b','day3'].indexOf(v)>=0)||(t==='scores'&&v==='players');b.classList.toggle('active',on);});window.scrollTo({top:0,behavior:'smooth'});closeMenu();if(v==='scores'){renderChips();renderDetail();}if(v==='dashboard'){renderDashboard();}if(v==='packliste'){loadPackliste();}}function go(v){if(v===CUR_VIEW)return;VIEW_STACK.push(CUR_VIEW);CUR_VIEW=v;applyView(v);}function goBack(){var prev=VIEW_STACK.pop();var t=prev||'welcome';CUR_VIEW=t;applyView(t);}
 document.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',()=>go(el.dataset.view)));
 function goPlayer(key){ if(!key) return; currentPlayer=key; go('scores'); }
 document.addEventListener('click',function(e){
@@ -1429,4 +1459,6 @@ document.addEventListener('DOMContentLoaded', toggleMeetCard);
 setInterval(toggleMeetCard, 60000);
 
 </script>
+
+<script>document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".bn-item");if(b){var v=b.getAttribute("data-view"); if(typeof go==="function"){e.preventDefault(); go(v);} }});</script>
 </body></html>
