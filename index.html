@@ -854,7 +854,7 @@ const SHEET_TAB = "Ergebnisse";
 const SHEET_TEAMS_TAB = "Teams";
 const SHEET_PACK_TAB = "Packliste";   // Tab mit Team-Zuordnung (Team 1 / Team 2)
 /* Runden-Bezeichnung im Sheet -> interner Index (0..3) */
-const ROUND_LABEL_TO_INDEX = { "1":0, "2":1, "3a":2, "3b":3 };
+const ROUND_LABEL_TO_INDEX = { "1":0, "2":1, "3":2, "4":3, "3a":2, "3b":3 };
 const SHEET_NAME_TO_KEY = {
   "f. bandt":"fbandt","l. breuer":"lbreuer","d. busch":"dbusch","j. haberstock":"jhaberstock",
   "j. glatter":"jglatter","m. glatter":"mglatter","m. preis":"mpreis"
@@ -1424,7 +1424,7 @@ function roundToIndex(raw){
   if(raw===null||raw===undefined) return null;
   var s=(''+raw).trim().toLowerCase().replace(/\s+/g,'');
   // PRIMÄR: numerische Eingabe 1..4  -> interne Runde 0..3
-  //   1 = Spieltag 1, 2 = Spieltag 2, 3 = Spieltag 3a, 4 = Spieltag 3b
+  //   1 = Spieltag 1 (R1) · 2 = Spieltag 2 (R2) · 3 = Spieltag 3a (R3a) · 4 = Spieltag 3b (R3b)
   var n=parseInt(raw,10);
   if(!isNaN(n) && n>=1 && n<=4) return n-1;
   // FALLBACK: Textlabels ("3a"/"3b"/"Spieltag 3a" etc.)
@@ -1433,7 +1433,8 @@ function roundToIndex(raw){
   if(s.indexOf('3b')>=0) return 3;
   if(s==='1') return 0;
   if(s==='2'||s.indexOf('2a')>=0||s.indexOf('2b')>=0) return 1;
-  if(s==='3') return 3;
+  if(s==='3') return 2;   // reine "3" -> R3a (Haus Bey Vormittag)
+  if(s==='4') return 3;   // reine "4" -> R3b (Haus Bey Nachmittag)
   return null;
 }
 
