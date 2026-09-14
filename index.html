@@ -259,6 +259,12 @@ td.ne{color:var(--txt);font-weight:700}
 td.ne.tot{color:var(--lime);font-weight:800}
 td.br.tot{color:var(--dim);font-weight:700}
 td.pts{color:var(--gold2);font-weight:700}
+.fl-block{background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.fl-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.fl-badge{font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--lime);background:rgba(198,255,58,.10);border:1px solid var(--line2);padding:4px 10px;border-radius:999px}
+.fl-time{font-weight:800;color:var(--gold2)}
+td.fl-adj{font-weight:800;color:var(--lime)}
+.fl-empty{padding:14px 16px;border:1px dashed var(--line2);border-radius:12px;color:var(--dim);font-size:13px;line-height:1.6}
 #dashboard table td.grp-sep, #dashboard table th.grp-sep{ border-left:2px solid rgba(255,255,255,.16) !important; }
 .bn-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:12.5px;color:var(--dim)}
 .bn-legend strong{color:var(--lime)}
@@ -646,15 +652,9 @@ td.pts{color:var(--gold2);font-weight:700}
       </div>
 
       <div class="card">
-        <h3>🌇 Nachmittag · Startzeiten</h3>
-        <p style="font-size:13px;color:var(--dim);margin:2px 0 14px">Die Nachmittags-Flights werden <strong>nach dem Zwischenstand</strong> (Netto) gebildet: Die <strong>Plätze 1–4</strong> spielen gemeinsam im <strong>4er-Flight</strong>, die <strong>Plätze 5–7</strong> im <strong>3er-Flight</strong>. Die Namen werden nach der Vormittagsrunde ergänzt.</p>
-        <div class="scroll-x"><table>
-          <thead><tr><th>Flight</th><th>Tee Time</th><th>Player</th></tr></thead>
-          <tbody>
-            <tr><td class="pos" style="font-weight:800">1</td><td style="white-space:nowrap;font-weight:700;color:var(--gold2)">14:30</td><td class="dim"><em>Platz 1–4 (4er-Flight) · wird nach Zwischenstand ergänzt</em></td></tr>
-            <tr><td class="pos" style="font-weight:800">2</td><td style="white-space:nowrap;font-weight:700;color:var(--gold2)">14:40</td><td class="dim"><em>Platz 5–7 (3er-Flight) · wird nach Zwischenstand ergänzt</em></td></tr>
-          </tbody>
-        </table></div>
+        <h3>🌇 Nachmittag · Flights nach Zwischenstand</h3>
+        <p style="font-size:13px;color:var(--dim);margin:2px 0 14px">Eingeteilt nach dem <strong>Netto-Ergebnis der Vormittagsrunde (R3a, Haus Bey)</strong>. Der <strong>3er-Flight (Plätze 7–5)</strong> startet zuerst um <strong>14:30</strong>, danach der <strong>4er-Flight (Plätze 1–4)</strong> um <strong>14:40</strong>. Eine Zeile pro Spieler mit <strong>Gesamtpunkten</strong> und dem Schlag-Start in der Finalrunde (<strong>Start R3b</strong> = −1 je zuvor gewonnenem Netto-Tagessieg, sonst 0).</p>
+        <div id="afternoonFlights"></div>
         <p style="margin-top:14px;font-size:13px;color:var(--muted)">💡 Aktueller Zwischenstand → <a data-view="dashboard" style="color:var(--gold2);cursor:pointer;font-weight:600">Live Standings ›</a></p>
       </div>
     </section>
@@ -820,7 +820,7 @@ td.pts{color:var(--gold2);font-weight:700}
 const views=document.querySelectorAll('.view');const navbtns=document.querySelectorAll('.navbtn');
 const sidebar=document.getElementById('sidebar');const backdrop=document.getElementById('backdrop');
 function closeMenu(){sidebar.classList.remove('open');backdrop.classList.remove('show');}
-var VIEW_STACK=[];var CUR_VIEW='welcome';function applyView(v){views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));document.querySelectorAll('.bn-item').forEach(function(b){var t=b.getAttribute('data-view');var on=(t===v)||(t==='day1'&&['day1','day2','day3a','day3b','flights4'].indexOf(v)>=0)||(t==='scores'&&v==='players');b.classList.toggle('active',on);});var __mb=document.getElementById('moreBtn');if(__mb){__mb.classList.toggle('active',['hotel','airbnb','info'].indexOf(v)>=0);}window.scrollTo({top:0,behavior:'smooth'});closeMenu();if(v==='scores'){renderChips();renderDetail();}if(v==='dashboard'){renderDashboard();}if(v==='packliste'){loadPackliste();}}function go(v){if(v===CUR_VIEW)return;VIEW_STACK.push(CUR_VIEW);CUR_VIEW=v;applyView(v);}function goBack(){var prev=VIEW_STACK.pop();var t=prev||'welcome';CUR_VIEW=t;applyView(t);}
+var VIEW_STACK=[];var CUR_VIEW='welcome';function applyView(v){views.forEach(s=>s.classList.toggle('active',s.id===v));navbtns.forEach(b=>b.classList.toggle('active',b.dataset.view===v));document.querySelectorAll('.bn-item').forEach(function(b){var t=b.getAttribute('data-view');var on=(t===v)||(t==='day1'&&['day1','day2','day3a','day3b','flights4'].indexOf(v)>=0)||(t==='scores'&&v==='players');b.classList.toggle('active',on);});var __mb=document.getElementById('moreBtn');if(__mb){__mb.classList.toggle('active',['hotel','airbnb','info'].indexOf(v)>=0);}window.scrollTo({top:0,behavior:'smooth'});closeMenu();if(v==='scores'){renderChips();renderDetail();}if(v==='dashboard'){renderDashboard();}if(v==='flights4'){try{renderAfternoonFlights();}catch(e){}}if(v==='packliste'){loadPackliste();}}function go(v){if(v===CUR_VIEW)return;VIEW_STACK.push(CUR_VIEW);CUR_VIEW=v;applyView(v);}function goBack(){var prev=VIEW_STACK.pop();var t=prev||'welcome';CUR_VIEW=t;applyView(t);}
 document.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',()=>go(el.dataset.view)));
 function goPlayer(key){ if(!key) return; currentPlayer=key; go('scores'); }
 document.addEventListener('click',function(e){
@@ -1212,7 +1212,94 @@ function renderBestSingle(){
   body.innerHTML = rowsPlayed + rowsEmpty;
 }
 
-function renderDashboard(){ renderChampion(); renderBestSingle(); renderBirdies(); renderTripleKing(); renderStats(); }
+function _perRoundNetto(){
+  var RIS=[0,1,2,3]; var perRound={};
+  RIS.forEach(function(ri){
+    var list=[];
+    DATA.players.forEach(function(p){
+      var t=roundTotals(DATA.scores[p.key][ri], parForRound(ri));
+      if(t.played>=18){ list.push({key:p.key, name:p.name, netto:t.gross - p.phcp}); }
+    });
+    perRound[ri]=list;
+  });
+  return perRound;
+}
+function _roundPointsAll(perRound){
+  var RIS=[0,1,2,3]; var roundPoints={};
+  RIS.forEach(function(ri){
+    var list=perRound[ri].slice().sort(function(a,b){return a.netto-b.netto;});
+    var pts={}, n=list.length, i=0;
+    while(i<n){
+      var j=i; while(j+1<n && list[j+1].netto===list[i].netto) j++;
+      var sum=0; for(var r=i;r<=j;r++){ sum+=(7-r); }
+      var avg=sum/(j-i+1);
+      for(var k=i;k<=j;k++){ pts[list[k].key]=avg; }
+      i=j+1;
+    }
+    roundPoints[ri]=pts;
+  });
+  return roundPoints;
+}
+function renderAfternoonFlights(){
+  var box=document.getElementById('afternoonFlights'); if(!box) return;
+  var MORNING_RI=2;                 // R3a = Haus Bey Vormittag (Grundlage der Einteilung)
+  var WIN_ROUNDS=[0,1,2];           // Netto-Tagessiege vor dem Finale -> Startvorteil R3b
+  var perRound=_perRoundNetto();
+  var roundPoints=_roundPointsAll(perRound);
+
+  // Standing der Vormittagsrunde (R3a) nach Netto (niedriger = besser)
+  var morning=perRound[MORNING_RI].slice().sort(function(a,b){ return a.netto-b.netto; });
+
+  if(morning.length < DATA.players.length){
+    box.innerHTML = '<div class="fl-empty">🕐 Die Nachmittags-Flights erscheinen automatisch, sobald die <strong>komplette Vormittagsrunde (R3a)</strong> für alle Spieler im Live-Sheet eingetragen ist.<br><span style="color:var(--muted)">Aktuell gewertet: '+morning.length+' / '+DATA.players.length+' Spieler.</span></div>';
+    return;
+  }
+
+  // Gesamtpunkte je Spieler (über alle eingetragenen Runden)
+  var totalPts={}; DATA.players.forEach(function(p){ totalPts[p.key]=0; });
+  [0,1,2,3].forEach(function(ri){
+    var rp=roundPoints[ri];
+    for(var k in rp){ if(rp.hasOwnProperty(k)) totalPts[k]+=rp[k]; }
+  });
+
+  // Netto-Tagessiege -> Startvorteil (−1 je Sieg)
+  var dayWins={}; DATA.players.forEach(function(p){ dayWins[p.key]=0; });
+  WIN_ROUNDS.forEach(function(ri){
+    var list=perRound[ri]; if(!list.length) return;
+    var best=Math.min.apply(null, list.map(function(x){return x.netto;}));
+    list.forEach(function(x){ if(x.netto===best) dayWins[x.key]++; });
+  });
+
+  // Plätze zuweisen (1 = bester Netto der Vormittagsrunde)
+  var byPlace={};
+  morning.forEach(function(x,idx){ x.place=idx+1; byPlace[idx+1]=x; });
+
+  function rowHtml(place){
+    var x=byPlace[place]; if(!x) return '';
+    var tp=totalPts[x.key]; var tpTxt=(tp%1===0)? tp : tp.toFixed(1);
+    var w=dayWins[x.key]||0;
+    var adj = (w>0) ? ('<td class="fl-adj">-'+w+'</td>') : ('<td class="dim">0</td>');
+    return '<tr><td class="pos" style="font-weight:800">'+place+'</td>'
+      + '<td class="pname"><span class="pname-link" data-player="'+x.key+'">'+x.name+'</span></td>'
+      + '<td class="pts" style="font-weight:700;color:var(--gold2)">'+tpTxt+'</td>'
+      + adj + '</tr>';
+  }
+
+  // Flight 1 = 3er (Plätze 7,6,5) startet zuerst 14:30 ; Flight 2 = 4er (Plätze 1-4) 14:40
+  var f1 = [7,6,5].map(rowHtml).join('');
+  var f2 = [1,2,3,4].map(rowHtml).join('');
+
+  box.innerHTML =
+    '<div class="fl-block">'
+    + '<div class="fl-head"><span class="fl-badge">Flight 1 · 3er</span><span class="fl-time">🕐 14:30</span></div>'
+    + '<div class="scroll-x"><table><thead><tr><th>Platz</th><th>Player</th><th>Punkte</th><th>Start R3b</th></tr></thead><tbody>'+f1+'</tbody></table></div>'
+    + '</div>'
+    + '<div class="fl-block" style="margin-top:16px">'
+    + '<div class="fl-head"><span class="fl-badge">Flight 2 · 4er</span><span class="fl-time">🕐 14:40</span></div>'
+    + '<div class="scroll-x"><table><thead><tr><th>Platz</th><th>Player</th><th>Punkte</th><th>Start R3b</th></tr></thead><tbody>'+f2+'</tbody></table></div>'
+    + '</div>';
+}
+function renderDashboard(){ renderChampion(); renderBestSingle(); renderBirdies(); renderTripleKing(); renderStats(); renderAfternoonFlights(); }
 
 
 try{renderDashboard();}catch(e){}
